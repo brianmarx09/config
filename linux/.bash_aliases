@@ -254,7 +254,7 @@ function ssh2_to_openssh_helper() { ssh-keygen -i -f $@ > $@.openssh; }
 alias ssh2-to-openssh='ssh2_to_openssh_helper'
 
 # GNU screen integration
-function screen_helper() { if [ -z "$STY" ]; then screen -RR -A -r "$@" || screen; fi; }
+function screen_helper() { if [ -z "$STY" ]; then screen -RR -A -r "$@" || screen; fi; ; }
 alias screen='screen_helper'
 
 function pkg_helper() { sudo dpkg --search $@ >/dev/null 2>&1; if [ $? != 0 ]; then fail "unable to locate on local machine, searching repositories..."; apt-file search $@; fi; }
