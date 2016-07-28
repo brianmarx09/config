@@ -87,6 +87,7 @@ alias shutdown='shutdown -h now'
 alias reboot='sudo reboot'
 
 # better default behaviors for standard utils
+alias cd='push'
 alias rm='rm --one-file-system --preserve-root'
 alias date='date +$MY_DATE_FORMAT'
 alias ls='ls -AhlsX --color=always'
@@ -264,8 +265,6 @@ alias push='push_helper'
 
 function pop_helper() { popd $@ >/dev/null 2>&1 ; }
 alias pop='pop_helper'
-
-alias cd='push'
 
 function success_helper() { printf "[ ${GREEN}$@ successful${NO_COLOR} ]\n" ; }
 alias success='success_helper'
