@@ -1,4 +1,4 @@
-# Various minimalistic, readable, performance-oriented configs for Linux, OS X, and Windows
+# Minimalist performance-oriented configs for Linux, OS X, Windows, and various apps
 
 This repository holds (what I hope are) useful config files that you can bring into your own dev cycle in whole or part.
 I'd appreciate credit, but it's not necessary. I'm just sharing time-saving tricks and shortcuts from different systems I work on.
