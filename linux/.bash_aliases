@@ -86,11 +86,6 @@ alias list-headers='list | grep linux-headers-'
 alias dinstall='sudo dpkg -i'
 alias dreinstall='sudo dpkf -r'
 alias install='sudo apt-get -y install'
-alias sublime-install='push /tmp ; \
-  wget https://download.sublimetext.com/$MY_SUBLIME && \
-  dinstall $MY_SUBLIME && \
-  rm -f $MY_SUBLIME >/dev/null 2>&1 ; \
-  pop'
 alias reinstall='install --reinstall'
 alias uninstall='sudo apt-get remove'
 
@@ -105,7 +100,7 @@ alias bashrc-down='cp -f ~/.bak/.bashrc ~/'
 alias bashrc-up='push ~ ; \
   del .bak/.bashrc ; \
   cp -f .bashrc .bak/ ; \
-  wget --timestamping --show-progress --timeout=5 http://raw.githubusercontent.com/entangledloops/config/master/linux/.bashrc || \
+  wget --timestamping --show-progress --progress=dot --timeout=5 http://raw.githubusercontent.com/entangledloops/config/master/linux/.bashrc || \
   bashrc-down ; \
   pop'
 
@@ -115,7 +110,7 @@ alias alias-up='push ~ ; \
   del .bak/.bash_aliases ; \
   cp -f .bash_aliases .bak/ ; \
   ( \
-    wget --timestamping --show-progress --server-response --timeout=5 http://raw.githubusercontent.com/entangledloops/config/master/linux/.bash_aliases && \
+    wget --timestamping --show-progress --progress=dot --timeout=5 http://raw.githubusercontent.com/entangledloops/config/master/linux/.bash_aliases && \
     source .bash_aliases \
   ) || \
   alias-down ; \
@@ -126,7 +121,7 @@ alias vimrc-down='cp -f ~/.bak/.vimrc ~/'
 alias vimrc-up='push ~ ; \
   del .bak/.vimrc ; \
   cp -f .vimrc .bak/ ; \
-  wget --timestamping --show-progress --server-response --timeout=5 http://raw.githubusercontent.com/entangledloops/config/master/linux/.vimrc || \
+  wget --timestamping --show-progress --progress=dot --timeout=5 http://raw.githubusercontent.com/entangledloops/config/master/linux/.vimrc || \
   vimrc-down ; \
   pop'
 
@@ -257,6 +252,14 @@ alias cd='push'
 
 alias filezilla='bg "filezilla"'
 alias wireshark='bg "sudo wireshark"'
+
+
+# helper for sublime text which isn't in a repo currently
+alias install-sublime='push /tmp ; \
+  wget --show-progress --progress=dot https://download.sublimetext.com/$MY_SUBLIME && \
+  dinstall $MY_SUBLIME && \
+  rm -f $MY_SUBLIME >/dev/null 2>&1 ; \
+  pop'
 
 ###############################################################################
 # env
