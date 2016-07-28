@@ -147,6 +147,15 @@ alias vimrc-up='push ~ ; \
   success "vimrc upgrade" || (fail "vimrc upgrade" ; vimrc-down) ; \
   pop'
 
+# pull latest bashrc from server or restore prev
+alias screenrc-down='(cp -f ~/.bak/.screenrc ~/ && success "screenrc downgrade") || fail "screenrc downgrade"'
+alias screenrc-up='push ~ ; \
+  del .bak/.screenrc ; \
+  cp -f .screenrc .bak/ ; \
+  wget --timestamping --show-progress --progress=dot --timeout=5 http://raw.githubusercontent.com/entangledloops/config/master/linux/.screenrc && \
+  success "screenrc upgrade" || (fail "screenrc upgrade" ; screenrc-down) ; \
+  pop'
+
 # pull latest vimrc and vim settings folder from server or restore prev
 alias vim-down='del ~/.vim >/dev/null 2&>1 ; cp -rf ~/.bak/.vim ~/ ; (vimrc-down && success "vim downgrade") || fail "vim downgrade"'
 alias vim-up='vimrc-up && \
@@ -173,7 +182,7 @@ alias update='sudo apt-get update'
 alias upd='update && success "update" || fail "update"'
 alias upgrade='sudo apt-get upgrade -y'
 alias upg='upgrade && success "upgrade" || fail "upgrade"'
-alias config-up='alias-up && bashrc-up && vim-up'
+alias config-up='alias-up && bashrc-up && vim-up && screen-up'
 alias dist-upgrade='sudo apt-get dist-upgrade -y'
 alias dist-up='(dist-upgrade && apt-file update && config-up && success "dist upgrade") || fail "dist upgrade"'
 
