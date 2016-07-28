@@ -267,10 +267,10 @@ alias pop='pop_helper'
 
 alias cd='push'
 
-function success_helper() { printf "I ${GREEN}$@ successful${NO_COLOR}\n" }
+function success_helper() { printf "I ${GREEN}$@ successful${NO_COLOR}\n" ; }
 alias success='success_helper'
 
-function fail_helper() { printf "I ${RED}$@ failed${NO_COLOR}\n" }
+function fail_helper() { printf "I ${RED}$@ failed${NO_COLOR}\n" ; }
 alias fail='fail_helper'
 
 ###############################################################################
