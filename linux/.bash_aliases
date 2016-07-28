@@ -105,7 +105,7 @@ alias bashrc-down='cp -f ~/.bak/.bashrc ~/'
 alias bashrc-up='push ~ ; \
   del .bak/.bashrc ; \
   cp -f .bashrc .bak/ ; \
-  wget --timestamping --show-progress --timeout=5 http://entangledloops.com/files/config/linux/.bashrc || \
+  wget --timestamping --show-progress --timeout=5 http://raw.githubusercontent.com/entangledloops/config/master/linux/.bashrc || \
   bashrc-down ; \
   pop'
 
@@ -115,7 +115,7 @@ alias alias-up='push ~ ; \
   del .bak/.bash_aliases ; \
   cp -f .bash_aliases .bak/ ; \
   ( \
-    wget --timestamping --show-progress --server-response --timeout=5 http://entangledloops.com/files/config/linux/.bash_aliases && \
+    wget --timestamping --show-progress --server-response --timeout=5 http://raw.githubusercontent.com/entangledloops/config/master/linux/.bash_aliases && \
     source .bash_aliases \
   ) || \
   alias-down ; \
@@ -126,7 +126,7 @@ alias vimrc-down='cp -f ~/.bak/.vimrc ~/'
 alias vimrc-up='push ~ ; \
   del .bak/.vimrc ; \
   cp -f .vimrc .bak/ ; \
-  wget --timestamping --show-progress --server-response --timeout=5 http://entangledloops.com/files/config/linux/.vimrc || \
+  wget --timestamping --show-progress --server-response --timeout=5 http://raw.githubusercontent.com/entangledloops/config/master/linux/.vimrc || \
   vimrc-down ; \
   pop'
 
@@ -140,7 +140,7 @@ alias vim-up='vimrc-up && \
     cp -rf .vim .bak/ ; \
     echo "syncing with latest vim settings..." ; \
     del entangledloops.com >/dev/null 2>&1 ; \
-    wget --reject="index.html" -e robots=off -r --show-progress --progress=dot --timestamping --timeout=5 --no-parent http://entangledloops.com/files/config/linux/.vim/ && \
+    wget --reject="index.html" -e robots=off -r --show-progress --progress=dot --timestamping --timeout=5 --no-parent http://raw.githubusercontent.com/entangledloops/config/master/linux/.vim/ && \
     rsync -r -u -v -t --delay-updates --itemize-changes --stats entangledloops.com/files/config/linux/.vim/ .vim && 
     rm -rf entangledloops.com ; \
     echo "vim sync completed successfully" || \
