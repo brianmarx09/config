@@ -1,6 +1,10 @@
-# Configs
+# Various minimalistic, readable, performance-oriented configs for Linux, OS X, and Windows
 
-This repository holds (what I hope are) useful config files that can be reused elsewhere.
+This repository holds (what I hope are) useful config files that you can bring into your own dev cycle in whole or part.
+I'd appreciate credit, but it's not necessary. I'm just sharing time-saving tricks and shortcuts from different systems I work on.
+
+These are stripped down versions of my personal configs that are missing personal login info and more complex commands I haven't had time to document or provide the dependency list for.
+
 They are commented and provide wrappers and augmented functionality to a raw OS; they are not intended to perform complex tasks.
 
 Currently, only the Linux configs are committed in a usable state.
