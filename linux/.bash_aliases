@@ -131,7 +131,7 @@ alias alias-up='push ~ ; \
   cp -f .bash_aliases .bak/ ; \
   ( \
     wget --timestamping --show-progress --progress=dot --timeout=5 http://raw.githubusercontent.com/entangledloops/config/master/linux/.bash_aliases && \
-    source .bash_aliases ; \
+    source .bash_aliases && \
     success "alias upgrade"
   ) || \
   (fail "alias upgrade" ; alias-down) ; \
@@ -169,10 +169,10 @@ alias os-up='os-upgrade'
 alias gui-update='sudo update-manager -d'
 alias gupd='gui-update'
 alias update='sudo apt-get update'
-alias upd='rs && update  && success "update" || fail "update"'
+alias upd='update && success "update" || fail "update"'
 alias upgrade='sudo apt-get upgrade -y'
 alias upg='upgrade && success "upgrade" || fail "upgrade"'
-alias config-up='bashrc-up && alias-up && vim-up'
+alias config-up='alias-up && bashrc-up && vim-up'
 alias dist-upgrade='sudo apt-get dist-upgrade -y'
 alias dist-up='(dist-upgrade && apt-file update && config-up && success "dist upgrade") || fail "dist upgrade"'
 
@@ -280,12 +280,13 @@ alias fail='fail_helper'
 alias filezilla='bg "filezilla"'
 alias wireshark='bg "sudo wireshark"'
 
-
 # helper for sublime text which isn't in a repo currently
 alias install-sublime='push /tmp ; \
   wget --show-progress --progress=dot https://download.sublimetext.com/$MY_SUBLIME && \
   dinstall $MY_SUBLIME && \
-  rm -f $MY_SUBLIME >/dev/null 2>&1 ; \
+  rm -f $MY_SUBLIME >/dev/null 2>&1 &&
+  success "sublime install" || \
+  fail "sublime install" ; \
   pop'
 
 ###############################################################################
