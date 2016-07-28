@@ -43,6 +43,26 @@ export MY_DATE_FORMAT='%Y-%m-%d'
 # the tested build of sublime text
 export MY_SUBLIME='sublime-text_build-3114_amd64.deb'
 
+# color escape seqs for printf / echo
+export BLACK='\033[0;30m'
+export RED='\033[0;31m'
+export GREEN='\033[0;32m'
+export BROWN='\033[0;33m'
+export ORANGE=$BROWN
+export BLUE='\033[0;34m'
+export PURPLE='\033[0;35m'
+export CYAN='\033[0;36m'
+export LIGHT_GRAY='\033[0;37m'
+export DARK_GRAY='\033[1;30m'
+export LIGHT_RED='\033[1;31m'
+export LIGHT_GREEN='\033[1;32m'
+export YELLOW='\033[1;33m'
+export LIGHT_BLUE='\033[1;34m'
+export LIGHT_PURPLE='\033[1;35m'
+export LIGHT_CYAN='\033[1;36m'
+export WHITE='\033[1;37m'
+export NO_COLOR='\033[0m'
+
 ###############################################################################
 # aliases
 ###############################################################################
@@ -96,37 +116,38 @@ alias purge-kernels='list | grep linux-image | cut -d " " -f 3 | sort -V | sed -
 alias purge-configs='dpkg -l | grep "^rc" | cut -d " " -f 3 | xargs sudo apt-get purge'
 
 # pull latest bashrc from server or restore prev
-alias bashrc-down='cp -f ~/.bak/.bashrc ~/'
+alias bashrc-down='(cp -f ~/.bak/.bashrc ~/ && success "bashrc downgrade") || fail "bashrc downgrade"'
 alias bashrc-up='push ~ ; \
   del .bak/.bashrc ; \
   cp -f .bashrc .bak/ ; \
-  wget --timestamping --show-progress --progress=dot --timeout=5 http://raw.githubusercontent.com/entangledloops/config/master/linux/.bashrc || \
-  bashrc-down ; \
+  wget --timestamping --show-progress --progress=dot --timeout=5 http://raw.githubusercontent.com/entangledloops/config/master/linux/.bashrc && \
+  success "bashrc upgrade" || (fail "bashrc upgrade" ; bashrc-down) ; \
   pop'
 
 # pull latest vimrc from server or restore prev (this file)
-alias alias-down='cp -f ~/.bak/.bash_aliases ~/ ; source ~/.bash_aliases'
+alias alias-down='(cp -f ~/.bak/.bash_aliases ~/ ; source ~/.bash_aliases && success "alias downgrade") || fail "alias downgrade"'
 alias alias-up='push ~ ; \
   del .bak/.bash_aliases ; \
   cp -f .bash_aliases .bak/ ; \
   ( \
     wget --timestamping --show-progress --progress=dot --timeout=5 http://raw.githubusercontent.com/entangledloops/config/master/linux/.bash_aliases && \
-    source .bash_aliases \
+    source .bash_aliases ; \
+    success "alias upgrade"
   ) || \
-  alias-down ; \
+  (fail "alias upgrade" ; alias-down) ; \
   pop'
 
 # pull latest vimrc from server or restore prev
-alias vimrc-down='cp -f ~/.bak/.vimrc ~/'
+alias vimrc-down='(cp -f ~/.bak/.vimrc ~/ && success "vimrc downgrade") || fail "vimrc downgrade"'
 alias vimrc-up='push ~ ; \
   del .bak/.vimrc ; \
   cp -f .vimrc .bak/ ; \
-  wget --timestamping --show-progress --progress=dot --timeout=5 http://raw.githubusercontent.com/entangledloops/config/master/linux/.vimrc || \
-  vimrc-down ; \
+  wget --timestamping --show-progress --progress=dot --timeout=5 http://raw.githubusercontent.com/entangledloops/config/master/linux/.vimrc && \
+  success "vimrc upgrade" || (fail "vimrc upgrade" ; vimrc-down) ; \
   pop'
 
 # pull latest vimrc and vim settings folder from server or restore prev
-alias vim-down='vimrc-down ; del ~/.vim ; cp -rf ~/.bak/.vim ~/'
+alias vim-down='del ~/.vim >/dev/null 2&>1 ; cp -rf ~/.bak/.vim ~/ ; (vimrc-down && success "vim downgrade") || fail "vim downgrade"'
 alias vim-up='vimrc-up && \
   ( \
     push ~ ;\
@@ -138,8 +159,7 @@ alias vim-up='vimrc-up && \
     wget --reject="index.html" -e robots=off -r --show-progress --progress=dot --timestamping --timeout=5 --no-parent http://raw.githubusercontent.com/entangledloops/config/master/linux/.vim/ && \
     rsync -r -u -v -t --delay-updates --itemize-changes --stats entangledloops.com/files/config/linux/.vim/ .vim && 
     rm -rf entangledloops.com ; \
-    echo "vim sync completed successfully" || \
-    (>&2 echo "upgrade failed, reverting..." ; vim-down || >&2 echo "revert failure; you must manually fix your .vim folder" ; vimrc-down || >&2 echo "revert failure; you must manually restore your .vimrc") ; \
+    success "vim upgrade" || (fail "vim upgrade" ; vim-down) ; \
     pop \
   )'
 
@@ -149,11 +169,11 @@ alias os-up='os-upgrade'
 alias gui-update='sudo update-manager -d'
 alias gupd='gui-update'
 alias update='sudo apt-get update'
-alias upd='rs && update'
+alias upd='rs && update  && success "update" || fail "update"'
 alias upgrade='sudo apt-get upgrade -y'
-alias upg='upgrade'
+alias upg='upgrade && success "upgrade" || fail "upgrade"'
 alias dist-upgrade='sudo apt-get dist-upgrade -y'
-alias dist-up='dist-upgrade && apt-file update && bashrc-up && alias-up && vim-up'
+alias dist-up='(dist-upgrade && apt-file update && bashrc-up && alias-up && vim-up && success "dist upgrade") || fail "dist upgrade"'
 
 # update/upgrade flavors
 alias u='upd && upg'
@@ -235,7 +255,7 @@ alias ssh2-to-openssh='ssh2_to_openssh_helper'
 function screen_helper() { if [ -z "$STY" ]; then screen -RR -A -r "$@" || screen; fi; }
 alias screen='screen_helper'
 
-function pkg_helper() { sudo dpkg --search $@ >/dev/null 2>&1; if [ $? != 0 ]; then >&2 echo "unable to locate on local machine, searching repositories..."; apt-file search $@; fi; }
+function pkg_helper() { sudo dpkg --search $@ >/dev/null 2>&1; if [ $? != 0 ]; then fail "unable to locate on local machine, searching repositories..."; apt-file search $@; fi; }
 alias pkg='pkg_helper'
 
 function push_helper() { pushd $@ >/dev/null 2>&1 ; }
@@ -245,6 +265,12 @@ function pop_helper() { popd $@ >/dev/null 2>&1 ; }
 alias pop='pop_helper'
 
 alias cd='push'
+
+function success_helper() { printf "I ${GREEN}$@ successful${NO_COLOR}\n" }
+alias success='success_helper'
+
+function fail_helper() { printf "I ${RED}$@ failed${NO_COLOR}\n" }
+alias fail='fail_helper'
 
 ###############################################################################
 # apps to launch in background
