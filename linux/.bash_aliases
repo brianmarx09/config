@@ -108,7 +108,7 @@ alias bashrc-down='cp -f ~/.bak/.bashrc ~/'
 alias bashrc-up='push ~ ; \
   del .bak/.bashrc ; \
   cp -f .bashrc .bak/ ; \
-  wget --timestamping --show-progress --server-response --timeout=5 http://entangledloops.com/files/config/linux/.bashrc || \
+  wget --timestamping --show-progress --timeout=5 http://entangledloops.com/files/config/linux/.bashrc || \
   bashrc-down ; \
   pop'
 
@@ -134,14 +134,19 @@ alias vimrc-up='push ~ ; \
   pop'
 
 # pull latest vimrc and vim settings folder from server or restore prev
-alias vim-down='vimrc-down ; del ~/.vim && cp -rf ~/.bak/.vim ~/'
+alias vim-down='vimrc-down ; del ~/.vim ; cp -rf ~/.bak/.vim ~/'
 alias vim-up='vimrc-up && \
   ( \
     push ~ ;\
-    del .bak/.vim ; \
+    echo "backing up vim settings..." ; \
+    del .bak/.vim >/dev/null 2>&1 ; \
     cp -rf .vim .bak/ ; \
-    wget -r --reject "index.html*" --no-parent --timestamping --show-progress --server-response --timeout=5 http://entangledloops.com/files/config/linux/.vim/ || \
-    (vim-down ; vimrc-down) ; \
+    echo "syncing with latest vim settings..." ; \
+    del entangledloops.com >/dev/null 2>&1 ; \
+    wget --reject="index.html" -e robots=off -r --show-progress --progress=dot --timestamping --timeout=5 --no-parent http://entangledloops.com/files/config/linux/.vim/ && \
+    rsync -r -u -v -t --delay-updates --itemize-changes --stats entangledloops.com/files/config/linux/.vim/ .vim && \
+    echo "vim sync completed successfully" || \
+    (>&2 echo "upgrade failed, reverting..." ; vim-down || >&2 echo "revert failure; you must manually fix your .vim folder" ; vimrc-down || >&2 echo "revert failure; you must manually restore your .vimrc") ; \
     pop \
   )'
 
