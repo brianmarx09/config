@@ -144,7 +144,8 @@ alias vim-up='vimrc-up && \
     echo "syncing with latest vim settings..." ; \
     del entangledloops.com >/dev/null 2>&1 ; \
     wget --reject="index.html" -e robots=off -r --show-progress --progress=dot --timestamping --timeout=5 --no-parent http://entangledloops.com/files/config/linux/.vim/ && \
-    rsync -r -u -v -t --delay-updates --itemize-changes --stats entangledloops.com/files/config/linux/.vim/ .vim && \
+    rsync -r -u -v -t --delay-updates --itemize-changes --stats entangledloops.com/files/config/linux/.vim/ .vim && 
+    rm -rf entangledloops.com ; \
     echo "vim sync completed successfully" || \
     (>&2 echo "upgrade failed, reverting..." ; vim-down || >&2 echo "revert failure; you must manually fix your .vim folder" ; vimrc-down || >&2 echo "revert failure; you must manually restore your .vimrc") ; \
     pop \
