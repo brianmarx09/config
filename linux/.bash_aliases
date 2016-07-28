@@ -73,9 +73,6 @@ alias ls='ls -AhlsX --color=always'
 alias lss='ls --sort=size'
 alias less='less -R'
 
-alias push='pushd'
-alias pop='popd'
-alias cd='push'
 alias del='trash-put'
 alias sdel='sudo trash-put'
 
@@ -245,6 +242,14 @@ alias screen='screen_helper'
 
 function pkg_helper() { sudo dpkg --search $@ >/dev/null 2>&1; if [ $? != 0 ]; then >&2 echo "unable to locate on local machine, searching repositories..."; apt-file search $@; fi; }
 alias pkg='pkg_helper'
+
+function push_helper() { pushd $@ >/dev/null 2>&1 ; }
+alias push='push_helper'
+
+function pop_helper() { popd $@ >/dev/null 2>&1 ; }
+alias pop='pop_helper'
+
+alias cd='push'
 
 ###############################################################################
 # apps to launch in background
