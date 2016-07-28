@@ -1,0 +1,8 @@
+term screen-256color
+defscrollback 4096
+startup_message off
+hardstatus on
+hardstatus alwayslastline
+
+# make space list windows
+bind ' ' windowlist -b

@@ -1,0 +1,21 @@
+#!/bin/bash
+# -------------------------------------------------------
+#  Modified for LUbuntu + bash by snd on 7/26/16.
+#  01/11/2014, V1.0 - Creation by N. Bernaerts
+# -------------------------------------------------------
+ 
+# retrieve number of files in the trash
+TRASH_QTY=`trash-list | wc -l`
+ 
+# ask for confirmation
+if [ "$TRASH_QTY" -eq 0 ]; then
+	xmessage -center -title "Nothing to do." -default okay "Trash is already empty."
+else
+	echo -e "Trash contains $TRASH_QTY items.\n\nDo you want to empty it?" | xmessage -buttons yes,no -center -title "Empty trash?" -default yes -file -
+
+	# if answer is yes, empty trash
+	if [ "$?" -eq 101 ]; then
+		trash-empty	
+	fi
+fi
+ 

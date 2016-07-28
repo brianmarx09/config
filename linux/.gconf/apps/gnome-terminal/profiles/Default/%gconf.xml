@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="cursor_shape" mtime="1469649360" type="string">
+		<stringvalue>ibeam</stringvalue>
+	</entry>
+</gconf>

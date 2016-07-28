@@ -1,0 +1,7 @@
+[Default Applications]
+application/x-pem-key=sublime_text.desktop
+application/vnd.ms-publisher=sublime_text.desktop
+
+[Added Associations]
+application/x-pem-key=sublime_text.desktop;
+application/vnd.ms-publisher=sublime_text.desktop;
