@@ -172,8 +172,9 @@ alias update='sudo apt-get update'
 alias upd='rs && update  && success "update" || fail "update"'
 alias upgrade='sudo apt-get upgrade -y'
 alias upg='upgrade && success "upgrade" || fail "upgrade"'
+alias config-up='bashrc-up && alias-up && vim-up'
 alias dist-upgrade='sudo apt-get dist-upgrade -y'
-alias dist-up='(dist-upgrade && apt-file update && bashrc-up && alias-up && vim-up && success "dist upgrade") || fail "dist upgrade"'
+alias dist-up='(dist-upgrade && apt-file update && config-up && success "dist upgrade") || fail "dist upgrade"'
 
 # update/upgrade flavors
 alias u='upd && upg'
