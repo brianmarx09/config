@@ -167,7 +167,7 @@ alias vim-up='vimrc-up && \
     echo "syncing with latest vim settings..." ; \
     del entangledloops.com >/dev/null 2>&1 ; \
     wget --reject="index.html" -e robots=off -r --show-progress --progress=dot --timestamping --timeout=5 --no-parent http://github.com/entangledloops/config/tree/master/linux/.vim/ && \
-    rsync -r -u -v -t -O --delay-updates --itemize-changes --backup-dir=.bak --force --stats github.com/entangledloops/config/tree/master/linux/.vim/ .vim && 
+    rsync -r -u -v -t -O --delay-updates --itemize-changes --exclude 'yank*' --backup-dir=.bak --stats github.com/entangledloops/config/tree/master/linux/.vim/ .vim && 
     success "vim upgrade" || (fail "vim upgrade" ; vim-down) ;
     rm -rf github.com ; \
     pop \
