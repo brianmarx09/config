@@ -1,0 +1,3 @@
+[submodule "windows/software/ConEmu"]
+	path = windows/software/ConEmu
+	url = https://github.com/entangledloops/conemu.git
