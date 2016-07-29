@@ -187,9 +187,8 @@ alias dist-upgrade='sudo apt-get dist-upgrade -y'
 alias dist-up='(dist-upgrade && apt-file update && config-up && success "dist upgrade") || fail "dist upgrade"'
 
 # update/upgrade flavors
-alias u='upd && upg'
-alias uu='upd && dist-upgrade && u'
-alias uuu='upd && dist-up && u'
+alias u='config-up && upd && upg'
+alias uu='upd && dist-up && u'
 
 # version / system info
 alias inodes='df -ih'
