@@ -166,10 +166,8 @@ alias vim-up='vimrc-up && \
     cp -rf .vim .bak/ ; \
     echo "syncing with latest vim settings..." ; \
     del entangledloops.com >/dev/null 2>&1 ; \
-    wget --reject="index.html" -e robots=off -r --show-progress --progress=dot --timestamping --timeout=5 --no-parent http://github.com/entangledloops/config/tree/master/linux/.vim/ && \
-    rsync -r -u -v -t -O --delay-updates --itemize-changes --backup-dir=~/.bak/.rsync-vim --ignore-existing --delete-delay --stats github.com/entangledloops/config/tree/master/linux/.vim/ .vim && 
+    svn checkout https://github.com/entangledloops/config/trunk/linux/.vim/ --force && \
     success "vim upgrade" || (fail "vim upgrade" ; vim-down) ;
-    rm -rf github.com ; \
     pop \
   )'
 
@@ -285,7 +283,7 @@ alias fail='fail_helper'
 ###############################################################################
 
 alias filezilla='bg "filezilla"'
-alias wireshark='bg "sudo wireshark"'
+alias wireshark='bg "wireshark"'
 
 # helper for sublime text which isn't in a repo currently
 alias install-sublime='push /tmp ; \
@@ -301,7 +299,9 @@ alias install-sublime='push /tmp ; \
 ###############################################################################
 
 # include pwd in path
-export PATH=$PATH:.
+export ANDROID_HOME=~/android/sdk
+export ANDROID_NDK=$ANDROID_HOME/ndk-bundle
+export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/build-tools/24.0.1:$ANDROID_HOME/platform-tools:$ANDROID_NDK:.
 
 ###############################################################################
 # custom (NOTE: edits beyond here will be preserved during an alias-up)
