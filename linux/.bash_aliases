@@ -195,9 +195,9 @@ alias uu='upd && dist-up && u'
 alias inodes='df -ih'
 alias kernel='uname -r'
 alias os='lsb_release -a'
-alias version="echo $'kernel:\n\t$(kernelversion)\nos:\n\t$(osversion | awk -vRS="\n" -vORS="\n\t" '1')'"
+alias version="echo $'kernel:\n\t$(kernel)\nos:\n\t$(os | awk -vRS="\n" -vORS="\n\t" '1')'"
 alias disk="echo $'inodes:\n$(inodes | awk -vRS="\n" -vORS="\n\t" '1')\n\ndisk:\n$(df | awk -vRS="\n" -vORS="\n\t" '1')'"
-alias info="echo $'$(diskinfo)\n$(version)'"
+alias info="echo $'$(disk)\n$(version)'"
 
 # locate hd memory sinks
 alias space='du -h --max-depth=1 | sort -hr | less'
