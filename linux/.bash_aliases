@@ -8,6 +8,8 @@
 # A minimal (useful) starting point for a Debian-based OS.
 # Aliases common commands to cut down on verbosity.
 #
+# Add additional config to a "~/.bash_extra" file and it will be loaded last.
+#
 # Installation:
 # 1) Backup current settings:
 #    cp -f ~/.bash_aliases ~/.bash_aliases.bak
@@ -19,6 +21,7 @@
 #    'upd', 'upg', 'u', etc. as defined below to keep up-to-date
 #
 # Notes:
+# - ****** add any additional config to a "~/.bash_extra" file ******
 # - change the default editors if you don't like/have vim + sublime
 # - naturally, assumes no conflicts between your other aliases / bash settings
 # - commands are listed in order of estimated utility to save you search time
@@ -299,10 +302,11 @@ alias install-sublime='push /tmp ; \
 ###############################################################################
 
 # include pwd in path
-export ANDROID_HOME=~/android/sdk
-export ANDROID_NDK=$ANDROID_HOME/ndk-bundle
-export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/build-tools/24.0.1:$ANDROID_HOME/platform-tools:$ANDROID_NDK:.
+export PATH=$PATH:.
 
 ###############################################################################
-# custom (NOTE: edits beyond here will be preserved during an alias-up)
+# custom
 ###############################################################################
+
+# load additional mods
+source ~/.bash_extra
