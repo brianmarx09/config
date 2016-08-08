@@ -309,6 +309,6 @@ export PATH=$PATH:.
 ###############################################################################
 
 # load additional mods
-if [ -e "~/.bash_extra" ]; then
+if [ -e ~/.bash_extra ]; then
   source ~/.bash_extra
 fi
