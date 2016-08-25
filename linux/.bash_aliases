@@ -181,7 +181,7 @@ alias update='sudo apt-get update'
 alias upd='update && success "update" || fail "update"'
 alias upgrade='sudo apt-get upgrade -y'
 alias upg='upgrade && success "upgrade" || fail "upgrade"'
-alias config-up='alias-up && bashrc-up && vim-up && screenrc-up'
+alias config-up='alias-up && bashrc-up && vim-up && screenrc-up && rs'
 alias dist-upgrade='sudo apt-get dist-upgrade -y'
 alias dist-up='(dist-upgrade && apt-file update && config-up && success "dist upgrade") || fail "dist upgrade"'
 
@@ -238,7 +238,7 @@ alias install-sublime='push /tmp ; \
   pop'
 
 # command to prepare a new system
-alias setup='install linux-headers-$(uname -r) linux-headers-generic dkms trash-cli apt-file vim build-essential cmake cmake-gui subversion cvs git mercurial gcc g++ ssh filezilla wireshark && (install-sublime; dist-up; uu)'
+alias setup='install linux-headers-$(uname -r) linux-headers-generic dkms trash-cli apt-file wget screen vim build-essential cmake cmake-gui subversion cvs git mercurial gcc g++ ssh filezilla wireshark && (config-up; install-sublime; dist-up; uu)'
 
 ###############################################################################
 # functions
