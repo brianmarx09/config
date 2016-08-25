@@ -12,6 +12,11 @@ I intend to continue updating this repo as I develop on each OS, so these files 
 
 ## Linux
 
+Quickest setup:
+ 
+  - Save the [.bash_aliases](https://github.com/entangledloops/config/blob/master/linux/.bash_aliases) file into your home directory.
+  - Open a terminal anywhere and type: `source ~/.bash_aliases && setup`
+
 On a clean LUbuntu 16.04.x system, they should be drag-and-drop to install in your home directory with minor exception.
 
 Specifically, you must move the files in .bak/* into their correspondingly named subdirs of your root installation. An example is the ask-trash-empty script, which goes in `/usr/local/bin`, and therefore you will find it in `.bak/usr/local/bin` here. This particular script adds an "Empty Trash" context item to the trash icon on your desktop.
