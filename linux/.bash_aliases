@@ -85,7 +85,6 @@ alias gui-editor='`$MY_GUI_EDITOR`'
 alias file-manager='`$MY_FILE_MANAGER`'
 
 # system state
-alias headers='linux-headers-$(uname -r)'
 alias shutdown='shutdown -h now'
 alias reboot='sudo reboot'
 
@@ -101,7 +100,6 @@ alias del='trash-put'
 alias sdel='sudo trash-put'
 
 # package management
-alias deps='headers ssh vim apt-file trash-cli filezilla wireshark dkms build-essential linux-headers-generic'
 alias list='dpkg --list'
 alias list-kernels='list | grep linux-image-'
 alias list-headers='list | grep linux-headers-'
@@ -230,6 +228,18 @@ alias b='vimbashrc'
 alias e='edit'
 alias g='guiedit'
 
+# helper for sublime text which isn't in a repo currently
+alias install-sublime='push /tmp ; \
+  wget --show-progress --progress=dot https://download.sublimetext.com/$MY_SUBLIME && \
+  dinstall $MY_SUBLIME && \
+  rm -f $MY_SUBLIME >/dev/null 2>&1 &&
+  success "sublime install" || \
+  fail "sublime install" ; \
+  pop'
+
+# command to prepare a new system
+alias setup='install linux-headers-$(uname -r) linux-headers-generic dkms trash-cli apt-file vim build-essential cmake cmake-gui subversion cvs git mercurial gcc g++ ssh filezilla wireshark && (install-sublime; dist-up; uu)'
+
 ###############################################################################
 # functions
 ###############################################################################
@@ -287,15 +297,6 @@ alias fail='fail_helper'
 
 alias filezilla='bg "filezilla"'
 alias wireshark='bg "wireshark"'
-
-# helper for sublime text which isn't in a repo currently
-alias install-sublime='push /tmp ; \
-  wget --show-progress --progress=dot https://download.sublimetext.com/$MY_SUBLIME && \
-  dinstall $MY_SUBLIME && \
-  rm -f $MY_SUBLIME >/dev/null 2>&1 &&
-  success "sublime install" || \
-  fail "sublime install" ; \
-  pop'
 
 ###############################################################################
 # env
