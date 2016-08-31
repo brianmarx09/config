@@ -238,7 +238,7 @@ alias install-sublime='push /tmp ; \
   pop'
 
 # command to prepare a new system
-alias setup='install linux-headers-$(uname -r) linux-headers-generic dkms trash-cli \
+alias setup='install linux-headers-$(uname -r) linux-headers-generic dkms ntfs-3g htop trash-cli \
   apt-file wget screen vim build-essential cmake cmake-gui subversion cvs git mercurial \
   gcc g++ ssh filezilla wireshark && (config-up; install-sublime; dist-up; uu) && \
   push ~/.vim && mkdir -p bak tmp undo && pop'
