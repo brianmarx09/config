@@ -95,7 +95,7 @@ alias date='date +$MY_DATE_FORMAT'
 alias ls='ls -AhlsX --color=always'
 alias lss='ls --sort=size'
 alias less='less -R'
-alias oct="stat -c '%a %n' *"
+alias stat="stat -c '%a %n' *"
 
 alias del='trash-put'
 alias sdel='sudo trash-put'
