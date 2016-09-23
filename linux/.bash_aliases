@@ -33,6 +33,14 @@
 #
 #     or an equivalent statement enabling more than 16 colors in your term
 
+
+###############################################################################
+# clear all previous aliases and PATH (removing quotes via sed)
+###############################################################################
+
+unalias -a
+export PATH=$(cat /etc/environment | tr -d '"')
+
 ###############################################################################
 # default apps
 ###############################################################################
@@ -209,6 +217,7 @@ alias cls='clear && echo -e \\033c'
 alias svim='sudo vim'
 alias vimrc='vim ~/.vimrc'
 alias vima='vim ~/.bash_aliases && rs'
+alias vime='vim ~/.bash_extra && rs'
 alias vimscreenrc='vim ~/.screenrc'
 alias vimbashrc='vim ~/.bashrc'
 
@@ -304,13 +313,6 @@ alias filezilla='bg "filezilla"'
 alias wireshark='bg "wireshark"'
 
 ###############################################################################
-# env
-###############################################################################
-
-# include pwd in path
-export PATH=$PATH:.
-
-###############################################################################
 # custom
 ###############################################################################
 
@@ -318,3 +320,11 @@ export PATH=$PATH:.
 if [ -e ~/.bash_extra ]; then
   source ~/.bash_extra
 fi
+
+###############################################################################
+# env
+###############################################################################
+
+# include pwd in path
+export PATH=$PATH:.
+
