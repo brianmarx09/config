@@ -44,7 +44,7 @@ export MY_FILE_MANAGER='pcmanfm'
 export MY_DATE_FORMAT='%Y-%m-%d'
 
 # the tested build of sublime text
-export MY_SUBLIME='sublime-text_build-3114_amd64.deb'
+export MY_SUBLIME='sublime-text_build-3124_amd64.deb'
 
 # color escape seqs for printf / echo
 export BLACK='\033[0;30m'
@@ -95,6 +95,7 @@ alias date='date +$MY_DATE_FORMAT'
 alias ls='ls -AhlsX --color=always'
 alias lss='ls --sort=size'
 alias less='less -R'
+alias oct="stat -c '%a %n' *"
 
 alias del='trash-put'
 alias sdel='sudo trash-put'
@@ -195,7 +196,8 @@ alias kernel='uname -r'
 alias os='lsb_release -a'
 alias version="echo $'kernel:\n\t$(kernel)\nos:\n\t$(os | awk -vRS="\n" -vORS="\n\t" '1')'"
 alias disk="echo $'inodes:\n$(inodes | awk -vRS="\n" -vORS="\n\t" '1')\n\ndisk:\n$(df | awk -vRS="\n" -vORS="\n\t" '1')'"
-alias info="echo $'$(disk)\n$(version)'"
+alias mem='cat /proc/meminfo'
+alias info="echo $'$(mem)\n$(disk)\n$(version)'"
 
 # locate hd memory sinks
 alias space='du -h --max-depth=1 | sort -hr | less'
