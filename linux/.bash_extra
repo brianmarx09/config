@@ -2,6 +2,6 @@ alias idea='bg "/usr/local/bin/idea"'
 alias android='bg "/home/snd/bin/android-studio/bin/studio.sh"'
 
 export JAVA_HOME="/usr/lib/jvm/java-8-oracle"
-export ANDROID_SDK="/home/snd/Android/Sdk"
+export ANDROID_HOME="/home/snd/Android/Sdk"
 export PATH=$PATH:$JAVA_HOME:$JAVA_HOME/bin
 
