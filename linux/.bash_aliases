@@ -47,12 +47,12 @@ export PATH=$(cat /etc/environment | tr -d '"')
 
 export MY_TERM='lxterminal --geometry=160x40'
 export MY_TERM_EDITOR='vim'
-export MY_GUI_EDITOR='/opt/sublime_text/sublime_text'
+export MY_GUI_EDITOR='/usr/bin/subl'
 export MY_FILE_MANAGER='pcmanfm'
 export MY_DATE_FORMAT='%Y-%m-%d'
 
 # the tested build of sublime text
-export MY_SUBLIME='sublime-text_build-3124_amd64.deb'
+export MY_SUBLIME='sublime-text_build-3126_amd64.deb'
 
 # color escape seqs for printf / echo
 export BLACK='\033[0;30m'
@@ -222,9 +222,9 @@ alias vimscreenrc='vim ~/.screenrc'
 alias vimbashrc='vim ~/.bashrc'
 
 # console editing; replace 'term-editor' target w/your favorite editor
-alias edit='term-editor'
-alias sedit='sudo term-editor'
-alias edita='term-editor ~/.bash_aliases && rs'
+alias edit='gui-editor'
+alias sedit='sudo gui-editor'
+alias edita='gui-editor ~/.bash_aliases && rs'
 
 # gui editing; replace w/your facorite editor
 alias guiedit='gui-editor'
@@ -288,6 +288,19 @@ alias openssh-to-ssh2='openssh_to_ssh2_helper'
 function ssh2_to_openssh_helper() { ssh-keygen -i -f $@ > $@.openssh; }
 alias ssh2-to-openssh='ssh2_to_openssh_helper'
 
+# air-suite helpers
+function aireplay_helper() { aireplay-ng --ignore-negative-one -0 2 -a $2 -c $3 $1 }
+alias aireplay='aireplay_helper'
+
+function aireplay_all_helper() { aireplay-ng --ignore-negative-one -0 0 -a $2 $1 }
+alias aireplay-all='aireplay_all_helper'
+
+function aircrack_helper() { aircrack-ng -a 2 -w - -e $1 -l $1.pwd; $1*.* }
+alias crack='aircrack_helper'
+
+function aircrackq_helper() { aircrack-ng -a 2 -w - -e $1 -l $1.pwd; -q $1*.* }
+alias crackq='aircrackq_helper'
+
 # GNU screen integration
 function screen_helper() { if [ -z "$STY" ]; then screen -RR -A -r "$@" || screen; fi; }
 alias screen='screen_helper'
@@ -295,16 +308,16 @@ alias screen='screen_helper'
 function pkg_helper() { sudo dpkg --search $@ >/dev/null 2>&1; if [ $? != 0 ]; then fail "unable to locate on local machine, searching repositories..."; apt-file search $@; fi; }
 alias pkg='pkg_helper'
 
-function push_helper() { pushd $@ >/dev/null 2>&1 ; }
+function push_helper() { pushd $@ >/dev/null 2>&1; }
 alias push='push_helper'
 
-function pop_helper() { popd $@ >/dev/null 2>&1 ; }
+function pop_helper() { popd $@ >/dev/null 2>&1; }
 alias pop='pop_helper'
 
-function success_helper() { printf "[ ${GREEN}$@ successful${NO_COLOR} ]\n" ; }
+function success_helper() { printf "[ ${GREEN}$@ successful${NO_COLOR} ]\n"; }
 alias success='success_helper'
 
-function fail_helper() { printf "[ ${RED}$@ failed${NO_COLOR} ]\n" ; }
+function fail_helper() { printf "[ ${RED}$@ failed${NO_COLOR} ]\n"; }
 alias fail='fail_helper'
 
 ###############################################################################
@@ -313,6 +326,7 @@ alias fail='fail_helper'
 
 alias filezilla='bg "filezilla"'
 alias wireshark='bg "wireshark"'
+alias sublime='bg "subl"'
 
 ###############################################################################
 # custom
