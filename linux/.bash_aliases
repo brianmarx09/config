@@ -48,7 +48,7 @@ unalias -a
 export PATH=$(cat /etc/environment | tr -d '"')
 
 # if path is empty, restore previous path settings
-[[ -z "${PATH// }" ]] && export PATH=PATH_CACHE
+[[ -z "${PATH// }" ]] && export PATH=$PATH_CACHE
 
 ###############################################################################
 # default apps
