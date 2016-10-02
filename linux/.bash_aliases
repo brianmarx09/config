@@ -289,16 +289,16 @@ function ssh2_to_openssh_helper() { ssh-keygen -i -f $@ > $@.openssh; }
 alias ssh2-to-openssh='ssh2_to_openssh_helper'
 
 # air-suite helpers
-function aireplay_helper() { aireplay-ng --ignore-negative-one -0 2 -a $2 -c $3 $1 }
+function aireplay_helper() { aireplay-ng --ignore-negative-one -0 2 -a $2 -c $3 $1; }
 alias aireplay='aireplay_helper'
 
-function aireplay_all_helper() { aireplay-ng --ignore-negative-one -0 0 -a $2 $1 }
+function aireplay_all_helper() { aireplay-ng --ignore-negative-one -0 0 -a $2 $1; }
 alias aireplay-all='aireplay_all_helper'
 
-function aircrack_helper() { aircrack-ng -a 2 -w - -e $1 -l $1.pwd; $1*.* }
+function aircrack_helper() { aircrack-ng -a 2 -w - -e $1 -l $1.pwd; $1*.*; }
 alias crack='aircrack_helper'
 
-function aircrackq_helper() { aircrack-ng -a 2 -w - -e $1 -l $1.pwd; -q $1*.* }
+function aircrackq_helper() { aircrack-ng -a 2 -w - -e $1 -l $1.pwd; -q $1*.*; }
 alias crackq='aircrackq_helper'
 
 # GNU screen integration
