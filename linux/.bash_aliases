@@ -38,8 +38,17 @@
 # clear all previous aliases and PATH (removing quotes via sed)
 ###############################################################################
 
+# backup oath state
+PATH_CACHE=$PATH
+
+# clear path
 unalias -a
+
+# obtain default path settings from a standard location (trimming quotes)
 export PATH=$(cat /etc/environment | tr -d '"')
+
+# if path is empty, restore previous path settings
+[[ -z "${PATH// }" ]] && export PATH=PATH_CACHE
 
 ###############################################################################
 # default apps
