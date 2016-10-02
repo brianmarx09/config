@@ -295,10 +295,10 @@ alias aireplay='aireplay_helper'
 function aireplay_all_helper() { aireplay-ng --ignore-negative-one -0 0 -a $2 $1; }
 alias aireplay-all='aireplay_all_helper'
 
-function aircrack_helper() { aircrack-ng -a 2 -w - -e $1 -l $1.pwd; $1*.*; }
+function aircrack_helper() { aircrack-ng -w - -a 2 -e $1 -l $1.pwd $1*.cap; }
 alias aircrack='aircrack_helper'
 
-function aircrackq_helper() { aircrack-ng -a 2 -w - -e $1 -l $1.pwd; -q $1*.*; }
+function aircrackq_helper() { aircrack-ng -q -w - -a 2 -e $1 -l $1.pwd $1*.*; }
 alias aircrackq='aircrackq_helper'
 
 # GNU screen integration
