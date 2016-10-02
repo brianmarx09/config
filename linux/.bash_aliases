@@ -296,10 +296,10 @@ function aireplay_all_helper() { aireplay-ng --ignore-negative-one -0 0 -a $2 $1
 alias aireplay-all='aireplay_all_helper'
 
 function aircrack_helper() { aircrack-ng -a 2 -w - -e $1 -l $1.pwd; $1*.*; }
-alias crack='aircrack_helper'
+alias aircrack='aircrack_helper'
 
 function aircrackq_helper() { aircrack-ng -a 2 -w - -e $1 -l $1.pwd; -q $1*.*; }
-alias crackq='aircrackq_helper'
+alias aircrackq='aircrackq_helper'
 
 # GNU screen integration
 function screen_helper() { if [ -z "$STY" ]; then screen -RR -A -r "$@" || screen; fi; }
