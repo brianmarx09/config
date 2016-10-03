@@ -265,7 +265,7 @@ alias setup='install \
   linux-headers-$(uname -r) linux-headers-generic dkms lsb-core vim ssh screen \
   ntfs-3g exfat-fuse exfat-utils htop atop iotop iftop trash-cli apt-file wget \
   build-essential gcc g++ cmake cmake-gui subversion cvs git mercurial \
-  filezilla wireshark && \
+  filezilla ethtool ngrep aircrack-ng wireshark && \
   (config-up; install-sublime; dist-up; uu) && \
   push ~/.vim && mkdir -p bak tmp undo && pop'
 
