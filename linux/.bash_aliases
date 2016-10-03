@@ -212,12 +212,9 @@ alias inodes='df -ih'
 alias kernel='uname -r'
 alias os='lsb_release -a'
 alias version="echo $'kernel:\n\t$(kernel)\nos:\n\t$(os | awk -vRS="\n" -vORS="\n\t" '1')'"
-alias disk="echo $'inodes:\n$(inodes | awk -vRS="\n" -vORS="\n\t" '1')\n\ndisk:\n$(df | awk -vRS="\n" -vORS="\n\t" '1')'"
+alias disk="echo $'inodes:\n$(inodes | awk -vRS="\n" -vORS="\n\t" '1')\n\ndisk:\n$(df | awk -vRS="\n" -vORS="\n\t" '1')\n$(discus)'"
 alias mem='cat /proc/meminfo'
 alias info="echo $'$(mem)\n$(disk)\n$(version)'"
-alias atop='sudo \atop'
-alias iotop='sudo \iotop'
-alias iftop='sudo \iftop'
 
 # locate hd memory sinks
 alias space='du -h --max-depth=1 | sort -hr | less'
@@ -263,9 +260,12 @@ alias install-sublime='push /tmp ; \
 # command to prepare a new system
 alias setup='install \
   linux-headers-$(uname -r) linux-headers-generic dkms lsb-core vim ssh screen \
-  ntfs-3g exfat-fuse exfat-utils htop atop iotop iftop trash-cli apt-file wget \
-  build-essential gcc g++ cmake cmake-gui subversion cvs git mercurial \
-  filezilla ethtool ngrep aircrack-ng wireshark && \
+  ntfs-3g exfat-fuse exfat-utils trash-cli apt-file multitail strace dtrace collectd-core \
+  build-essential gcc g++ gdb valgrind python3 \
+  cmake cmake-gui subversion cvs git mercurial wget \
+  htop atop iotop iftop glances dstat incron uptime sysstat discus \
+  nmap nmon mtr traceroute tcpdump ss ethtool ngrep aircrack-ng \
+  filezilla wireshark && \
   (config-up; install-sublime; dist-up; uu) && \
   push ~/.vim && mkdir -p bak tmp undo && pop'
 
