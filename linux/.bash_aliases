@@ -263,8 +263,8 @@ alias setup='install \
   ntfs-3g exfat-fuse exfat-utils trash-cli apt-file multitail strace dtrace collectd-core \
   build-essential gcc g++ gdb valgrind python3 \
   cmake cmake-gui subversion cvs git mercurial wget \
-  htop atop iotop iftop glances dstat incron uptime sysstat discus \
-  nmap nmon mtr traceroute tcpdump ss ethtool ngrep aircrack-ng \
+  htop atop iotop iftop glances dstat incron sysstat discus systemtap-sdt-dev \
+  nmap nmon mtr traceroute tcpdump ethtool ngrep aircrack-ng \
   filezilla wireshark && \
   (config-up; install-sublime; dist-up; uu) && \
   push ~/.vim && mkdir -p bak tmp undo && pop'
