@@ -260,7 +260,7 @@ alias install-sublime='push /tmp ; \
 # command to prepare a new system
 alias setup='install \
   linux-headers-$(uname -r) linux-headers-generic dkms lsb-core vim ssh screen \
-  ntfs-3g exfat-fuse exfat-utils trash-cli apt-file multitail strace dtrace collectd-core \
+  ntfs-3g exfat-fuse exfat-utils trash-cli apt-file multitail strace collectd-core \
   build-essential gcc g++ gdb valgrind python3 \
   cmake cmake-gui subversion cvs git mercurial wget \
   htop atop iotop iftop glances dstat incron sysstat discus systemtap-sdt-dev \
