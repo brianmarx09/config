@@ -88,7 +88,7 @@ export NO_COLOR='\033[0m'
 ###############################################################################
 
 # shorthand to pull alias file into caller's terminal (rs ~= "re-source")
-alias rs='(source ~/.bash_aliases && echo "bash aliases refreshed" || echo "error in bash aliases file") & disown'
+alias rs='(source ~/.bash_aliases & disown)'
 
 # default terminal emulator
 alias term='`$MY_TERM`'
