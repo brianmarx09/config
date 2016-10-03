@@ -215,9 +215,9 @@ alias version="echo $'kernel:\n\t$(kernel)\nos:\n\t$(os | awk -vRS="\n" -vORS="\
 alias disk="echo $'inodes:\n$(inodes | awk -vRS="\n" -vORS="\n\t" '1')\n\ndisk:\n$(df | awk -vRS="\n" -vORS="\n\t" '1')'"
 alias mem='cat /proc/meminfo'
 alias info="echo $'$(mem)\n$(disk)\n$(version)'"
-alias atop='sudo atop'
-alias iotop='sudo iotop'
-alias iftop='sudo iftop'
+alias atop='sudo \atop'
+alias iotop='sudo \iotop'
+alias iftop='sudo \iftop'
 
 # locate hd memory sinks
 alias space='du -h --max-depth=1 | sort -hr | less'
