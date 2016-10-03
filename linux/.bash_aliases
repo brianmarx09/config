@@ -215,6 +215,8 @@ alias version="echo $'kernel:\n\t$(kernel)\nos:\n\t$(os | awk -vRS="\n" -vORS="\
 alias disk="echo $'inodes:\n$(inodes | awk -vRS="\n" -vORS="\n\t" '1')\n\ndisk:\n$(df | awk -vRS="\n" -vORS="\n\t" '1')'"
 alias mem='cat /proc/meminfo'
 alias info="echo $'$(mem)\n$(disk)\n$(version)'"
+alias atop='sudo atop'
+alias iotop='sudo iotop'
 
 # locate hd memory sinks
 alias space='du -h --max-depth=1 | sort -hr | less'
@@ -260,8 +262,9 @@ alias install-sublime='push /tmp ; \
 # command to prepare a new system
 alias setup='install \
   linux-headers-$(uname -r) linux-headers-generic dkms lsb-core \
-  ntfs-3g htop trash-cli apt-file wget screen vim build-essential cmake cmake-gui \
-  subversion cvs git mercurial gcc g++ ssh filezilla wireshark && \
+  ntfs-3g htop atop iotop trash-cli apt-file wget screen vim ssh \
+  build-essential gcc g++ cmake cmake-gui subversion cvs git mercurial \
+  filezilla wireshark && \
   (config-up; install-sublime; dist-up; uu) && \
   push ~/.vim && mkdir -p bak tmp undo && pop'
 
