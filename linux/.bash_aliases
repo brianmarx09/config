@@ -217,6 +217,7 @@ alias mem='cat /proc/meminfo'
 alias info="echo $'$(mem)\n$(disk)\n$(version)'"
 alias atop='sudo atop'
 alias iotop='sudo iotop'
+alias iftop='sudo iftop'
 
 # locate hd memory sinks
 alias space='du -h --max-depth=1 | sort -hr | less'
@@ -261,8 +262,8 @@ alias install-sublime='push /tmp ; \
 
 # command to prepare a new system
 alias setup='install \
-  linux-headers-$(uname -r) linux-headers-generic dkms lsb-core \
-  ntfs-3g htop atop iotop trash-cli apt-file wget screen vim ssh \
+  linux-headers-$(uname -r) linux-headers-generic dkms lsb-core vim ssh screen \
+  ntfs-3g exfat-fuse exfat-utils htop atop iotop iftop trash-cli apt-file wget \
   build-essential gcc g++ cmake cmake-gui subversion cvs git mercurial \
   filezilla wireshark && \
   (config-up; install-sublime; dist-up; uu) && \
