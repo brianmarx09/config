@@ -87,6 +87,9 @@ export NO_COLOR='\033[0m'
 # aliases
 ###############################################################################
 
+# allow commands following sudo to be expanded for further aliases; bash man
+alias sudo='sudo '
+
 # shorthand to pull alias file into caller's terminal (rs ~= "re-source")
 alias rs='(source ~/.bash_aliases & disown)'
 
