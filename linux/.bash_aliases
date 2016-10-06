@@ -271,6 +271,7 @@ alias setup='install \
   htop atop iotop iftop glances dstat incron sysstat discus systemtap-sdt-dev \
   nmap nmon mtr traceroute tcpdump ethtool ngrep aircrack-ng \
   filezilla wireshark && \
+  if [[ ! -d ~/.bak ]] ; then mkdir ~/.bak ; fi && \
   (config-up; install-sublime; dist-up; uu) && \
   push ~/.vim && mkdir -p bak tmp undo && pop'
 
