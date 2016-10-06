@@ -144,7 +144,7 @@ alias cleanup='sudo trash-empty && clean && autoremove && purge'
 alias bashrc-down='(cp -f ~/.bak/.bashrc ~/ && success "bashrc downgrade") || fail "bashrc downgrade"'
 alias bashrc-up='push ~ ; \
   del .bak/.bashrc ; \
-  cp -f .bashrc .bak/ ; \
+  mv -f .bashrc .bak/ ; \
   wget --timestamping --show-progress --progress=dot --timeout=5 http://raw.githubusercontent.com/entangledloops/config/master/linux/.bashrc && \
   success "bashrc upgrade" || (fail "bashrc upgrade" ; bashrc-down) ; \
   pop'
@@ -153,7 +153,7 @@ alias bashrc-up='push ~ ; \
 alias alias-down='(cp -f ~/.bak/.bash_aliases ~/ ; source ~/.bash_aliases && success "alias downgrade") || fail "alias downgrade"'
 alias alias-up='push ~ ; \
   del .bak/.bash_aliases ; \
-  cp -f .bash_aliases .bak/ ; \
+  mv -f .bash_aliases .bak/ ; \
   ( \
     wget --timestamping --show-progress --progress=dot --timeout=5 http://raw.githubusercontent.com/entangledloops/config/master/linux/.bash_aliases && \
     source .bash_aliases && \
@@ -166,7 +166,7 @@ alias alias-up='push ~ ; \
 alias vimrc-down='(cp -f ~/.bak/.vimrc ~/ && success "vimrc downgrade") || fail "vimrc downgrade"'
 alias vimrc-up='push ~ ; \
   del .bak/.vimrc ; \
-  cp -f .vimrc .bak/ ; \
+  mv -f .vimrc .bak/ ; \
   wget --timestamping --show-progress --progress=dot --timeout=5 http://raw.githubusercontent.com/entangledloops/config/master/linux/.vimrc && \
   success "vimrc upgrade" || (fail "vimrc upgrade" ; vimrc-down) ; \
   pop'
@@ -175,7 +175,7 @@ alias vimrc-up='push ~ ; \
 alias screenrc-down='(cp -f ~/.bak/.screenrc ~/ && success "screenrc downgrade") || fail "screenrc downgrade"'
 alias screenrc-up='push ~ ; \
   del .bak/.screenrc ; \
-  cp -f .screenrc .bak/ ; \
+  mv -f .screenrc .bak/ ; \
   wget --timestamping --show-progress --progress=dot --timeout=5 http://raw.githubusercontent.com/entangledloops/config/master/linux/.screenrc && \
   success "screenrc upgrade" || (fail "screenrc upgrade" ; screenrc-down) ; \
   pop'
@@ -187,7 +187,7 @@ alias vim-up='vimrc-up && \
     push ~ ;\
     echo "backing up vim settings..." ; \
     del .bak/.vim >/dev/null 2>&1 ; \
-    cp -rf .vim .bak/ ; \
+    mv -f .vim .bak/ ; \
     echo "syncing with latest vim settings..." ; \
     del entangledloops.com >/dev/null 2>&1 ; \
     svn checkout https://github.com/entangledloops/config/trunk/linux/.vim/ --force && \
