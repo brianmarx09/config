@@ -247,10 +247,11 @@ alias sguiedit='sudo gui-editor'
 alias guiedita='gui-editor ~/.bash_aliases && rs'
 
 # personal preference for quick access to frequently modified files
-alias v='vimrc'
-alias a='vima'
-alias s='vimscreenrc'
-alias b='vimbashrc'
+alias v='vim'
+alias vv='vimrc'
+alias va='vima'
+alias vs='vimscreenrc'
+alias vb='vimbashrc'
 alias e='edit'
 alias g='guiedit'
 
