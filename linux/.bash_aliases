@@ -191,6 +191,7 @@ alias vim-up='vimrc-up && \
     echo "syncing with latest vim settings..." ; \
     del entangledloops.com >/dev/null 2>&1 ; \
     svn checkout https://github.com/entangledloops/config/trunk/linux/.vim/ --force && \
+    push .vim && mkdir bak tmp undo && pop && \
     success "vim upgrade" || (fail "vim upgrade" ; vim-down) ;
     pop \
   )'
@@ -272,8 +273,7 @@ alias setup='install \
   nmap nmon mtr traceroute tcpdump ethtool ngrep aircrack-ng \
   filezilla wireshark && \
   if [[ ! -d ~/.bak ]] ; then mkdir ~/.bak ; fi && \
-  (config-up; install-sublime; dist-up; uu) && \
-  push ~/.vim && mkdir -p bak tmp undo && pop'
+  (config-up; install-sublime; dist-up; u)'
 
 ###############################################################################
 # functions
