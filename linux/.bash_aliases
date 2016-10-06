@@ -133,10 +133,12 @@ alias reinstall='install --reinstall'
 alias uninstall='sudo apt-get remove'
 
 # remove old linux kernel versions
+alias clean='sudo apt-get clean'
 alias autoremove='sudo apt-get autoremove'
 alias purge='sudo apt-get -y purge'
 alias purge-kernels='list | grep linux-image | cut -d " " -f 3 | sort -V | sed -n "/"`uname -r`"/q;p" | xargs sudo apt-get purge'
 alias purge-configs='dpkg -l | grep "^rc" | cut -d " " -f 3 | xargs sudo apt-get purge'
+alias cleanup='clean && autoremove && purge'
 
 # pull latest bashrc from server or restore prev
 alias bashrc-down='(cp -f ~/.bak/.bashrc ~/ && success "bashrc downgrade") || fail "bashrc downgrade"'
