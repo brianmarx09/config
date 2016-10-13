@@ -270,11 +270,14 @@ alias setup='install \
   ntfs-3g exfat-fuse exfat-utils trash-cli apt-file multitail strace collectd-core \
   build-essential gcc g++ gdb valgrind python3 \
   cmake cmake-gui subversion cvs git mercurial wget \
-  htop atop iotop iftop glances dstat incron sysstat discus systemtap-sdt-dev \
+  htop iotop iftop glances dstat incron sysstat discus systemtap-sdt-dev \
   nmap nmon mtr traceroute tcpdump ethtool ngrep aircrack-ng \
   filezilla wireshark && \
   if [[ ! -d ~/.bak ]] ; then mkdir ~/.bak ; fi && \
   (config-up; install-sublime; dist-up; u)'
+
+alias setup-extras='install \
+  atop'
 
 ###############################################################################
 # functions
