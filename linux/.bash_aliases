@@ -273,7 +273,7 @@ alias setup='install \
   cmake cmake-gui subversion cvs git mercurial wget \
   htop iotop iftop glances dstat incron sysstat discus systemtap-sdt-dev \
   nmap nmon mtr traceroute tcpdump ethtool ngrep aircrack-ng \
-  gimp audacity filezilla wireshark && \
+  gparted gimp audacity filezilla wireshark && \
   if [[ ! -d ~/.bak ]] ; then mkdir ~/.bak ; fi && \
   (config-up; install-sublime; dist-up; u)'
 
