@@ -213,6 +213,7 @@ alias dist-up='(dist-upgrade && apt-file update && config-up && success "dist up
 # update/upgrade flavors
 alias u='upd && upg'
 alias uu='config-up && upd && dist-up && upg'
+alias du='dist-upgrade'
 
 # version / system info
 alias inodes='df -ih'
