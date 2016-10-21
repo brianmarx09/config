@@ -382,8 +382,6 @@ function help_helper()
   ($@ -h >/dev/null 2>&1 && $@ -h) || \
   ($@ -? >/dev/null 2>&1 && $@ -?) || \
   ($@ --? >/dev/null 2>&1 && $@ --?) || \
-  ($@ /help >/dev/null 2>&1 && $@ /help) || \
-  ($@ /? >/dev/null 2>&1 && $@ /?) || \
   fail "help lookup" \
   ;
 }
@@ -396,10 +394,10 @@ function version_helper()
   ($@ -version >/dev/null 2>&1 && $@ -version) || \
   ($@ --v >/dev/null 2>&1 && $@ --v) || \
   ($@ -v >/dev/null 2>&1 && $@ -v) || \
-  ($@ /version >/dev/null 2>&1 && $@ /version) || \
-  ($@ /v >/dev/null 2>&1 && $@ /v) || \
-  ($@ version >/dev/null 2>&1 && $@ version) || \
-  ($@ v >/dev/null 2>&1 && $@ v) || \
+  ($@ --vv >/dev/null 2>&1 && $@ --vv) || \
+  ($@ -vv >/dev/null 2>&1 && $@ -vv) || \
+  ($@ --ver >/dev/null 2>&1 && $@ --ver) || \
+  ($@ -ver >/dev/null 2>&1 && $@ -ver) || \
   fail "version lookup" \
   ;
 }
