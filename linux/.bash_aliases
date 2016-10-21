@@ -384,7 +384,7 @@ function help_helper()
   ($@ --? >/dev/null 2>&1 && $@ --?) || \
   ($@ /help >/dev/null 2>&1 && $@ /help) || \
   ($@ /? >/dev/null 2>&1 && $@ /?) || \
-  fail "help detect" \
+  fail "help lookup" \
   ;
 }
 alias help='help_helper '
@@ -400,7 +400,7 @@ function version_helper()
   ($@ /v >/dev/null 2>&1 && $@ /v) || \
   ($@ version >/dev/null 2>&1 && $@ version) || \
   ($@ v >/dev/null 2>&1 && $@ v) || \
-  fail "version detect" \
+  fail "version lookup" \
   ;
 }
 alias version='version_helper '
