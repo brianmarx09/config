@@ -277,8 +277,7 @@ alias setup='install \
   nmap nmon mtr traceroute tcpdump ethtool ngrep aircrack-ng \
   gparted gimp audacity filezilla wireshark && \
   add ppa:webupd8team/java && \
-  update && \
-  install oracle-java8-installer oracle-java8-set-default && \
+  upd && install oracle-java8-installer oracle-java8-set-default && \
   if [[ ! -d ~/.bak ]] ; then mkdir ~/.bak ; fi && \
   (config-up; install-sublime; dist-up; u)'
 
