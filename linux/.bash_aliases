@@ -373,23 +373,36 @@ function warn_helper() { printf "[ ${YELLOW}$@${NO_COLOR} ]\n" ; }
 alias warn='warn_helper '
 
 # helper for locating docs
-function help_helper() { man $@ || $@ --help 2>/dev/null || $@ -help 2>/dev/null || $@ --h 2>/dev/null || $@ -h 2>/dev/null || $@ -? 2>/dev/null || $@ --? 2>/dev/null || $@ /help 2>/dev/null || $@ /? 2>/dev/null || fail "help detect" ; }
+function help_helper() 
+{ 
+  (man $@ >/dev/null 2>&1 && man $@) || \
+  ($@ --help /dev/null 2>&1 && $@ --help) || \
+  ($@ -help >/dev/null 2>&1 && $@ -help) || \
+  ($@ --h >/dev/null 2>&1 && $@ --h) || \
+  ($@ -h >/dev/null 2>&1 && $@ -h) || \
+  ($@ -? >/dev/null 2>&1 && $@ -?) || \
+  ($@ --? >/dev/null 2>&1 && $@ --?) || \
+  ($@ /help >/dev/null 2>&1 && $@ /help) || \
+  ($@ /? >/dev/null 2>&1 && $@ /?) || \
+  fail "help detect" \
+  ;
+}
 alias help='help_helper '
 
 # helper for version info
-function version_output_helper() 
+function version_helper() 
 { 
-  $@ --version ; if [ $? -eq 0 ] ; then return 0; fi
-  $@ -version ; if [ $? -eq 0 ] ; then return 0; fi
-  $@ --v ; if [ $? -eq 0 ] ; then return 0; fi
-  $@ -v ; if [ $? -eq 0 ] ; then return 0; fi
-  $@ /version ; if [ $? -eq 0 ] ; then return 0; fi
-  $@ /v ; if [ $? -eq 0 ] ; then return 0; fi
-  $@ version ; if [ $? -eq 0 ] ; then return 0; fi
-  $@ v ; if [ $? -eq 0 ] ; then return 0; fi
-  return 1;
+  ($@ --version >/dev/null 2>&1 && $@ --version) || \
+  ($@ -version >/dev/null 2>&1 && $@ -version) || \
+  ($@ --v >/dev/null 2>&1 && $@ --v) || \
+  ($@ -v >/dev/null 2>&1 && $@ -v) || \
+  ($@ /version >/dev/null 2>&1 && $@ /version) || \
+  ($@ /v >/dev/null 2>&1 && $@ /v) || \
+  ($@ version >/dev/null 2>&1 && $@ version) || \
+  ($@ v >/dev/null 2>&1 && $@ v) || \
+  fail "version detect" \
+  ;
 }
-function version_helper() { version_output_helper $@ >/dev/null 2>&1 ; if [ $? -eq 0 ] ; then version_output_helper "$@" ; else fail "version detect" ; fi ; }
 alias version='version_helper '
 
 # basic system task wrappers
