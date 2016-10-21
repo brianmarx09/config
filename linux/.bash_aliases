@@ -311,7 +311,8 @@ alias setup='install \
   nmap nmon mtr traceroute tcpdump ethtool ngrep aircrack-ng \
   gimp audacity filezilla wireshark && \
   if [[ ! -d ~/.bak ]] ; then mkdir ~/.bak ; fi && \
-  (config-up; install-sublime; dist-up; u)'
+  (config-up; install-sublime; dist-up; u) && \
+  warn "the system should be rebooted after first setup"'
 
 alias setup-extras='install \
   atop'
