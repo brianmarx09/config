@@ -340,7 +340,7 @@ alias ssublime='bg "gksu sublime"'
 alias gfetch='git fetch --all --verbose'
 alias gpull='gfetch && git merge --verbose'
 alias gpush='git push --follow-tags --verbose'
-alias glog='git log --full-diff --name-only --graph --full-history --no-merges --pretty=format:"%Cred%an%Creset, %C(yellow)%ar%Creset%n%Cgreen%H%Creset%n%B'
+alias glog='git log --full-diff --name-only --graph --full-history --no-merges --pretty=format:"%Cred%an%Creset, %C(yellow)%ar%Creset%n%Cgreen%H%Creset%n%B"'
 
 ###############################################################################
 # functions
