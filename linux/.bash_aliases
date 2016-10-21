@@ -385,6 +385,8 @@ function version_output_helper()
   $@ -v ; if [ $? -eq 0 ] ; then return 0; fi
   $@ /version ; if [ $? -eq 0 ] ; then return 0; fi
   $@ /v ; if [ $? -eq 0 ] ; then return 0; fi
+  $@ version ; if [ $? -eq 0 ] ; then return 0; fi
+  $@ v ; if [ $? -eq 0 ] ; then return 0; fi
   return 1;
 }
 function version_helper() { version_output_helper $@ >/dev/null 2>&1 ; if [ $? -eq 0 ] ; then version_output_helper "$@" ; else fail "version detect" ; fi ; }
