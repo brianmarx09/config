@@ -131,7 +131,6 @@ alias dreinstall='sudo dpkf -r'
 alias install='sudo apt-get -y install'
 alias reinstall='install --reinstall'
 alias uninstall='sudo apt-get remove'
-alias add='sudo add-apt-repository'
 
 # remove old linux kernel versions
 alias clean='sudo apt-get clean'
@@ -140,7 +139,7 @@ alias autoremove='sudo apt-get autoremove'
 alias purge='sudo apt-get -y purge'
 alias purge-kernels='list | grep linux-image | cut -d " " -f 3 | sort -V | sed -n "/"`uname -r`"/q;p" | xargs sudo apt-get purge'
 alias purge-configs='dpkg -l | grep "^rc" | cut -d " " -f 3 | xargs sudo apt-get purge'
-alias cleanup='sudo trash-empty && autoclean && autoremove'
+alias cleanup='sudo trash-empty && autoclean && autoremove && rm -f ~/1 ~/.xsession-errors*'
 
 # pull latest bashrc from server or restore prev
 alias bashrc-down='(cp -f ~/.bak/.bashrc ~/ && success "bashrc downgrade") || fail "bashrc downgrade"'
@@ -214,7 +213,6 @@ alias dist-up='(dist-upgrade && apt-file update && config-up && success "dist up
 # update/upgrade flavors
 alias u='upd && upg'
 alias uu='config-up && upd && dist-up && upg'
-alias du='dist-upgrade'
 
 # version / system info
 alias inodes='df -ih'
@@ -222,6 +220,7 @@ alias kernel='uname -r'
 alias os='lsb_release -a'
 alias version="echo $'kernel:\n\t$(kernel)\nos:\n\t$(os | awk -vRS="\n" -vORS="\n\t" '1')'"
 alias disk="echo $'inodes:\n$(inodes | awk -vRS="\n" -vORS="\n\t" '1')\n\ndisk:\n$(df | awk -vRS="\n" -vORS="\n\t" '1')\n$(sudo discus)'"
+alias vdisk="bg 'sudo baobab /'"
 alias mem='cat /proc/meminfo'
 alias info="echo $'$(mem)\n$(disk)\n$(version)'"
 
@@ -269,15 +268,13 @@ alias install-sublime='push /tmp ; \
 
 # command to prepare a new system
 alias setup='install \
-  linux-headers-$(uname -r) linux-headers-generic dkms lsb-core vim ssh screen \
+  linux-headers-$(uname -r) linux-headers-generic dkms lsb-core xbindkeys \
   ntfs-3g exfat-fuse exfat-utils trash-cli apt-file multitail strace collectd-core \
-  build-essential gcc g++ gdb valgrind python3 \
+  vim ssh screen build-essential gcc g++ gdb valgrind python3 \
   cmake cmake-gui subversion cvs git mercurial wget \
-  htop iotop iftop glances dstat incron sysstat discus systemtap-sdt-dev \
+  htop iotop iftop glances dstat incron sysstat discus systemtap-sdt-dev baobab \
   nmap nmon mtr traceroute tcpdump ethtool ngrep aircrack-ng \
-  gparted gimp audacity filezilla wireshark && \
-  add ppa:webupd8team/java && \
-  upd && install oracle-java8-installer oracle-java8-set-default && \
+  gimp audacity filezilla wireshark && \
   if [[ ! -d ~/.bak ]] ; then mkdir ~/.bak ; fi && \
   (config-up; install-sublime; dist-up; u)'
 
@@ -289,7 +286,7 @@ alias setup-extras='install \
 ###############################################################################
 
 # shorthand to launch and detach a process supressing all output
-function bg_helper() { (nohup $@ >/dev/null 2>&1 & disown) >/dev/null; }
+function bg_helper() { (nohup "$@" >/dev/null 2>&1 & disown) >/dev/null 2>&1; }
 alias bg='bg_helper'
 
 # generic file open; replace w/whatever you want (hex editor, etc.)
