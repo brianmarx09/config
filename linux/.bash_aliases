@@ -131,6 +131,7 @@ alias dreinstall='sudo dpkf -r'
 alias install='sudo apt-get -y install'
 alias reinstall='install --reinstall'
 alias uninstall='sudo apt-get remove'
+alias add='sudo add-apt-repository'
 
 # remove old linux kernel versions
 alias clean='sudo apt-get clean'
@@ -275,6 +276,9 @@ alias setup='install \
   htop iotop iftop glances dstat incron sysstat discus systemtap-sdt-dev \
   nmap nmon mtr traceroute tcpdump ethtool ngrep aircrack-ng \
   gparted gimp audacity filezilla wireshark && \
+  add ppa:webupd8team/java && \
+  update && \
+  install oracle-java8-installer oracle-java8-set-default && \
   if [[ ! -d ~/.bak ]] ; then mkdir ~/.bak ; fi && \
   (config-up; install-sublime; dist-up; u)'
 
