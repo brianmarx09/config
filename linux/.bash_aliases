@@ -88,69 +88,87 @@ export NO_COLOR='\033[0m'
 ###############################################################################
 
 # allow commands following sudo to be expanded for further aliases; bash man
+alias source='source '
 alias bash='bash '
 alias sudo='sudo '
 alias su='su '
 alias gksudo='gksudo '
 alias gksu='gksu '
+alias nohup='nohup '
+alias pushd='pushd '
+alias popd='popd '
+alias echo='echo '
+alias printf='printf '
+alias chmod='chmod '
+alias chown='chown '
+alias xargs='xargs '
+alias grep='grep '
+alias dpkg='dpkg '
+alias cp='cp '
+alias mv='mv '
+alias scp='scp '
+alias ssh='ssh '
+alias git='git '
+alias xmodmap='xmodmap '
+alias xrandr='xrandr '
 
 # shorthand to pull alias file into caller's terminal (rs ~= "re-source")
-alias rs='echo "source ~/.bash_aliases" >> /tmp/rs.bash && chmod +x /tmp/rs.bash && . /tmp/rs.bash && rm /tmp/rs.bash'
+alias rs='echo "source ~/.bash_aliases" >> /tmp/rs.bash && chmod +x /tmp/rs.bash && . /tmp/rs.bash && rm /tmp/rs.bash '
 
 # default terminal emulator
-alias term='`$MY_TERM`'
-alias sterm='`$MY_TERM --command="sudo -s"`'
+alias term='`$MY_TERM` '
+alias sterm='`$MY_TERM --command="sudo -s"` '
 
 # default editors (change these to your favorites)
-alias term-editor='`$MY_TERM_EDITOR`'
-alias gui-editor='`$MY_GUI_EDITOR`'
+alias term-editor='`$MY_TERM_EDITOR` '
+alias gui-editor='`$MY_GUI_EDITOR` '
 
 # default file manager
-alias file-manager='`$MY_FILE_MANAGER`'
+alias file-manager='`$MY_FILE_MANAGER` '
 
 # system state
-alias shutdown='shutdown -h now'
-alias reboot='sudo reboot'
+alias shutdown='shutdown -h now '
+alias reboot='sudo reboot '
 
 # root user on/off shorthands
-alias root-enable='sudo passwd root && sudo passwd -u root'
-alias root-disable='sudo passwd -dl root'
+alias root-enable='sudo passwd root ; sudo passwd -u root ' #>/dev/null 2>&1 ; sudo passwd -u root >/dev/null 2>&1'
+alias root-disable='sudo passwd -l root '
 
 # better default behaviors for standard utils
-alias cd='push'
-alias rm='rm --one-file-system --preserve-root'
-alias date='date +$MY_DATE_FORMAT'
-alias ls='ls -AhlsX --color=always'
-alias lss='ls --sort=size'
-alias less='less -R'
-alias stat="stat -c '%a %n' *"
+alias cd='push '
+alias rm='rm --one-file-system --preserve-root '
+alias date='date +$MY_DATE_FORMAT '
+alias ls='ls -AhlsX --color=always '
+alias lss='ls --sort=size '
+alias less='less -R '
+alias stat='stat -c "%a %n" * '
 
-alias del='trash-put'
-alias sdel='sudo trash-put'
+alias del='trash-put '
+alias sdel='sudo trash-put '
 
 # package management
-alias list='dpkg --list'
-alias list-kernels='list | grep linux-image-'
-alias list-headers='list | grep linux-headers-'
+alias list='dpkg --list '
+alias list-kernels='list | grep linux-image- '
+alias list-headers='list | grep linux-headers- '
 
 # dpkg install/uninstall shorthands
-alias dinstall='sudo dpkg -i'
-alias dreinstall='sudo dpkf -r'
-alias install='sudo apt-get -y install'
-alias reinstall='install --reinstall'
-alias uninstall='sudo apt-get remove'
+alias dinstall='sudo dpkg -i '
+alias dreinstall='sudo dpkf -r '
+alias install='sudo apt-get -y install '
+alias reinstall='install --reinstall '
+alias uninstall='sudo apt-get remove '
 
 # remove old linux kernel versions
-alias clean='sudo apt-get clean'
-alias autoclean='sudo apt-get autoclean'
-alias autoremove='sudo apt-get autoremove'
-alias purge='sudo apt-get -y purge'
-alias purge-kernels='list | grep linux-image | cut -d " " -f 3 | sort -V | sed -n "/"`uname -r`"/q;p" | xargs sudo apt-get purge'
-alias purge-configs='dpkg -l | grep "^rc" | cut -d " " -f 3 | xargs sudo apt-get purge'
-alias cleanup='sudo trash-empty && autoclean && autoremove && rm -f ~/1 ~/.xsession-errors*'
+alias clean='sudo apt-get clean '
+alias autoclean='sudo apt-get autoclean '
+alias autoremove='sudo apt-get autoremove '
+alias purge='sudo apt-get -y purge '
+alias purge-kernels='list | grep linux-image | cut -d " " -f 3 | sort -V | sed -n "/"`uname -r`"/q;p" | xargs sudo apt-get purge '
+alias purge-configs='dpkg -l | grep "^rc" | cut -d " " -f 3 | xargs sudo apt-get purge '
+alias cleanup='sudo trash-empty && autoclean && autoremove && rm -f ~/1 ~/.xsession-errors* '
 
 # pull latest bashrc from server or restore prev
-alias bashrc-down='(cp -f ~/.bak/.bashrc ~/ && success "bashrc downgrade") || fail "bashrc downgrade"'
+alias bashrc-down='(cp -f ~/.bak/.bashrc ~/ && success "bashrc downgrade") || fail "bashrc downgrade" '
 alias bashrc-up='\
   push ~ ; \
     del .bak/.bashrc ; \
@@ -159,10 +177,10 @@ alias bashrc-up='\
       wget --timestamping --show-progress --progress=dot --timeout=5 http://raw.githubusercontent.com/entangledloops/config/master/linux/.bashrc && \
       success "bashrc upgrade" 
     ) || (fail "bashrc upgrade" ; bashrc-down) ; \
-  pop'
+  pop '
 
 # pull latest vimrc from server or restore prev (this file)
-alias alias-down='(cp -f ~/.bak/.bash_aliases ~/ ; source ~/.bash_aliases && success "alias downgrade") || fail "alias downgrade"'
+alias alias-down='(cp -f ~/.bak/.bash_aliases ~/ ; source ~/.bash_aliases && success "alias downgrade") || fail "alias downgrade" '
 alias alias-up='\
   push ~ ; \
     del .bak/.bash_aliases ; \
@@ -172,10 +190,10 @@ alias alias-up='\
       source .bash_aliases && \
       success "alias upgrade"
     ) || (fail "alias upgrade" ; alias-down) ; \
-  pop'
+  pop '
 
 # pull latest vimrc from server or restore prev
-alias vimrc-down='(cp -f ~/.bak/.vimrc ~/ && success "vimrc downgrade") || fail "vimrc downgrade"'
+alias vimrc-down='(cp -f ~/.bak/.vimrc ~/ && success "vimrc downgrade") || fail "vimrc downgrade" '
 alias vimrc-up='\
   push ~ ; \
     del .bak/.vimrc ; \
@@ -184,10 +202,10 @@ alias vimrc-up='\
       wget --timestamping --show-progress --progress=dot --timeout=5 http://raw.githubusercontent.com/entangledloops/config/master/linux/.vimrc && \
       success "vimrc upgrade"
     ) || (fail "vimrc upgrade" ; vimrc-down) ; \
-  pop'
+  pop '
 
 # pull latest bashrc from server or restore prev
-alias screenrc-down='(cp -f ~/.bak/.screenrc ~/ && success "screenrc downgrade") || fail "screenrc downgrade"'
+alias screenrc-down='(cp -f ~/.bak/.screenrc ~/ && success "screenrc downgrade") || fail "screenrc downgrade" '
 alias screenrc-up='\
   push ~ ; \
     del .bak/.screenrc ; \
@@ -196,10 +214,10 @@ alias screenrc-up='\
       wget --timestamping --show-progress --progress=dot --timeout=5 http://raw.githubusercontent.com/entangledloops/config/master/linux/.screenrc && \
       success "screenrc upgrade" 
     ) || (fail "screenrc upgrade" ; screenrc-down) ; \
-  pop'
+  pop '
 
 # pull latest vimrc and vim settings folder from server or restore prev
-alias vim-down='del ~/.vim >/dev/null 2&>1 ; cp -rf ~/.bak/.vim ~/ ; (vimrc-down && success "vim downgrade") || fail "vim downgrade"'
+alias vim-down='del ~/.vim >/dev/null 2&>1 ; cp -rf ~/.bak/.vim ~/ ; (vimrc-down && success "vim downgrade") || fail "vim downgrade" '
 alias vim-up='vimrc-up && \
   ( \
     push ~ ; \
@@ -230,67 +248,67 @@ alias vim-up='vimrc-up && \
         ) || warn "doc download: tpope/doc/surround.txt" && \
       pop && \
     pop \
-  )'
+  ) '
 
 # component update helpers
-alias os-upgrade='sudo do-release-upgrade -d'
-alias os-up='os-upgrade'
-alias gui-update='sudo update-manager -d'
-alias gupd='gui-update'
-alias update='sudo apt-get update'
-alias upd='update && success "update" || fail "update"'
-alias upgrade='sudo apt-get upgrade -y'
-alias upg='upgrade && success "upgrade" || fail "upgrade"'
-alias config-up='alias-up && bashrc-up && vim-up && screenrc-up && rs'
-alias dist-upgrade='sudo apt-get dist-upgrade -y'
-alias dist-up='sudo source <(echo "dist-upgrade && apt-file update && config-up && success \"dist upgrade\"") || fail "dist upgrade"'
+alias os-upgrade='sudo do-release-upgrade -d '
+alias os-up='os-upgrade '
+alias gui-update='sudo update-manager -d '
+alias gupd='gui-update '
+alias update='sudo apt-get update '
+alias upd='update && success "update" || fail "update" '
+alias upgrade='sudo apt-get upgrade -y '
+alias upg='upgrade && success "upgrade" || fail "upgrade" '
+alias config-up='alias-up && bashrc-up && vim-up && screenrc-up && rs '
+alias dist-upgrade='sudo apt-get dist-upgrade -y '
+alias dist-up='sudo source <(echo "dist-upgrade && apt-file update && config-up && success \"dist upgrade\"") || fail "dist upgrade" '
 
 # update/upgrade flavors
-alias u="sudo source <(echo 'upd && upg')" 
-alias uu="sudo source <(echo 'config-up && upd && dist-up && upg')"
+alias u='sudo source <(echo "upd && upg") ' 
+alias uu='sudo source <(echo "config-up && upd && dist-up && upg") '
 
 # version / system info
-alias inodes='df -ih'
-alias kernel='uname -r'
-alias os='lsb_release -a'
-alias version="echo $'kernel:\n\t$(kernel)\nos:\n\t$(os | awk -vRS="\n" -vORS="\n\t" '1')'"
-alias disk="echo $'inodes:\n$(inodes | awk -vRS="\n" -vORS="\n\t" '1')\n\ndisk:\n$(df | awk -vRS="\n" -vORS="\n\t" '1')\n$(sudo discus)'"
-alias vdisk="bg 'gksu baobab /'"
-alias mem='cat /proc/meminfo'
-alias info="echo $'$(mem)\n$(disk)\n$(version)'"
+alias inodes='df -ih '
+alias kernel='uname -r '
+alias os='lsb_release -a '
+alias os-version="echo $'kernel:\n\t$(kernel)\nos:\n\t$(os | awk -vRS="\n" -vORS="\n\t" '1')' "
+alias disk="echo $'inodes:\n$(inodes | awk -vRS="\n" -vORS="\n\t" '1')\n\ndisk:\n$(df | awk -vRS="\n" -vORS="\n\t" '1')\n$(sudo discus)' "
+alias vdisk='bg "gksu baobab /" '
+alias mem='cat /proc/meminfo '
+alias info="echo $'$(mem)\n$(disk)\n$(os-version)' "
 
 # locate hd memory sinks
-alias space='du -h --max-depth=1 | sort -hr | less'
+alias space='du -h --max-depth=1 | sort -hr | less '
 
 # clear scrollback and recent output; annoying leading newline still printed
-alias cls='clear && echo -e \\033c'
+alias cls='clear && echo -e \\033c '
 
 # shorthand for my favorite console editor
-alias svim='sudo vim'
-alias vimrc='vim ~/.vimrc'
-alias vima='vim ~/.bash_aliases && rs'
-alias vime='vim ~/.bash_extra && rs'
-alias vimscreenrc='vim ~/.screenrc'
-alias vimbashrc='vim ~/.bashrc'
+alias svim='sudo vim '
+alias vimrc='vim ~/.vimrc '
+alias vima='vim ~/.bash_aliases && rs '
+alias vime='vim ~/.bash_extra && rs '
+alias vimscreenrc='vim ~/.screenrc '
+alias vimbashrc='vim ~/.bashrc '
 
 # console editing; replace 'term-editor' target w/your favorite editor
-alias edit='gui-editor'
-alias sedit='sudo gui-editor'
-alias edita='gui-editor ~/.bash_aliases && rs'
+alias edit='gui-editor '
+alias sedit='sudo gui-editor '
+alias edita='gui-editor ~/.bash_aliases && rs '
 
 # gui editing; replace w/your facorite editor
-alias guiedit='gui-editor'
-alias sguiedit='sudo gui-editor'
-alias guiedita='gui-editor ~/.bash_aliases && rs'
+alias guiedit='gui-editor '
+alias sguiedit='sudo gui-editor '
+alias guiedita='gui-editor ~/.bash_aliases && rs '
 
 # personal preference for quick access to frequently modified files
-alias v='vim'
-alias vv='vimrc'
-alias va='vima'
-alias vs='vimscreenrc'
-alias vb='vimbashrc'
-alias e='edit'
-alias g='guiedit'
+alias v='vim '
+alias vv='vimrc '
+alias va='vima '
+alias vs='vimscreenrc '
+alias vb='vimbashrc '
+alias e='edit '
+alias g='guiedit '
 
 # helper for sublime text which isn't in a repo currently
 alias install-sublime='push /tmp ; \
@@ -299,7 +317,7 @@ alias install-sublime='push /tmp ; \
   rm -f $MY_SUBLIME >/dev/null 2>&1 &&
   success "sublime install" || \
   fail "sublime install" ; \
-  pop'
+  pop '
 
 # command to prepare a new system
 alias setup='install \
@@ -309,38 +327,41 @@ alias setup='install \
   cmake cmake-gui subversion cvs git mercurial wget \
   htop iotop iftop glances dstat incron sysstat discus systemtap-sdt-dev baobab \
   nmap nmon mtr traceroute tcpdump ethtool ngrep aircrack-ng \
-  gimp audacity filezilla wireshark && \
+  gimp audacity filezilla wireshark transmission-gtk && \
   if [[ ! -d ~/.bak ]] ; then mkdir ~/.bak ; fi && \
   (config-up; install-sublime; dist-up; u) && \
-  warn "the system should be rebooted after first setup"'
+  warn "the system should be rebooted after first setup" '
 
 alias setup-extras='install \
-  atop'
+  atop '
 
 ###############################################################################
 # apps to launch in background
 ###############################################################################
 
-alias gparted='bg "gparted"'
-alias sgparted='bg "gksu gparted"'
+alias gparted='bg "gparted" '
+alias sgparted='bg "gksu gparted" '
 
-alias filezilla='bg "filezilla"'
-alias sfilezilla='bg "gksu filezilla"'
+alias filezilla='bg "filezilla" '
+alias sfilezilla='bg "gksu filezilla" '
 
-alias wireshark='bg "wireshark"'
-alias swireshark='bg "gksu wireshark"'
+alias wireshark='bg "wireshark" '
+alias swireshark='bg "gksu wireshark" '
 
-alias sublime='bg "subl"'
-alias ssublime='bg "gksu sublime"'
+alias sublime='bg "subl" '
+alias ssublime='bg "sudo subl"' # sublime needs sudo instead of gksu
+
+alias transmission='bg "transmission-gtk" '
+alias stransmission='bg "gksu transmission" '
 
 ###############################################################################
 # shorthands for other tasks
 ###############################################################################
 
-alias gfetch='git fetch --all --verbose'
-alias gpull='gfetch && git merge --verbose'
-alias gpush='git push --follow-tags --verbose'
-alias glog='git log --full-diff --name-only --graph --full-history --no-merges --pretty=format:"%C(bold blue)%an%Creset, %C(yellow)%ar%Creset%n%Cgreen%H%Creset%n%B"'
+alias gfetch='git fetch --all --verbose '
+alias gpull='gfetch && git merge --verbose '
+alias gpush='git push --follow-tags --verbose '
+alias glog='git log --full-diff --name-only --graph --full-history --no-merges --pretty=format:"%C(bold blue)%an%Creset, %C(yellow)%ar%Creset%n%Cgreen%H%Creset%n%B" '
 
 ###############################################################################
 # functions
@@ -348,79 +369,97 @@ alias glog='git log --full-diff --name-only --graph --full-history --no-merges -
 
 # colorful pre-formatted logging shorthands
 function success_helper() { printf "[ ${GREEN}$@ successful${NO_COLOR} ]\n" ; }
-alias success='success_helper'
+alias success='success_helper '
 
 function fail_helper() { printf "[ ${RED}$@ failed${NO_COLOR} ]\n" ; }
-alias fail='fail_helper'
+alias fail='fail_helper '
 
 function warn_helper() { printf "[ ${YELLOW}$@${NO_COLOR} ]\n" ; }
-alias warn='warn_helper'
+alias warn='warn_helper '
+
+# helper for locating docs
+function help_helper() { man $@ || $@ --help 2>/dev/null || $@ -help 2>/dev/null || $@ --h 2>/dev/null || $@ -h 2>/dev/null || $@ -? 2>/dev/null || $@ --? 2>/dev/null || $@ /help 2>/dev/null || $@ /? 2>/dev/null || fail "help detect" ; }
+alias help='help_helper '
+
+# helper for version info
+function version_output_helper() 
+{ 
+  $@ --version ; if [ $? -eq 0 ] ; then return 0; fi
+  $@ -version ; if [ $? -eq 0 ] ; then return 0; fi
+  $@ --v ; if [ $? -eq 0 ] ; then return 0; fi
+  $@ -v ; if [ $? -eq 0 ] ; then return 0; fi
+  $@ /version ; if [ $? -eq 0 ] ; then return 0; fi
+  $@ /v ; if [ $? -eq 0 ] ; then return 0; fi
+  return 1;
+}
+function version_helper() { version_output_helper $@ >/dev/null 2>&1 ; if [ $? -eq 0 ] ; then version_output_helper "$@" ; else fail "version detect" ; fi ; }
+alias version='version_helper '
 
 # basic system task wrappers
 function push_helper() { pushd $@ >/dev/null 2>&1 ; }
-alias push='push_helper'
+alias push='push_helper '
 
 function pop_helper() { popd $@ >/dev/null 2>&1 ; }
-alias pop='pop_helper'
+alias pop='pop_helper '
 
 # shorthand to launch and detach a process supressing all output
 function bg_helper() { (nohup $@ >/dev/null 2>&1 & disown) >/dev/null 2>&1 ; }
-alias bg='bg_helper'
+alias bg='bg_helper '
 
 # generic file open; replace w/whatever you want (hex editor, etc.)
 function open_helper() { bg "$MY_FILE_MANAGER $@" ; }
-alias open='open_helper'
-alias sopen='sudo open'
+alias open='open_helper '
+alias sopen='sudo open '
 
 # locate package a file is from
 function pkg_helper() { sudo dpkg --search $@ >/dev/null 2>&1; if [ $? != 0 ]; then warn "unable to locate locally, searching repos..." && apt-file search $@; fi ; }
-alias pkg='pkg_helper'
+alias pkg='pkg_helper '
 
 # find from pwd; don't forget double-quotes, e.g.: find "*.txt"
-function find_helper() { /usr/bin/find . -iname "$@" -readable -writable -prune -print ; }
-alias find='find_helper'
+function find_helper() { \find . -iname "$@" -readable -writable -prune -print ; }
+alias find='find_helper '
 
 # find from root; don't forget double-quotes, e.g.: findall "*.txt"
-function findall_helper() { /usr/bin/find / -iname "$@" 2>&1 | grep -v 'Permission denied' >&2 ; }
-alias findall='findall_helper'
+function findall_helper() { \find / -iname "$@" 2>&1 | grep -v 'Permission denied' >&2 ; }
+alias findall='findall_helper '
 
 # greps the full package list for targets matching provided grep string
-function listgrep() { /usr/bin/dpkg -l | grep "$@" ; }
+function listgrep() { dpkg -l | grep "$@" ; }
 
 # OpenSSH -> SSH2 helper
 function openssh_to_ssh2_helper() { ssh-keygen -e -f $@ > $@.ssh2 ; }
-alias openssh-to-ssh2='openssh_to_ssh2_helper'
+alias openssh-to-ssh2='openssh_to_ssh2_helper '
 
 # SSH2 -> OpenSSH
 function ssh2_to_openssh_helper() { ssh-keygen -i -f $@ > $@.openssh ; }
-alias ssh2-to-openssh='ssh2_to_openssh_helper'
+alias ssh2-to-openssh='ssh2_to_openssh_helper '
 
 # GNU screen integration
 function screen_helper() { if [ -z "$STY" ]; then screen -RR -A -r "$@" || screen; fi ; }
-alias screen='screen_helper'
+alias screen='screen_helper '
 
 # git
 function gbranch_helper() { gfetch && git branch -b $1 origin/$1 && git pull --verbose ; }
-alias gbranch='gbranch_helper'
+alias gbranch='gbranch_helper '
 
 function gcheckout_helper() { gfetch && git checkout $1 --verbose && git diff --name-status HEAD@{1} HEAD && git pull --verbose ; }
-alias gcheckout='gcheckout_helper'
+alias gcheckout='gcheckout_helper '
 
 function gcommit_helper() { git add -u && git commit -m "$@" --verbose ; }
-alias gcommit='gcommit_helper'
+alias gcommit='gcommit_helper '
 
 # air-suite helpers
 function aireplay_helper() { aireplay-ng --ignore-negative-one -0 2 -a $2 -c $3 $1; }
-alias aireplay='aireplay_helper'
+alias aireplay='aireplay_helper '
 
 function aireplay_all_helper() { aireplay-ng --ignore-negative-one -0 0 -a $2 $1; }
-alias aireplay-all='aireplay_all_helper'
+alias aireplay-all='aireplay_all_helper '
 
 function aircrack_helper() { aircrack-ng -w - -a 2 -e $1 -l $1.pwd $1*.cap; }
-alias aircrack='aircrack_helper'
+alias aircrack='aircrack_helper '
 
 function aircrackq_helper() { aircrack-ng -q -w - -a 2 -e $1 -l $1.pwd $1*.*; }
-alias aircrackq='aircrackq_helper'
+alias aircrackq='aircrackq_helper '
 
 ###############################################################################
 # custom
