@@ -38,7 +38,7 @@
 # clear all previous aliases and PATH (removing quotes via sed)
 ###############################################################################
 
-# backup oath state
+# backup path state; if something goes wrong, restored at end
 PATH_CACHE=$PATH
 
 # clear path
