@@ -88,7 +88,11 @@ export NO_COLOR='\033[0m'
 ###############################################################################
 
 # allow commands following sudo to be expanded for further aliases; bash man
+alias bash='bash '
 alias sudo='sudo '
+alias su='su '
+alias gksudo='gksudo '
+alias gksu='gksu '
 
 # shorthand to pull alias file into caller's terminal (rs ~= "re-source")
 alias rs='echo "source ~/.bash_aliases" >> /tmp/rs.bash && chmod +x /tmp/rs.bash && . /tmp/rs.bash && rm /tmp/rs.bash'
@@ -107,6 +111,10 @@ alias file-manager='`$MY_FILE_MANAGER`'
 # system state
 alias shutdown='shutdown -h now'
 alias reboot='sudo reboot'
+
+# root user on/off shorthands
+alias root-enable='sudo passwd root && sudo passwd -u root'
+alias root-disable='sudo passwd -dl root'
 
 # better default behaviors for standard utils
 alias cd='push'
@@ -143,57 +151,84 @@ alias cleanup='sudo trash-empty && autoclean && autoremove && rm -f ~/1 ~/.xsess
 
 # pull latest bashrc from server or restore prev
 alias bashrc-down='(cp -f ~/.bak/.bashrc ~/ && success "bashrc downgrade") || fail "bashrc downgrade"'
-alias bashrc-up='push ~ ; \
-  del .bak/.bashrc ; \
-  mv -f .bashrc .bak/ ; \
-  wget --timestamping --show-progress --progress=dot --timeout=5 http://raw.githubusercontent.com/entangledloops/config/master/linux/.bashrc && \
-  success "bashrc upgrade" || (fail "bashrc upgrade" ; bashrc-down) ; \
+alias bashrc-up='\
+  push ~ ; \
+    del .bak/.bashrc ; \
+    mv -f .bashrc .bak/ ; \
+    ( \
+      wget --timestamping --show-progress --progress=dot --timeout=5 http://raw.githubusercontent.com/entangledloops/config/master/linux/.bashrc && \
+      success "bashrc upgrade" 
+    ) || (fail "bashrc upgrade" ; bashrc-down) ; \
   pop'
 
 # pull latest vimrc from server or restore prev (this file)
 alias alias-down='(cp -f ~/.bak/.bash_aliases ~/ ; source ~/.bash_aliases && success "alias downgrade") || fail "alias downgrade"'
-alias alias-up='push ~ ; \
-  del .bak/.bash_aliases ; \
-  mv -f .bash_aliases .bak/ ; \
-  ( \
-    wget --timestamping --show-progress --progress=dot --timeout=5 http://raw.githubusercontent.com/entangledloops/config/master/linux/.bash_aliases && \
-    source .bash_aliases && \
-    success "alias upgrade"
-  ) || \
-  (fail "alias upgrade" ; alias-down) ; \
+alias alias-up='\
+  push ~ ; \
+    del .bak/.bash_aliases ; \
+    mv -f .bash_aliases .bak/ ; \
+    ( \
+      wget --timestamping --show-progress --progress=dot --timeout=5 http://raw.githubusercontent.com/entangledloops/config/master/linux/.bash_aliases && \
+      source .bash_aliases && \
+      success "alias upgrade"
+    ) || (fail "alias upgrade" ; alias-down) ; \
   pop'
 
 # pull latest vimrc from server or restore prev
 alias vimrc-down='(cp -f ~/.bak/.vimrc ~/ && success "vimrc downgrade") || fail "vimrc downgrade"'
-alias vimrc-up='push ~ ; \
-  del .bak/.vimrc ; \
-  mv -f .vimrc .bak/ ; \
-  wget --timestamping --show-progress --progress=dot --timeout=5 http://raw.githubusercontent.com/entangledloops/config/master/linux/.vimrc && \
-  success "vimrc upgrade" || (fail "vimrc upgrade" ; vimrc-down) ; \
+alias vimrc-up='\
+  push ~ ; \
+    del .bak/.vimrc ; \
+    mv -f .vimrc .bak/ ; \
+    ( \
+      wget --timestamping --show-progress --progress=dot --timeout=5 http://raw.githubusercontent.com/entangledloops/config/master/linux/.vimrc && \
+      success "vimrc upgrade"
+    ) || (fail "vimrc upgrade" ; vimrc-down) ; \
   pop'
 
 # pull latest bashrc from server or restore prev
 alias screenrc-down='(cp -f ~/.bak/.screenrc ~/ && success "screenrc downgrade") || fail "screenrc downgrade"'
-alias screenrc-up='push ~ ; \
-  del .bak/.screenrc ; \
-  mv -f .screenrc .bak/ ; \
-  wget --timestamping --show-progress --progress=dot --timeout=5 http://raw.githubusercontent.com/entangledloops/config/master/linux/.screenrc && \
-  success "screenrc upgrade" || (fail "screenrc upgrade" ; screenrc-down) ; \
+alias screenrc-up='\
+  push ~ ; \
+    del .bak/.screenrc ; \
+    mv -f .screenrc .bak/ ; \
+    ( \
+      wget --timestamping --show-progress --progress=dot --timeout=5 http://raw.githubusercontent.com/entangledloops/config/master/linux/.screenrc && \
+      success "screenrc upgrade" 
+    ) || (fail "screenrc upgrade" ; screenrc-down) ; \
   pop'
 
 # pull latest vimrc and vim settings folder from server or restore prev
 alias vim-down='del ~/.vim >/dev/null 2&>1 ; cp -rf ~/.bak/.vim ~/ ; (vimrc-down && success "vim downgrade") || fail "vim downgrade"'
 alias vim-up='vimrc-up && \
   ( \
-    push ~ ;\
-    echo "backing up vim settings..." ; \
-    del .bak/.vim >/dev/null 2>&1 ; \
-    mv -f .vim .bak/ ; \
-    echo "syncing with latest vim settings..." ; \
-    del entangledloops.com >/dev/null 2>&1 ; \
-    svn checkout https://github.com/entangledloops/config/trunk/linux/.vim/ --force && \
-    push .vim && mkdir bak tmp undo && pop && \
-    success "vim upgrade" || (fail "vim upgrade" ; vim-down) ;
+    push ~ ; \
+      echo "backing up vim settings..." ; \
+      del .bak/.vim >/dev/null 2>&1 ; \
+      mv -f .vim .bak/ ; \
+      del entangledloops.com >/dev/null 2>&1 ; \
+      ( \
+        echo "syncing with latest vim settings..." && \
+        svn checkout https://github.com/entangledloops/config/trunk/linux/.vim/ --force && \
+        success "vim upgrade"
+      ) || (fail "vim upgrade" ; vim-down) && \
+      push .vim && \
+        mkdir -p bak tmp undo plugin doc && \
+        ( \
+          push plugin && \
+            rm -f surround.vim && \
+            wget --timestamping --show-progress --progress=dot --timeout=5 http://raw.githubusercontent.com/tpope/vim-surround/master/plugin/surround.vim && \
+          pop && \
+          success "plugin download: tpope/plugin/surround.vim" \
+        ) || warn "plugin download: tpope/plugin/surround.vim" && \
+        ( \
+          push doc && \
+            rm -f surround.txt && \
+            wget --timestamping --show-progress --progress=dot --timeout=5 http://raw.githubusercontent.com/tpope/vim-surround/master/doc/surround.txt && \
+          pop && \
+          success "doc download: tpope/doc/surround.txt"
+        ) || warn "doc download: tpope/doc/surround.txt" && \
+      pop && \
     pop \
   )'
 
@@ -208,11 +243,11 @@ alias upgrade='sudo apt-get upgrade -y'
 alias upg='upgrade && success "upgrade" || fail "upgrade"'
 alias config-up='alias-up && bashrc-up && vim-up && screenrc-up && rs'
 alias dist-upgrade='sudo apt-get dist-upgrade -y'
-alias dist-up='(dist-upgrade && apt-file update && config-up && success "dist upgrade") || fail "dist upgrade"'
+alias dist-up='sudo source <(echo "dist-upgrade && apt-file update && config-up && success \"dist upgrade\"") || fail "dist upgrade"'
 
 # update/upgrade flavors
-alias u='upd && upg'
-alias uu='config-up && upd && dist-up && upg'
+alias u="sudo source <(echo 'upd && upg')" 
+alias uu="sudo source <(echo 'config-up && upd && dist-up && upg')"
 
 # version / system info
 alias inodes='df -ih'
@@ -220,7 +255,7 @@ alias kernel='uname -r'
 alias os='lsb_release -a'
 alias version="echo $'kernel:\n\t$(kernel)\nos:\n\t$(os | awk -vRS="\n" -vORS="\n\t" '1')'"
 alias disk="echo $'inodes:\n$(inodes | awk -vRS="\n" -vORS="\n\t" '1')\n\ndisk:\n$(df | awk -vRS="\n" -vORS="\n\t" '1')\n$(sudo discus)'"
-alias vdisk="bg 'sudo baobab /'"
+alias vdisk="bg 'gksu baobab /'"
 alias mem='cat /proc/meminfo'
 alias info="echo $'$(mem)\n$(disk)\n$(version)'"
 
@@ -269,7 +304,7 @@ alias install-sublime='push /tmp ; \
 # command to prepare a new system
 alias setup='install \
   linux-headers-$(uname -r) linux-headers-generic dkms lsb-core xbindkeys \
-  ntfs-3g exfat-fuse exfat-utils trash-cli apt-file multitail strace collectd-core \
+  ntfs-3g exfat-fuse exfat-utils trash-cli apt-file multitail strace collectd-core gparted \
   vim ssh screen build-essential gcc g++ gdb valgrind python3 \
   cmake cmake-gui subversion cvs git mercurial wget \
   htop iotop iftop glances dstat incron sysstat discus systemtap-sdt-dev baobab \
@@ -286,7 +321,7 @@ alias setup-extras='install \
 ###############################################################################
 
 # shorthand to launch and detach a process supressing all output
-function bg_helper() { (nohup "$@" >/dev/null 2>&1 & disown) >/dev/null 2>&1; }
+function bg_helper() { (nohup $@ >/dev/null 2>&1 & disown) >/dev/null 2>&1; }
 alias bg='bg_helper'
 
 # generic file open; replace w/whatever you want (hex editor, etc.)
@@ -345,12 +380,16 @@ alias success='success_helper'
 function fail_helper() { printf "[ ${RED}$@ failed${NO_COLOR} ]\n"; }
 alias fail='fail_helper'
 
+function warn_helper() { printf "[ ${YELLOW}$@${NO_COLOR} ]\n"; }
+alias warn='warn_helper'
+
 ###############################################################################
 # apps to launch in background
 ###############################################################################
 
+alias gparted='bg "gksu gparted"'
 alias filezilla='bg "filezilla"'
-alias wireshark='bg "wireshark"'
+alias wireshark='bg "gksu wireshark"'
 alias sublime='bg "subl"'
 
 ###############################################################################
