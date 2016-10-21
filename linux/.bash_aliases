@@ -318,36 +318,96 @@ alias setup-extras='install \
   atop'
 
 ###############################################################################
+# apps to launch in background
+###############################################################################
+
+alias gparted='bg "gparted"'
+alias sgparted='bg "gksu gparted"'
+
+alias filezilla='bg "filezilla"'
+alias sfilezilla='bg "gksu filezilla"'
+
+alias wireshark='bg "wireshark"'
+alias swireshark='bg "gksu wireshark"'
+
+alias sublime='bg "subl"'
+alias ssublime='bg "gksu sublime"'
+
+###############################################################################
+# shorthands for other tasks
+###############################################################################
+
+alias gfetch='git fetch --all --verbose'
+alias gpull='gfetch && git merge --verbose'
+alias gpush='git push --follow-tags --verbose'
+alias glog='git log --full-diff --name-only --graph --full-history --no-merges --pretty=format:"%Cred%an%Creset, %C(yellow)%ar%Creset%n%Cgreen%H%Creset%n%B'
+
+###############################################################################
 # functions
 ###############################################################################
 
+# colorful pre-formatted logging shorthands
+function success_helper() { printf "[ ${GREEN}$@ successful${NO_COLOR} ]\n" ; }
+alias success='success_helper'
+
+function fail_helper() { printf "[ ${RED}$@ failed${NO_COLOR} ]\n" ; }
+alias fail='fail_helper'
+
+function warn_helper() { printf "[ ${YELLOW}$@${NO_COLOR} ]\n" ; }
+alias warn='warn_helper'
+
+# basic system task wrappers
+function push_helper() { pushd $@ >/dev/null 2>&1 ; }
+alias push='push_helper'
+
+function pop_helper() { popd $@ >/dev/null 2>&1 ; }
+alias pop='pop_helper'
+
 # shorthand to launch and detach a process supressing all output
-function bg_helper() { (nohup $@ >/dev/null 2>&1 & disown) >/dev/null 2>&1; }
+function bg_helper() { (nohup $@ >/dev/null 2>&1 & disown) >/dev/null 2>&1 ; }
 alias bg='bg_helper'
 
 # generic file open; replace w/whatever you want (hex editor, etc.)
-function open_helper() { bg "$MY_FILE_MANAGER $@"; }
+function open_helper() { bg "$MY_FILE_MANAGER $@" ; }
 alias open='open_helper'
 alias sopen='sudo open'
 
+# locate package a file is from
+function pkg_helper() { sudo dpkg --search $@ >/dev/null 2>&1; if [ $? != 0 ]; then warn "unable to locate locally, searching repos..." && apt-file search $@; fi ; }
+alias pkg='pkg_helper'
+
 # find from pwd; don't forget double-quotes, e.g.: find "*.txt"
-function find_helper() { /usr/bin/find . -iname "$@" -readable -writable -prune -print; }
+function find_helper() { /usr/bin/find . -iname "$@" -readable -writable -prune -print ; }
 alias find='find_helper'
 
 # find from root; don't forget double-quotes, e.g.: findall "*.txt"
-function findall_helper() { /usr/bin/find / -iname "$@" 2>&1 | grep -v 'Permission denied' >&2; }
+function findall_helper() { /usr/bin/find / -iname "$@" 2>&1 | grep -v 'Permission denied' >&2 ; }
 alias findall='findall_helper'
 
 # greps the full package list for targets matching provided grep string
-function listgrep() { /usr/bin/dpkg -l | grep "$@"; }
+function listgrep() { /usr/bin/dpkg -l | grep "$@" ; }
 
 # OpenSSH -> SSH2 helper
-function openssh_to_ssh2_helper() { ssh-keygen -e -f $@ > $@.ssh2; }
+function openssh_to_ssh2_helper() { ssh-keygen -e -f $@ > $@.ssh2 ; }
 alias openssh-to-ssh2='openssh_to_ssh2_helper'
 
 # SSH2 -> OpenSSH
-function ssh2_to_openssh_helper() { ssh-keygen -i -f $@ > $@.openssh; }
+function ssh2_to_openssh_helper() { ssh-keygen -i -f $@ > $@.openssh ; }
 alias ssh2-to-openssh='ssh2_to_openssh_helper'
+
+# GNU screen integration
+function screen_helper() { if [ -z "$STY" ]; then screen -RR -A -r "$@" || screen; fi ; }
+alias screen='screen_helper'
+
+# git
+function gbranch_helper() { gfetch && git branch -b $1 origin/$1 && git pull --verbose ; }
+alias gbranch='gbranch_helper'
+
+function gcheckout_helper() { gfetch && git checkout $1 --verbose && git diff --name-status HEAD@{1} HEAD && git pull --verbose ; }
+alias gcheckout='gcheckout_helper'
+
+function gcommit_helper() { git add -u && git commit -m "$@" --verbose ; }
+alias gcommit='gcommit_helper'
 
 # air-suite helpers
 function aireplay_helper() { aireplay-ng --ignore-negative-one -0 2 -a $2 -c $3 $1; }
@@ -361,37 +421,6 @@ alias aircrack='aircrack_helper'
 
 function aircrackq_helper() { aircrack-ng -q -w - -a 2 -e $1 -l $1.pwd $1*.*; }
 alias aircrackq='aircrackq_helper'
-
-# GNU screen integration
-function screen_helper() { if [ -z "$STY" ]; then screen -RR -A -r "$@" || screen; fi; }
-alias screen='screen_helper'
-
-function pkg_helper() { sudo dpkg --search $@ >/dev/null 2>&1; if [ $? != 0 ]; then fail "unable to locate on local machine, searching repositories..."; apt-file search $@; fi; }
-alias pkg='pkg_helper'
-
-function push_helper() { pushd $@ >/dev/null 2>&1; }
-alias push='push_helper'
-
-function pop_helper() { popd $@ >/dev/null 2>&1; }
-alias pop='pop_helper'
-
-function success_helper() { printf "[ ${GREEN}$@ successful${NO_COLOR} ]\n"; }
-alias success='success_helper'
-
-function fail_helper() { printf "[ ${RED}$@ failed${NO_COLOR} ]\n"; }
-alias fail='fail_helper'
-
-function warn_helper() { printf "[ ${YELLOW}$@${NO_COLOR} ]\n"; }
-alias warn='warn_helper'
-
-###############################################################################
-# apps to launch in background
-###############################################################################
-
-alias gparted='bg "gksu gparted"'
-alias filezilla='bg "filezilla"'
-alias wireshark='bg "gksu wireshark"'
-alias sublime='bg "subl"'
 
 ###############################################################################
 # custom
