@@ -98,7 +98,7 @@ export MY_DATE_FORMAT='%Y-%m-%d'
 export MY_JAVA_VERSION='8'
 
 # build current java repo string
-MY_JAVA_REPO1="ppa:webupd$MY_JAVA_VERSION"
+MY_JAVA_REPO1="ppa:webupd"
 MY_JAVA_REPO2="team/java"
 export MY_JAVA_REPO="$MY_JAVA_REPO1$MY_JAVA_VERSION$MY_JAVA_REPO2"
 
@@ -174,26 +174,26 @@ alias del='trash-put '
 alias sdel='sudo trash-put '
 
 # package management
-alias list='dpkg --list '
-alias list-kernels='list | grep linux-image- '
-alias list-headers='list | grep linux-headers- '
+alias list='dpkg --list'
+alias list-kernels='list | grep linux-image-'
+alias list-headers='list | grep linux-headers-'
 
 # dpkg install/uninstall shorthands
 alias add='sudo add-apt-repository'
-alias dinstall='sudo dpkg -i '
-alias dreinstall='sudo dpkf -r '
-alias install='sudo apt-get -y install '
-alias reinstall='install --reinstall '
-alias uninstall='sudo apt-get remove '
+alias dinstall='sudo dpkg -i'
+alias dreinstall='sudo dpkf -r'
+alias install='sudo apt-get -y install'
+alias reinstall='install --reinstall'
+alias uninstall='sudo apt-get remove'
 
 # remove old linux kernel versions
-alias clean='sudo apt-get clean '
-alias autoclean='sudo apt-get autoclean '
-alias autoremove='sudo apt-get autoremove '
-alias purge='sudo apt-get -y purge '
-alias purge-kernels='list | grep linux-image | cut -d " " -f 3 | sort -V | sed -n "/"`uname -r`"/q;p" | xargs sudo apt-get purge '
-alias purge-configs='dpkg -l | grep "^rc" | cut -d " " -f 3 | xargs sudo apt-get purge '
-alias cleanup='sudo trash-empty && autoclean && autoremove && rm -f ~/1 ~/.xsession-errors* '
+alias clean='sudo apt-get clean'
+alias autoclean='sudo apt-get autoclean'
+alias autoremove='sudo apt-get autoremove'
+alias purge='sudo apt-get -y purge'
+alias purge-kernels='list | grep linux-image | cut -d " " -f 3 | sort -V | sed -n "/"`uname -r`"/q;p" | xargs sudo apt-get purge'
+alias purge-configs='dpkg -l | grep "^rc" | cut -d " " -f 3 | xargs sudo apt-get purge'
+alias cleanup='sudo trash-empty && autoclean && autoremove && rm -f ~/1 ~/.xsession-errors*'
 
 # pull latest bashrc from server or restore prev
 alias bashrc-down='(cp -f ~/.bak/.bashrc ~/ && success "bashrc downgrade") || fail "bashrc downgrade" '
@@ -279,17 +279,17 @@ alias vim-up='vimrc-up && \
   ) '
 
 # component update helpers
-alias os-upgrade='sudo do-release-upgrade -d '
-alias os-up='os-upgrade '
-alias gui-update='sudo update-manager -d '
-alias gupd='gui-update '
-alias update='sudo apt-get update '
-alias upd='update && success "update" || fail "update" '
-alias upgrade='sudo apt-get upgrade -y '
-alias upg='upgrade && success "upgrade" || fail "upgrade" '
+alias os-upgrade='sudo do-release-upgrade -d'
+alias os-up='os-upgrade'
+alias gui-update='sudo update-manager -d'
+alias gupd='gui-update'
+alias update='sudo apt-get update'
+alias upd='update && success "update" || fail "update"'
+alias upgrade='sudo apt-get upgrade -y'
+alias upg='upgrade && success "upgrade" || fail "upgrade"'
 alias config-up='alias-up && bashrc-up && vim-up && screenrc-up && rs '
-alias dist-upgrade='sudo apt-get dist-upgrade -y '
-alias dist-up='sudo source <(echo "dist-upgrade && apt-file update && config-up && success \"dist upgrade\"") || fail "dist upgrade" '
+alias dist-upgrade='sudo apt-get dist-upgrade -y'
+alias dist-up='sudo source <(echo "dist-upgrade && apt-file update && config-up && success \"dist upgrade\"") || fail "dist upgrade"'
 
 # update/upgrade flavors
 alias u='sudo source <(echo "upd && upg") ' 
