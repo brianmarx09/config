@@ -404,7 +404,7 @@ function version_helper()
     local ARGS="${@}" && \
     local PADDING="Version " && \
     local KEEP="$(expr "${#ARGS}" + "${#PADDING}")" && \
-    man $@ | grep -i -e "version\+\s*[0-9]\+[^\s]" | tail -1 | cut -c 1-$KEEP | \
+    man $@ | grep -i -e "version\+\s*[0-9]\+[^\s]" | tail -1 | sed -e 's/^ *//' | cut -c 1-$KEEP | \
     gawk 'match($0, /[^0-9]*?([0-9][^\ \t]*?)/, matches) { print matches[1] }' \
   ) || \
   fail "version lookup" \
