@@ -364,7 +364,7 @@ alias setup-system='install \
 # setup a development environment
 alias setup-dev='install \
   screen build-essential gcc g++ gdb valgrind python3 \
-  cmake cmake-gui subversion cvs git mercurial wget gawk && \
+  cmake cmake-gui subversion cvs git mercurial wget gawk sed && \
   install-java '
 
 # useful utilities for system monitoring, networking, and other common tasks
@@ -545,5 +545,5 @@ fi
 ###############################################################################
 
 # include pwd in path
-export PATH=$PATH:.
+export PATH=$PATH:~/scripts:.
 
