@@ -404,6 +404,7 @@ alias stransmission='bg "gksu transmission" '
 # shorthands and convenient default params for other common tasks
 ###############################################################################
 
+alias gclone='git clone --verbose '
 alias gfetch='git fetch --all --verbose '
 alias gpull='gfetch && git merge --verbose '
 alias gpush='git push --follow-tags --verbose '
