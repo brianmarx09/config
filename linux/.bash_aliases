@@ -400,7 +400,7 @@ function version_helper()
   ($@ -ver >/dev/null 2>&1 && $@ -ver) || \
   ( \
     man $@ >/dev/null 2>&1 && \
-    warn "version best-guess extracted from man pages footer" && \
+    warn "version manually extracted from man pages footer" && \
     local ARGS="${@}" && \
     local PADDING="Version " && \
     local KEEP="$(expr "${#ARGS}" + "${#PADDING}")" && \
