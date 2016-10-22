@@ -120,7 +120,7 @@ export MY_SUBLIME='sublime-text_build-3126_amd64.deb'
 ###############################################################################
 
 # allow commands following sudo to be expanded for further aliases; bash man
-alias source='source '
+#alias source='source '
 alias bash='bash '
 alias sh='sh '
 alias sudo='sudo '
