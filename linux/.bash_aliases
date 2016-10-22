@@ -288,8 +288,8 @@ alias upd='update && success "update" || fail "update" '
 alias upgrade='sudo apt-get upgrade -y '
 alias upg='upgrade && success "upgrade" || fail "upgrade" '
 alias config-up='alias-up && bashrc-up && vim-up && screenrc-up && rs '
-alias dist-upgrade='sudo apt-get dist-upgrade -y '
-alias dist-up='sudo source <(\echo "dist-upgrade && apt-file update && config-up && success \"dist upgrade\"") || fail "dist upgrade" '
+alias dist-upgrade='\sudo apt-get \dist-upgrade -y '
+alias dist-up='\sudo source <(echo "dist-upgrade && apt-file update && config-up && success \"dist upgrade\"") || fail "dist upgrade" '
 
 # update/upgrade flavors
 alias u='sudo source <(\echo "upd && upg") ' 
