@@ -318,7 +318,7 @@ alias install-sublime='push /tmp ; \
 alias setup='install \
   linux-headers-$(uname -r) linux-headers-generic dkms lsb-core xbindkeys \
   ntfs-3g exfat-fuse exfat-utils trash-cli apt-file multitail strace collectd-core gparted \
-  vim ssh screen build-essential gcc g++ gdb valgrind python3 \
+  vim ssh screen build-essential gcc g++ gdb valgrind python3 gawk \
   cmake cmake-gui subversion cvs git mercurial wget \
   htop iotop iftop glances dstat incron sysstat discus systemtap-sdt-dev baobab \
   nmap nmon mtr traceroute tcpdump ethtool ngrep aircrack-ng \
@@ -398,6 +398,7 @@ function version_helper()
   ($@ -vv >/dev/null 2>&1 && $@ -vv) || \
   ($@ --ver >/dev/null 2>&1 && $@ --ver) || \
   ($@ -ver >/dev/null 2>&1 && $@ -ver) || \
+  (man $@ >/dev/null 2>&1 && man $@) || \
   fail "version lookup" \
   ;
 }
