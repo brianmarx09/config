@@ -180,6 +180,7 @@ alias list-headers='list | grep linux-headers-'
 
 # dpkg install/uninstall shorthands
 alias add='sudo add-apt-repository'
+alias depends='sudo apt-get -f -y install'
 alias dinstall='sudo dpkg -i'
 alias dreinstall='sudo dpkf -r'
 alias install='sudo apt-get -y install'
