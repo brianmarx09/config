@@ -375,13 +375,13 @@ alias warn='warn_helper '
 # helper for locating docs
 function help_helper() 
 { 
-  (man $@ >/dev/null 2>&1 && man $@) || \
   ($@ --help /dev/null 2>&1 && $@ --help) || \
   ($@ -help >/dev/null 2>&1 && $@ -help) || \
   ($@ --h >/dev/null 2>&1 && $@ --h) || \
   ($@ -h >/dev/null 2>&1 && $@ -h) || \
   ($@ -? >/dev/null 2>&1 && $@ -?) || \
   ($@ --? >/dev/null 2>&1 && $@ --?) || \
+  (man $@ >/dev/null 2>&1 && man $@) || \
   fail "help lookup" \
   ;
 }
@@ -398,7 +398,14 @@ function version_helper()
   ($@ -vv >/dev/null 2>&1 && $@ -vv) || \
   ($@ --ver >/dev/null 2>&1 && $@ --ver) || \
   ($@ -ver >/dev/null 2>&1 && $@ -ver) || \
-  (man $@ >/dev/null 2>&1 && man $@) || \
+  ( \
+    local ARGS="${@}" && \
+    local PADDING="Version " && \
+    local KEEP="$(expr "${#ARGS}" + "${#PADDING}")" && \
+    man $@ >/dev/null 2>&1 && \
+    man $@ | grep -i -e "version\+\s*[0-9]\+[^\s]" | tail -1 | cut -c 1-$KEEP | \
+    gawk 'match($0, /[^0-9]*?([0-9][^\ \t]*?)/, matches) { print matches[1] }' \
+  ) || \
   fail "version lookup" \
   ;
 }
