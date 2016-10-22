@@ -399,10 +399,11 @@ function version_helper()
   ($@ --ver >/dev/null 2>&1 && $@ --ver) || \
   ($@ -ver >/dev/null 2>&1 && $@ -ver) || \
   ( \
+    man $@ >/dev/null 2>&1 && \
+    warn "version best-guess extracted from man pages footer" && \
     local ARGS="${@}" && \
     local PADDING="Version " && \
     local KEEP="$(expr "${#ARGS}" + "${#PADDING}")" && \
-    man $@ >/dev/null 2>&1 && \
     man $@ | grep -i -e "version\+\s*[0-9]\+[^\s]" | tail -1 | cut -c 1-$KEEP | \
     gawk 'match($0, /[^0-9]*?([0-9][^\ \t]*?)/, matches) { print matches[1] }' \
   ) || \
