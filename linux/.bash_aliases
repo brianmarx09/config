@@ -401,6 +401,9 @@ alias ssublime='bg "sudo subl"' # sublime needs sudo instead of gksu
 alias transmission='bg "transmission-gtk" '
 alias stransmission='bg "gksu transmission" '
 
+alias gitkraken='bg "gitkraken" '
+alias sgitkraken='bg "gksu gitkraken" '
+
 ###############################################################################
 # shorthands and convenient default params for other common tasks
 ###############################################################################
