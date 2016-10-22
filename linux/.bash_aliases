@@ -120,7 +120,7 @@ export MY_SUBLIME='sublime-text_build-3126_amd64.deb'
 ###############################################################################
 
 # allow commands following sudo to be expanded for further aliases; bash man
-#alias source='source '
+alias source='source '
 alias bash='bash '
 alias sh='sh '
 alias sudo='sudo '
@@ -289,11 +289,11 @@ alias upgrade='sudo apt-get upgrade -y '
 alias upg='upgrade && success "upgrade" || fail "upgrade" '
 alias config-up='alias-up && bashrc-up && vim-up && screenrc-up && rs '
 alias dist-upgrade='sudo apt-get dist-upgrade -y '
-alias dist-up='sudo \source <(echo "dist-upgrade && apt-file update && config-up && success \"dist upgrade\"") || fail "dist upgrade" '
+alias dist-up='sudo source <(\echo "dist-upgrade && apt-file update && config-up && success \"dist upgrade\"") || fail "dist upgrade" '
 
 # update/upgrade flavors
-alias u='sudo \source <(echo "upd && upg") ' 
-alias uu='sudo \source <(echo "config-up && upd && dist-up && upg") '
+alias u='sudo source <(\echo "upd && upg") ' 
+alias uu='sudo source <(\echo "config-up && upd && dist-up && upg") '
 
 # version / system info
 alias inodes='df -ih '
