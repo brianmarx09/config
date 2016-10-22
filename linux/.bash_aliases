@@ -2,7 +2,6 @@
 #
 # @author Stephen Dunn (snd)
 # @since April 1, 2016
-# @updated July 26, 2016
 #
 # Description:
 # A minimal (useful) starting point for a Debian-based OS.
@@ -11,20 +10,32 @@
 # Add additional config to a "~/.bash_extra" file and it will be loaded last.
 #
 # Installation:
-# 1) Backup current settings:
-#    cp -f ~/.bash_aliases ~/.bash_aliases.bak
-# 2) Copy this file to ~/.bash_aliases, e.g.:
-#    cp -f ~/Downloads/.bash_aliases ~/.bash_aliases
-# 3) To import new settings into current session:
-#    source ~/.bash_aliases
-# 4) You can now enter 'rs' to refresh your term from the file, and use
-#    'upd', 'upg', 'u', etc. as defined below to keep up-to-date
+#   
+#   1) paste this file in your home directory (~), then from a terminal:
+#   2) source ~/.bash_aliases && setup
+#
+# You will be prompted for your root password to allow basic
+# package installation and setup scripts to execute. You only need to
+# do those steps once. That's it!
+#
+# Updating system packages:
+#   u
+#
+# Updating system distribution and packages:
+#   uu
+#
+# Updating system distribution, packages, and configs:
+#   uuu
+#
+# There are many more specific options provided. Just take a look around the
+# section containing the update commands to see what's available.
 #
 # Notes:
 # - ****** add any additional config to a "~/.bash_extra" file ******
 # - change the default editors if you don't like/have vim + sublime
 # - naturally, assumes no conflicts between your other aliases / bash settings
 # - commands are listed in order of estimated utility to save you search time
+# - aliases are often suffixed w/a ' ' b/c it permits recursive alias expansion
 # - see the provided screenrc for a GNU screen integration example
 # - see the corresponding bashrc for other minor integration options
 #   - e.g., if you want proper colors your bashrc should have
@@ -32,7 +43,6 @@
 #         export TERM=xterm-256color
 #
 #     or an equivalent statement enabling more than 16 colors in your term
-
 
 ###############################################################################
 # clear all previous aliases and PATH (removing quotes via sed)
@@ -51,17 +61,8 @@ export PATH=$(cat /etc/environment | tr -d '"')
 [[ -z "${PATH// }" ]] && export PATH=$PATH_CACHE
 
 ###############################################################################
-# default apps
+# universally used vars
 ###############################################################################
-
-export MY_TERM='lxterminal --geometry=160x40'
-export MY_TERM_EDITOR='vim'
-export MY_GUI_EDITOR='/usr/bin/subl'
-export MY_FILE_MANAGER='pcmanfm'
-export MY_DATE_FORMAT='%Y-%m-%d'
-
-# the tested build of sublime text
-export MY_SUBLIME='sublime-text_build-3126_amd64.deb'
 
 # color escape seqs for printf / echo
 export BLACK='\033[0;30m'
@@ -84,7 +85,38 @@ export WHITE='\033[1;37m'
 export NO_COLOR='\033[0m'
 
 ###############################################################################
-# aliases
+# default apps
+###############################################################################
+
+export MY_TERM='lxterminal --geometry=160x40'
+export MY_TERM_EDITOR='vim'
+export MY_GUI_EDITOR='/usr/bin/subl'
+export MY_FILE_MANAGER='pcmanfm'
+export MY_DATE_FORMAT='%Y-%m-%d'
+
+# tested oracle java version
+export MY_JAVA_VERSION='8'
+
+# build current java repo string
+MY_JAVA_REPO1="ppa:webupd$MY_JAVA_VERSION"
+MY_JAVA_REPO2="team/java"
+export MY_JAVA_REPO="$MY_JAVA_REPO1$MY_JAVA_VERSION$MY_JAVA_REPO2"
+
+# build current java installer package string
+MY_JAVA_INSTALLER1="oracle-java"
+MY_JAVA_INSTALLER2="-installer"
+export MY_JAVA_INSTALLER="$MY_JAVA_INSTALLER1$MY_JAVA_VERSION$MY_JAVA_INSTALLER2"
+
+# build current java env configuration package string
+MY_JAVA_DEFAULT1="$MY_JAVA_INSTALLER1"
+MY_JAVA_DEFAULT2="-set-default"
+export MY_JAVA_DEFAULT="$MY_JAVA_DEFAULT1$MY_JAVA_VERSION$MY_JAVA_DEFAULT2"
+
+# the tested build of sublime text
+export MY_SUBLIME='sublime-text_build-3126_amd64.deb'
+
+###############################################################################
+# aliases ordered by necessity, importantce, and re-use elsewhere
 ###############################################################################
 
 # allow commands following sudo to be expanded for further aliases; bash man
@@ -147,6 +179,7 @@ alias list-kernels='list | grep linux-image- '
 alias list-headers='list | grep linux-headers- '
 
 # dpkg install/uninstall shorthands
+alias add='sudo add-apt-repository'
 alias dinstall='sudo dpkg -i '
 alias dreinstall='sudo dpkf -r '
 alias install='sudo apt-get -y install '
@@ -305,30 +338,48 @@ alias vb='vimbashrc '
 alias e='edit '
 alias g='guiedit '
 
-# helper for sublime text which isn't in a repo currently
-alias install-sublime='push /tmp ; \
-  wget --show-progress --progress=dot https://download.sublimetext.com/$MY_SUBLIME && \
-  dinstall $MY_SUBLIME && \
-  rm -f $MY_SUBLIME >/dev/null 2>&1 &&
-  success "sublime install" || \
-  fail "sublime install" ; \
+# helper for installing requested java
+alias install-java="\
+  install python-software-properties && \
+  add $MY_JAVA_REPO && \
+  upd && \
+  install $MY_JAVA_INSTALLER $MY_JAVA_DEFAULT "
+
+# helper for sublime text which isn't currently in a public repo
+alias install-sublime='\
+  push /tmp ; \
+    wget --show-progress --progress=dot https://download.sublimetext.com/$MY_SUBLIME && \
+    dinstall $MY_SUBLIME && \
+    rm -f $MY_SUBLIME >/dev/null 2>&1 &&
+    success "sublime install" || \
+    fail "sublime install" ; \
   pop '
 
-# command to prepare a new system
-alias setup='install \
-  linux-headers-$(uname -r) linux-headers-generic dkms lsb-core xbindkeys \
-  ntfs-3g exfat-fuse exfat-utils trash-cli apt-file multitail strace collectd-core gparted \
-  vim ssh screen build-essential gcc g++ gdb valgrind python3 gawk \
-  cmake cmake-gui subversion cvs git mercurial wget \
-  htop iotop iftop glances dstat incron sysstat discus systemtap-sdt-dev baobab \
+# core system utils that are good to have ready
+alias setup-system='install \
+  linux-headers-$(uname -r) linux-headers-generic dkms lsb-core collectd-core \
+  vim ssh xbindkeys ntfs-3g exfat-fuse exfat-utils trash-cli apt-file multitail strace '
+
+# setup a development environment
+alias setup-dev='install \
+  screen build-essential gcc g++ gdb valgrind python3 \
+  cmake cmake-gui subversion cvs git mercurial wget gawk && \
+  install-java '
+
+# useful utilities for system monitoring, networking, and other common tasks
+alias setup-extras='install \
+  gparted htop iotop iftop glances dstat incron sysstat discus systemtap-sdt-dev baobab \
   nmap nmon mtr traceroute tcpdump ethtool ngrep aircrack-ng \
   gimp audacity filezilla wireshark transmission-gtk && \
-  if [[ ! -d ~/.bak ]] ; then mkdir ~/.bak ; fi && \
-  (config-up; install-sublime; dist-up; u) && \
-  warn "the system should be rebooted after first setup" '
+  install-sublime '
 
-alias setup-extras='install \
-  atop '
+# command to prepare a new system
+alias setup='\
+  setup-system && \
+  setup-dev && \
+  setup-extras && \
+  (mkdir -p ~/.ssh ~/.bak ~/code ~/bin ~/scripts ; config-up ; dist-up ; u) && \
+  warn "the system should be rebooted after initial setup" '
 
 ###############################################################################
 # apps to launch in background
@@ -350,7 +401,7 @@ alias transmission='bg "transmission-gtk" '
 alias stransmission='bg "gksu transmission" '
 
 ###############################################################################
-# shorthands for other tasks
+# shorthands and convenient default params for other common tasks
 ###############################################################################
 
 alias gfetch='git fetch --all --verbose '
@@ -432,23 +483,20 @@ alias sopen='sudo open '
 function pkg_helper() { sudo dpkg --search $@ >/dev/null 2>&1; if [ $? != 0 ]; then warn "unable to locate locally, searching repos..." && apt-file search $@; fi ; }
 alias pkg='pkg_helper '
 
-# find from pwd; don't forget double-quotes, e.g.: find "*.txt"
+# find from pwd filtering errors; don't forget double-quotes, e.g.: find "*.txt"
 function find_helper() { \find . -iname "$@" -readable -writable -prune -print ; }
 alias find='find_helper '
 
-# find from root; don't forget double-quotes, e.g.: findall "*.txt"
+# find from root filtering errors; don't forget double-quotes, e.g.: findall "*.txt"
 function findall_helper() { \find / -iname "$@" 2>&1 | grep -v 'Permission denied' >&2 ; }
 alias findall='findall_helper '
 
-# greps the full package list for targets matching provided grep string
-function listgrep() { dpkg -l | grep "$@" ; }
-
 # OpenSSH -> SSH2 helper
-function openssh_to_ssh2_helper() { ssh-keygen -e -f $@ > $@.ssh2 ; }
+function openssh_to_ssh2_helper() { ssh-keygen -e -f $1 > $1.ssh2 ; }
 alias openssh-to-ssh2='openssh_to_ssh2_helper '
 
 # SSH2 -> OpenSSH
-function ssh2_to_openssh_helper() { ssh-keygen -i -f $@ > $@.openssh ; }
+function ssh2_to_openssh_helper() { ssh-keygen -i -f $1 > $1.openssh ; }
 alias ssh2-to-openssh='ssh2_to_openssh_helper '
 
 # GNU screen integration
@@ -475,8 +523,8 @@ alias aireplay-all='aireplay_all_helper '
 function aircrack_helper() { aircrack-ng -w - -a 2 -e $1 -l $1.pwd $1*.cap; }
 alias aircrack='aircrack_helper '
 
-function aircrackq_helper() { aircrack-ng -q -w - -a 2 -e $1 -l $1.pwd $1*.*; }
-alias aircrackq='aircrackq_helper '
+function aircrack_q_helper() { aircrack-ng -q -w - -a 2 -e $1 -l $1.pwd $1*.*; }
+alias aircrack-q='aircrack_q_helper '
 
 ###############################################################################
 # custom
