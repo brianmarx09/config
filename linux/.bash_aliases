@@ -389,20 +389,18 @@ alias setup='\
 alias gparted='bg "gparted" '
 alias sgparted='bg "gksu gparted" '
 
-alias filezilla='bg "filezilla" '
-alias sfilezilla='bg "gksu filezilla" '
-
 alias wireshark='bg "wireshark" '
 alias swireshark='bg "gksu wireshark" '
 
 alias sublime='bg "subl" '
 alias ssublime='bg "sudo subl"' # sublime needs sudo instead of gksu
 
-alias transmission='bg "transmission-gtk" '
-alias stransmission='bg "gksu transmission" '
-
+alias firefox='bg "firefox" '
+alias chromium='bg "chromium-browser" '
+alias chromium-browser='bg "chromium-browser" '
 alias gitkraken='bg "gitkraken" '
-alias sgitkraken='bg "gksu gitkraken" '
+alias transmission='bg "transmission-gtk" '
+alias filezilla='bg "filezilla" '
 
 ###############################################################################
 # shorthands and convenient default params for other common tasks
