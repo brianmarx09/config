@@ -182,13 +182,13 @@ alias list-headers='list | grep linux-headers-'
 alias add='sudo add-apt-repository'
 alias depends='sudo apt-get -f -y install'
 alias dinstall='sudo dpkg -i'
-alias dreinstall='sudo dpkf -r'
 alias install='sudo apt-get -y install'
+alias dreinstall='sudo dpkf -r'
 alias reinstall='install --reinstall'
 alias uninstall='sudo apt-get remove'
 alias fix='sudo dpkg --configure -a && update && sudo apt-get -f install && sudo dpkg --configure -a'
 alias hold='sudo apt-mark hold'
-alias unhold='sudo apt-mark unhold'
+alias release='sudo apt-mark unhold'
 
 # remove old linux kernel versions
 alias clean='sudo apt-get clean'
@@ -428,6 +428,10 @@ alias fail='fail_helper '
 
 function warn_helper() { printf "[ ${YELLOW}$@${NO_COLOR} ]\n" ; }
 alias warn='warn_helper '
+
+# system task wrappers
+function dhold() { echo "$@ hold" | sudo dpkg --set-selections ; }
+function drelease() { echo "$@ install" | sudo dpkg --set-selections ; }
 
 # helper for locating docs
 function help_helper() 
