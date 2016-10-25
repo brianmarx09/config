@@ -293,11 +293,12 @@ alias upgrade='sudo apt-get upgrade -y '
 alias upg='upgrade && success "upgrade" || fail "upgrade" '
 alias config-up='alias-up && bashrc-up && vim-up && screenrc-up && rs '
 alias dist-upgrade='sudo apt-get dist-upgrade -y '
-alias dist-up='source <(sudo echo "dist-upgrade && apt-file update && config-up && success \"dist upgrade\"") || fail "dist upgrade" '
+alias dist-up='source <(sudo echo "dist-upgrade && apt-file update && success \"dist upgrade\"") || fail "dist upgrade" '
 
 # update/upgrade flavors
 alias u='source <(sudo echo "upd && upg") ' 
-alias uu='source <(sudo echo "config-up && upd && dist-up && upg") '
+alias uu='source <(sudo echo "u && dist-up") '
+alias uuu='source <(sudo echo "config-up && uu") '
 
 # version / system info
 alias inodes='df -ih '
@@ -507,26 +508,46 @@ alias gclone='gclone_helper '
 function gfetch_helper() { git fetch --all --verbose $@ ; }
 alias gfetch='gfetch_helper '
 
-function gpull_helper() { gfetch && git merge --verbose $@ ; }
+function gpull_helper() { gfetch ; git merge --verbose $@ ; }
 alias gpull='gpull_helper '
 
 function gpush_helper() { git push --follow-tags --verbose $@ ; }
 alias gpush='gpush_helper '
 
-function glog_helper() { git log --full-diff --name-only --graph --full-history --no-merges --pretty=format:"%C(bold blue)%an%Creset, %C(yellow)%ar%Creset%n%Cgreen%H%Creset%n%B" $@ ; }
-alias glog='glog_helper '
-
-function gcheckout_helper() { gfetch && git checkout $@ --verbose && gdiff && git pull --verbose ; }
-alias gcheckout='gcheckout_helper '
-
-function gbranch_helper() { git show-ref --verify --quiet refs/heads/$1 ; [ $? -eq 0 ] && gcheckout $@ || (gfetch && git branch -b $1 origin/$1 ${@:2} && gpull) ; }
-alias gbranch='gbranch_helper '
-
 function gdiff_helper() { [ $# -eq 0 ] && git diff --name-status HEAD@{1} HEAD || git diff --name-status $@ ; }
 alias gdiff='gdiff_helper '
 
+function glog_helper() { git log --full-diff --name-only --graph --full-history --no-merges --pretty=format:"%C(bold blue)%an%Creset, %C(yellow)%ar%Creset%n%Cgreen%H%Creset%n%B" $@ ; }
+alias glog='glog_helper '
+
 function gcommit_helper() { git add -u ; git commit -m "$@" --verbose ; }
 alias gcommit='gcommit_helper '
+
+function gcheckout_helper() 
+{ 
+  gfetch ; \
+  git branch -a | grep "\bremotes/origin/$1$" && \
+  ( \
+    [ $? -eq 0 ] &&
+    ( \
+      git show-ref --verify --quit refs/heads/$1 && \
+      [ $? -eq 0 ] && git checkout "$@" ||  git checkout -b $1 origin/$1 "${@:2}" \
+      ) \
+  ) && \
+  (gdiff && gpull ; success "checkout") || \
+  fail "checkout" \
+  ;
+}
+alias gcheckout='gcheckout_helper '
+
+function gbranch_helper() 
+{ 
+  git show-ref --verify --quiet refs/heads/$1 ; \
+  [ $? -ne 0 ] && (git branch "$@" && success "create branch $1" || fail "create branch $1") || \
+  (gcheckout $1 && warn "checked out existing branch $1" || fail "create branch $1") \
+  ; 
+}
+alias gbranch='gbranch_helper '
 
 # OpenSSH -> SSH2 key reformatting
 function openssh_to_ssh2_helper() { ssh-keygen -e -f $@ > $1.ssh2 ; }
