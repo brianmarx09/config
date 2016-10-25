@@ -406,16 +406,6 @@ alias transmission='bg "transmission-gtk" '
 alias filezilla='bg "filezilla" '
 
 ###############################################################################
-# shorthands and convenient default params for other common tasks
-###############################################################################
-
-alias gclone='git clone --verbose '
-alias gfetch='git fetch --all --verbose '
-alias gpull='gfetch && git merge --verbose '
-alias gpush='git push --follow-tags --verbose '
-alias glog='git log --full-diff --name-only --graph --full-history --no-merges --pretty=format:"%C(bold blue)%an%Creset, %C(yellow)%ar%Creset%n%Cgreen%H%Creset%n%B" '
-
-###############################################################################
 # functions
 ###############################################################################
 
@@ -432,6 +422,9 @@ alias warn='warn_helper '
 # system task wrappers
 function dhold() { echo "$@ hold" | sudo dpkg --set-selections ; }
 function drelease() { echo "$@ install" | sudo dpkg --set-selections ; }
+
+###############################################################################
+# basic system task wrappers
 
 # helper for locating docs
 function help_helper() 
@@ -473,7 +466,6 @@ function version_helper()
 }
 alias version='version_helper '
 
-# basic system task wrappers
 function push_helper() { pushd $@ >/dev/null 2>&1 ; }
 alias push='push_helper '
 
@@ -501,27 +493,48 @@ alias find='find_helper '
 function findall_helper() { \find / -iname "$@" 2>&1 | grep -v 'Permission denied' >&2 ; }
 alias findall='findall_helper '
 
-# OpenSSH -> SSH2 helper
-function openssh_to_ssh2_helper() { ssh-keygen -e -f $1 > $1.ssh2 ; }
-alias openssh-to-ssh2='openssh_to_ssh2_helper '
-
-# SSH2 -> OpenSSH
-function ssh2_to_openssh_helper() { ssh-keygen -i -f $1 > $1.openssh ; }
-alias ssh2-to-openssh='ssh2_to_openssh_helper '
+###############################################################################
+# shorthands and convenient default params for other common tasks
 
 # GNU screen integration
-function screen_helper() { if [ -z "$STY" ]; then screen -RR -A -r "$@" || screen; fi ; }
+function screen_helper() { [ -z "$STY" ] && screen -RR -A -r "$@" || screen ; }
 alias screen='screen_helper '
 
-# git
-function gbranch_helper() { gfetch && git branch -b $1 origin/$1 && git pull --verbose ; }
-alias gbranch='gbranch_helper '
+# git helpers
+function gclone_helper() { git clone --verbose $@ ; }
+alias gclone='gclone_helper '
 
-function gcheckout_helper() { gfetch && git checkout $1 --verbose && git diff --name-status HEAD@{1} HEAD && git pull --verbose ; }
+function gfetch_helper() { git fetch --all --verbose $@ ; }
+alias gfetch='gfetch_helper '
+
+function gpull_helper() { gfetch && git merge --verbose $@ ; }
+alias gpull='gpull_helper '
+
+function gpush_helper() { git push --follow-tags --verbose $@ ; }
+alias gpush='gpush_helper '
+
+function glog_helper() { git log --full-diff --name-only --graph --full-history --no-merges --pretty=format:"%C(bold blue)%an%Creset, %C(yellow)%ar%Creset%n%Cgreen%H%Creset%n%B" $@ ; }
+alias glog='glog_helper '
+
+function gcheckout_helper() { gfetch && git checkout $@ --verbose && gdiff && git pull --verbose ; }
 alias gcheckout='gcheckout_helper '
 
-function gcommit_helper() { git add -u && git commit -m "$@" --verbose ; }
+function gbranch_helper() { git show-ref --verify --quiet refs/heads/$1 ; [ $? -eq 0 ] && gcheckout $@ || (gfetch && git branch -b $1 origin/$1 ${@:2} && gpull) ; }
+alias gbranch='gbranch_helper '
+
+function gdiff_helper() { [ $# -eq 0 ] && git diff --name-status HEAD@{1} HEAD || git diff --name-status $@ ; }
+alias gdiff='gdiff_helper '
+
+function gcommit_helper() { git add -u ; git commit -m "$@" --verbose ; }
 alias gcommit='gcommit_helper '
+
+# OpenSSH -> SSH2 key reformatting
+function openssh_to_ssh2_helper() { ssh-keygen -e -f $@ > $1.ssh2 ; }
+alias openssh-to-ssh2='openssh_to_ssh2_helper '
+
+# SSH2 -> OpenSSH key reformatting
+function ssh2_to_openssh_helper() { ssh-keygen -i -f $@ > $1.openssh ; }
+alias ssh2-to-openssh='ssh2_to_openssh_helper '
 
 # air-suite helpers
 function aireplay_helper() { aireplay-ng --ignore-negative-one -0 2 -a $2 -c $3 $1; }
