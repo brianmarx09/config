@@ -186,6 +186,7 @@ alias dreinstall='sudo dpkf -r'
 alias install='sudo apt-get -y install'
 alias reinstall='install --reinstall'
 alias uninstall='sudo apt-get remove'
+alias fix='sudo dpkg --configure -a && update && sudo apt-get -f install && sudo dpkg --configure -a'
 
 # remove old linux kernel versions
 alias clean='sudo apt-get clean'
