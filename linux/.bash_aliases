@@ -179,7 +179,6 @@ alias list-kernels='list | grep linux-image-'
 alias list-headers='list | grep linux-headers-'
 
 # dpkg install/uninstall shorthands
-alias add='sudo add-apt-repository'
 alias depends='sudo apt-get -f -y install'
 alias dinstall='sudo dpkg -i'
 alias install='sudo apt-get -y install'
@@ -423,6 +422,7 @@ function warn_helper() { printf "[ ${YELLOW}$@${NO_COLOR} ]\n" ; }
 alias warn='warn_helper '
 
 # system task wrappers
+function add() { grep -h "^deb.*$1" /etc/apt/sources.list.d/* >/dev/null 2>&1 ; [ $? -ne 0 ] && (sudo add-apt-repository $1 && success "$1 repo add" || fail "$1 repo add") || warn "$1 already present, skipped" ; }
 function dhold() { echo "$@ hold" | sudo dpkg --set-selections ; }
 function drelease() { echo "$@ install" | sudo dpkg --set-selections ; }
 
