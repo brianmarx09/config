@@ -363,12 +363,14 @@ alias install-sublime='\
 # core system utils that are good to have ready
 alias setup-system='install \
   linux-headers-$(uname -r) linux-headers-generic dkms lsb-core collectd-core \
-  vim ssh xbindkeys ntfs-3g exfat-fuse exfat-utils trash-cli apt-file multitail strace '
+  vim ssh xbindkeys ntfs-3g exfat-fuse exfat-utils trash-cli apt-file multitail strace \
+  wget gawk sed '
 
 # setup a development environment
 alias setup-dev='install \
   screen build-essential gcc g++ gdb valgrind python3 \
-  cmake cmake-gui subversion cvs git mercurial wget gawk sed && \
+  cmake cmake-gui cmake-curses-gui subversion cvs git mercurial \
+  autoconf libtool pkg-config && \
   install-java '
 
 # useful utilities for system monitoring, networking, and other common tasks
