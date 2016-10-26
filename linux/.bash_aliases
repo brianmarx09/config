@@ -154,7 +154,7 @@ alias gui-editor='`$MY_GUI_EDITOR` '
 alias file-manager='`$MY_FILE_MANAGER` '
 
 # system state
-alias shutdown='shutdown -h now '
+alias shutdown='sudo shutdown -h now '
 alias reboot='sudo reboot '
 
 # root user on/off shorthands
