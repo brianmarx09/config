@@ -98,7 +98,7 @@ export MY_DATE_FORMAT='%Y-%m-%d'
 export MY_JAVA_VERSION='8'
 
 # build current java repo string
-MY_JAVA_REPO1="ppa:webupd"
+MY_JAVA_REPO1="webupd"
 MY_JAVA_REPO2="team/java"
 export MY_JAVA_REPO="$MY_JAVA_REPO1$MY_JAVA_VERSION$MY_JAVA_REPO2"
 
@@ -422,7 +422,7 @@ function warn_helper() { printf "[ ${YELLOW}$@${NO_COLOR} ]\n" ; }
 alias warn='warn_helper '
 
 # system task wrappers
-function add() { grep -h "^deb.*$1" /etc/apt/sources.list.d/* >/dev/null 2>&1 ; [ $? -ne 0 ] && (sudo add-apt-repository $1 && success "$1 repo add" || fail "$1 repo add") || warn "$1 already present, skipped" ; }
+function add() { grep -h "^deb.*$1" /etc/apt/sources.list.d/* >/dev/null 2>&1 ; [ $? -ne 0 ] && (sudo add-apt-repository -y ppa:$1 && success "$1 repo add" || fail "$1 repo add") || warn "$1 already present, skipped" ; }
 function dhold() { echo "$@ hold" | sudo dpkg --set-selections ; }
 function drelease() { echo "$@ install" | sudo dpkg --set-selections ; }
 
