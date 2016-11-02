@@ -15,7 +15,7 @@ I intend to continue updating this repo as I develop on each OS, so these files 
 Quickest setup:
  
   - Save the [.bash_aliases](https://github.com/entangledloops/config/blob/master/linux/.bash_aliases) file into your home directory.
-  - Open a terminal anywhere and type: `source ~/.bash_aliases && setup`
+  - Open a terminal anywhere and type: `setup`
 
 On a clean LUbuntu 16.04.x system, they should be drag-and-drop to install in your home directory with minor exception.
 
