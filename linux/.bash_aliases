@@ -376,7 +376,7 @@ alias setup-dev='install \
 alias setup-extras='install \
   gparted htop iotop iftop glances dstat incron sysstat discus systemtap-sdt-dev baobab \
   nmap nmon mtr traceroute tcpdump ethtool ngrep aircrack-ng \
-  gimp audacity filezilla wireshark transmission-gtk synergy clipit && \
+  gimp audacity filezilla wireshark transmission-gtk && \
   install-sublime '
 
 # command to prepare a new system
