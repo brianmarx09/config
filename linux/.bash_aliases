@@ -406,6 +406,7 @@ alias chromium-browser='bg "chromium-browser" '
 alias gitkraken='bg "gitkraken" '
 alias transmission='bg "transmission-gtk" '
 alias filezilla='bg "filezilla" '
+alias idea='bg "idea"'
 
 ###############################################################################
 # functions
