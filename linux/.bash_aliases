@@ -408,6 +408,7 @@ alias transmission='bg "transmission-gtk" '
 alias filezilla='bg "filezilla" '
 alias idea='bg "idea"'
 alias vlc='bg "vlc"'
+alias audacity='bg "audacity"'
 
 ###############################################################################
 # functions
