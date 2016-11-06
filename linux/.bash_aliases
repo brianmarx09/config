@@ -162,7 +162,7 @@ alias root-enable='sudo passwd root ; sudo passwd -u root ' #>/dev/null 2>&1 ; s
 alias root-disable='sudo passwd -l root '
 
 # better default behaviors for standard utils
-alias cd='push '
+alias cd='push'
 alias rm='rm --one-file-system --preserve-root '
 alias date='date +$MY_DATE_FORMAT '
 alias ls='ls -AhlsX --color=always '
@@ -170,8 +170,8 @@ alias lss='ls --sort=size '
 alias less='less -R '
 alias stat='stat -c "%a %n" * '
 
-alias del='trash-put '
-alias sdel='sudo trash-put '
+alias del='trash-put'
+alias sdel='sudo trash-put'
 
 # package management
 alias list='dpkg --list'
