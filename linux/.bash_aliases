@@ -376,7 +376,7 @@ alias setup-dev='install \
 alias setup-extras='install \
   gparted htop iotop iftop glances dstat incron sysstat discus systemtap-sdt-dev baobab \
   nmap nmon mtr traceroute tcpdump ethtool ngrep aircrack-ng \
-  gimp audacity filezilla wireshark transmission-gtk vlc-nox vlc && \
+  gimp audacity filezilla wireshark transmission-gtk vlc-nox vlc blender && \
   install-sublime '
 
 # command to prepare a new system
@@ -409,6 +409,7 @@ alias filezilla='bg "filezilla" '
 alias idea='bg "idea"'
 alias vlc='bg "vlc"'
 alias audacity='bg "audacity"'
+alias blender='bg "blender"'
 
 ###############################################################################
 # functions
@@ -589,5 +590,6 @@ fi
 ###############################################################################
 
 # include pwd in path
-export PATH=$PATH:~/scripts:.
+export JAVA_HOME=$(readlink -f /usr/bin/javac | sed "s:/bin/javac::")
+export PATH=$PATH:$JAVA_HOME:~/scripts:.
 
