@@ -363,7 +363,7 @@ alias install-sublime='\
 alias setup-system='install \
   linux-headers-$(uname -r) linux-headers-generic dkms lsb-core collectd-core \
   vim ssh xbindkeys ntfs-3g exfat-fuse exfat-utils trash-cli apt-file multitail strace \
-  wget gawk sed chkrootkit '
+  wget gawk sed chkrootkit rkhunter'
 
 # setup a development environment
 alias setup-dev='install \
@@ -401,6 +401,7 @@ alias sublime='bg "subl" '
 alias ssublime='bg "sudo subl"' # sublime needs sudo instead of gksu
 
 alias chkrootkit='sudo chkrootkit '
+alias rkhunter='sudo rkhunter '
 
 alias firefox='bg "firefox" '
 alias chromium='bg "chromium-browser" '
