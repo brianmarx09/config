@@ -592,5 +592,6 @@ fi
 ###############################################################################
 
 # include pwd in path
-export PATH=$PATH:~/scripts:.
+export JAVA_HOME=$(readlink -f /usr/bin/javac | sed "s:/bin/javac::")
+export PATH=$PATH:$JAVA_HOME:~/scripts:.
 
