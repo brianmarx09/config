@@ -119,7 +119,7 @@ export MY_SUBLIME='sublime-text_build-3126_amd64.deb'
 # aliases ordered by necessity, importantce, and re-use elsewhere
 ###############################################################################
 
-# allow commands following sudo to be expanded for further aliases; bash man
+# allow commands to be expanded and provide wrappers for common tasks
 alias source='source '
 alias bash='bash '
 alias sh='sh '
@@ -128,8 +128,6 @@ alias su='su '
 alias gksudo='gksudo '
 alias gksu='gksu '
 alias nohup='nohup '
-alias pushd='pushd '
-alias popd='popd '
 alias echo='echo '
 alias printf='printf '
 alias xargs='xargs '
@@ -138,6 +136,16 @@ alias cp='cp '
 alias mv='mv '
 alias scp='scp '
 alias ssh='ssh '
+alias pushd='push '
+alias popd='pop '
+alias rm='rm --one-file-system --preserve-root '
+alias date='date +$MY_DATE_FORMAT '
+alias ls='ls -AhlsX --color=always '
+alias lss='ls --sort=size '
+alias less='less -R '
+alias stat='stat -c "%a %n" * '
+alias del='trash-put'
+alias sdel='sudo trash-put'
 
 # shorthand to pull alias file into caller's terminal (rs ~= "re-source")
 alias rs='echo "source ~/.bash_aliases" >> /tmp/rs.bash && chmod +x /tmp/rs.bash && . /tmp/rs.bash && rm /tmp/rs.bash '
@@ -162,17 +170,6 @@ alias root-enable='sudo passwd root ; sudo passwd -u root ' #>/dev/null 2>&1 ; s
 alias root-disable='sudo passwd -l root '
 
 # better default behaviors for standard utils
-alias cd='push'
-alias rm='rm --one-file-system --preserve-root '
-alias date='date +$MY_DATE_FORMAT '
-alias ls='ls -AhlsX --color=always '
-alias lss='ls --sort=size '
-alias less='less -R '
-alias stat='stat -c "%a %n" * '
-
-alias del='trash-put'
-alias sdel='sudo trash-put'
-
 # package management
 alias list='dpkg --list'
 alias list-kernels='list | grep linux-image-'
