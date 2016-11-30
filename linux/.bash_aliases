@@ -119,7 +119,7 @@ export MY_SUBLIME='sublime-text_build-3126_amd64.deb'
 # aliases ordered by necessity, importantce, and re-use elsewhere
 ###############################################################################
 
-# allow commands following sudo to be expanded for further aliases; bash man
+# allow commands to be expanded and provide wrappers for common tasks
 alias source='source '
 alias bash='bash '
 alias sh='sh '
@@ -128,8 +128,6 @@ alias su='su '
 alias gksudo='gksudo '
 alias gksu='gksu '
 alias nohup='nohup '
-alias pushd='pushd '
-alias popd='popd '
 alias echo='echo '
 alias printf='printf '
 alias xargs='xargs '
@@ -138,13 +136,22 @@ alias cp='cp '
 alias mv='mv '
 alias scp='scp '
 alias ssh='ssh '
+alias push='pushd '
+alias pop='popd '
+alias rm='rm --one-file-system --preserve-root '
+alias date='date +$MY_DATE_FORMAT '
+alias ls='ls -AhlsX --color=always '
+alias lss='ls --sort=size '
+alias less='less -R '
+alias stat='stat -c "%a %n" * '
+alias del='trash-put'
+alias sdel='sudo trash-put'
 
 # shorthand to pull alias file into caller's terminal (rs ~= "re-source")
 alias rs='echo "source ~/.bash_aliases" >> /tmp/rs.bash && chmod +x /tmp/rs.bash && . /tmp/rs.bash && rm /tmp/rs.bash '
 
 # default terminal emulator
 alias term='`$MY_TERM` '
-alias sterm='`$MY_TERM --command="sudo -s"` '
 
 # default editors (change these to your favorites)
 alias term-editor='`$MY_TERM_EDITOR` '
@@ -162,17 +169,6 @@ alias root-enable='sudo passwd root ; sudo passwd -u root ' #>/dev/null 2>&1 ; s
 alias root-disable='sudo passwd -l root '
 
 # better default behaviors for standard utils
-alias cd='push'
-alias rm='rm --one-file-system --preserve-root '
-alias date='date +$MY_DATE_FORMAT '
-alias ls='ls -AhlsX --color=always '
-alias lss='ls --sort=size '
-alias less='less -R '
-alias stat='stat -c "%a %n" * '
-
-alias del='trash-put'
-alias sdel='sudo trash-put'
-
 # package management
 alias list='dpkg --list'
 alias list-kernels='list | grep linux-image-'
@@ -363,7 +359,7 @@ alias install-sublime='\
 alias setup-system='install \
   linux-headers-$(uname -r) linux-headers-generic dkms lsb-core collectd-core \
   vim ssh xbindkeys ntfs-3g exfat-fuse exfat-utils trash-cli apt-file multitail strace \
-  wget gawk sed '
+  wget gawk sed chkrootkit rkhunter'
 
 # setup a development environment
 alias setup-dev='install \
@@ -399,6 +395,9 @@ alias swireshark='bg "gksu wireshark" '
 
 alias sublime='bg "subl" '
 alias ssublime='bg "sudo subl"' # sublime needs sudo instead of gksu
+
+alias chkrootkit='sudo chkrootkit '
+alias rkhunter='sudo rkhunter '
 
 alias firefox='bg "firefox" '
 alias chromium='bg "chromium-browser" '
