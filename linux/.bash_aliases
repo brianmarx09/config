@@ -358,7 +358,7 @@ alias install-sublime='\
 # core system utils that are good to have ready
 alias setup-system='install \
   linux-headers-$(uname -r) linux-headers-generic dkms lsb-core collectd-core \
-  vim ssh xbindkeys ntfs-3g exfat-fuse exfat-utils trash-cli apt-file multitail strace \
+  vim-gtk ssh xbindkeys ntfs-3g exfat-fuse exfat-utils trash-cli apt-file multitail strace \
   wget gawk sed chkrootkit rkhunter'
 
 # setup a development environment
