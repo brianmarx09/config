@@ -364,9 +364,9 @@ alias setup-system='install \
 
 # setup a development environment
 alias setup-dev='install \
-  screen build-essential gcc g++ gdb valgrind python3 \
-  cmake cmake-gui cmake-curses-gui subversion cvs git mercurial \
-  autoconf libtool pkg-config && \
+  screen build-essential gcc g++ gdb valgrind git cvs subversion mercurial \
+  cmake cmake-gui cmake-curses-gui autoconf libtool pkg-config \
+  python-dev python3-dev && \
   install-java '
 
 # useful utilities for system monitoring, networking, and other common tasks
