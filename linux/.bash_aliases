@@ -131,6 +131,7 @@ alias nohup='nohup '
 alias echo='echo '
 alias printf='printf '
 alias xargs='xargs '
+alias xclip='xclip -selection c '
 alias grep='grep '
 alias cp='cp '
 alias mv='mv '
@@ -358,8 +359,8 @@ alias install-sublime='\
 # core system utils that are good to have ready
 alias setup-system='install \
   linux-headers-$(uname -r) linux-headers-generic dkms lsb-core collectd-core \
-  vim-gtk ssh xbindkeys ntfs-3g exfat-fuse exfat-utils trash-cli apt-file multitail strace \
-  wget gawk sed chkrootkit rkhunter'
+  vim-gtk ssh xbindkeys xclip ntfs-3g exfat-fuse exfat-utils trash-cli apt-file \
+  multitail strace wget gawk sed chkrootkit rkhunter'
 
 # setup a development environment
 alias setup-dev='install \
