@@ -38,8 +38,8 @@ set showcmd " show command bottom right-hand
 set incsearch " incremental search
 set number " show line numbers
 set textwidth=0
-set wildmode=longest,list,full
-set wildmenu
+set wildmode=longest,list,full "autocomplete names
+set wildmenu "allow menu of further options on autocomplete fail
 set showmatch " highlight matching ( )
 set novisualbell  " no blinking
 set noerrorbells  " no sound
@@ -129,6 +129,12 @@ if has("autocmd")
   au VimLeave * silent execute "!gconftool-2 --type string --set /apps/gnome-terminal/profiles/Default/cursor_shape ibeam"
 endif
 
+" reopen files at same position as last time
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
+        \| exe "normal! g'\"" | endif
+endif
+
 " function to toggle relative numbering
 function! RNUToggle()
   if (&relativenumber == 1)
@@ -137,12 +143,6 @@ function! RNUToggle()
     set relativenumber
   endif
 endfunc
-
-" reopen files at same position as last time
-if has("autocmd")
-  au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
-        \| exe "normal! g'\"" | endif
-endif
 
 " ensure proper state of line numbers on context switches
 autocmd InsertEnter * silent :call RNUToggle()
