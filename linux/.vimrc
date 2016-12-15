@@ -138,6 +138,12 @@ function! RNUToggle()
   endif
 endfunc
 
+" reopen files at same position as last time
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
+        \| exe "normal! g'\"" | endif
+endif
+
 " ensure proper state of line numbers on context switches
 autocmd InsertEnter * silent :call RNUToggle()
 autocmd InsertLeave * silent :call RNUToggle()
