@@ -49,6 +49,7 @@ set scrolloff=10 " lines to scroll
 set cmdheight=1 " command bar should be 1 line only
 set title
 set number
+set autochdir " autoset current directory to PWD
 
 " backup settings:
 set undofile " persistent undos after file closure
