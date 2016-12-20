@@ -184,5 +184,10 @@ nnoremap <silent> [ :lprev<CR>
 " allow '.' to repeat last command on every line of selection in visual mode
 vnoremap . :normal .<CR>
 
+" F2 toggles paste mode for direct unmodified pasting and shows the status
+nnoremap <F2> :set invpaste paste?<CR>
+set pastetoggle=<F2>
+set showmode
+
 " clear screen when exiting vim manually b/c tmux/screen/ssh/etc.
 au VimLeave * :!clear
