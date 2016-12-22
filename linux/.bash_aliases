@@ -360,7 +360,7 @@ alias install-sublime='\
 alias setup-system='install \
   linux-headers-$(uname -r) linux-headers-generic dkms lsb-core collectd-core \
   vim-gtk ssh xbindkeys xclip ntfs-3g exfat-fuse exfat-utils trash-cli apt-file \
-  cups multitail strace wget gawk sed chkrootkit rkhunter'
+  cups elinks lynx multitail strace wget gawk sed chkrootkit rkhunter'
 
 # setup a development environment
 alias setup-dev='install \
