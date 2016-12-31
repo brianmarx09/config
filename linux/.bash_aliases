@@ -372,7 +372,7 @@ alias setup-dev='install \
 # useful utilities for system monitoring, networking, and other common tasks
 alias setup-extras='install \
   gparted htop iotop iftop glances dstat incron sysstat discus systemtap-sdt-dev baobab \
-  nmap nmon mtr traceroute tcpdump ethtool ngrep aircrack-ng \
+  nmap nmon mtr traceroute tcpdump ethtool ngrep aircrack-ng hydra cutycapt \
   gconf-editor gimp audacity filezilla wireshark transmission-gtk vlc-nox vlc blender deluge && \
   install-sublime '
 
