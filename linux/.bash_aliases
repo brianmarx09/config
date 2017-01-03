@@ -388,8 +388,7 @@ alias setup='\
 # apps to launch in background
 ###############################################################################
 
-alias gparted='bg "gparted" '
-alias sgparted='bg "gksu gparted" '
+alias gparted='bg "gksu gparted" '
 
 alias wireshark='bg "wireshark" '
 alias swireshark='bg "gksu wireshark" '
