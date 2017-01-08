@@ -356,6 +356,10 @@ alias install-sublime='\
     fail "sublime install" ; \
   pop '
 
+alias install-bitcoin='\
+  add bitcoin/bitcoin && \
+  install bitcoin-qt '
+
 # core system utils that are good to have ready
 alias setup-system='install \
   linux-headers-$(uname -r) linux-headers-generic dkms lsb-core collectd-core \
@@ -374,7 +378,8 @@ alias setup-extras='install \
   gparted htop iotop iftop glances dstat incron sysstat discus systemtap-sdt-dev baobab \
   nmap nmon mtr traceroute tcpdump ethtool ngrep aircrack-ng hydra cutycapt arp-scan \
   gconf-editor gimp audacity filezilla wireshark transmission-gtk vlc-nox vlc blender \
-  deluge bitcoind-qt && \
+  deluge && \
+  install-bitcoin && \
   install-sublime '
 
 # command to prepare a new system
