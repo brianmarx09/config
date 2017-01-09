@@ -306,6 +306,9 @@ alias vdisk='bg "gksu baobab /" '
 alias mem='cat /proc/meminfo '
 alias info="echo $'$(mem)\n$(disk)\n$(os-version)' "
 
+# generate more entropy
+alias random='sudo rngd -f -r /dev/urandom '
+
 # locate hd memory sinks
 alias space='du -h --max-depth=1 | sort -hr | less '
 
