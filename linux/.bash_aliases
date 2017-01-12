@@ -381,7 +381,7 @@ alias setup-extras='install \
   gparted htop iotop iftop glances dstat incron sysstat discus systemtap-sdt-dev baobab \
   nmap nmon mtr traceroute tcpdump ethtool ngrep aircrack-ng hydra cutycapt arp-scan \
   gconf-editor gimp audacity filezilla wireshark transmission-gtk vlc-nox vlc blender \
-  deluge firefox chromium-browser && \
+  deluge firefox chromium-browser gnuchess && \
   install-bitcoin && \
   install-sublime '
 
