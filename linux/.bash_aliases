@@ -315,6 +315,9 @@ alias space='du -h --max-depth=1 | sort -hr | less '
 # clear scrollback and recent output; annoying leading newline still printed
 alias cls='clear && echo -e \\033c '
 
+# clear history and flush the copy in memory to prevent rewrite on exit
+alias clear-history='cat /dev/null > ~/.bash_history && history -c && exit'
+
 # shorthand for my favorite console editor
 alias svim='sudo vim '
 alias vimrc='vim ~/.vimrc '
@@ -381,7 +384,7 @@ alias setup-extras='install \
   gparted htop iotop iftop glances dstat incron sysstat discus systemtap-sdt-dev baobab \
   nmap nmon mtr traceroute tcpdump ethtool ngrep aircrack-ng hydra cutycapt arp-scan \
   gconf-editor gimp audacity filezilla wireshark transmission-gtk vlc-nox vlc blender \
-  deluge firefox chromium-browser gnuchess && \
+  deluge firefox chromium-browser && \
   install-bitcoin && \
   install-sublime '
 
