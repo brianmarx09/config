@@ -147,6 +147,7 @@ alias less='less -R '
 alias stat='stat -c "%a %n" * '
 alias del='trash-put'
 alias sdel='sudo trash-put'
+alias bright='sudo tee /sys/class/backlight/acpi_video0/brightness <<< `cat /sys/class/backlight/acpi_video0/max_brightness`'
 
 # shorthand to pull alias file into caller's terminal (rs ~= "re-source")
 alias rs='echo "source ~/.bash_aliases" >> /tmp/rs.bash && chmod +x /tmp/rs.bash && . /tmp/rs.bash && rm /tmp/rs.bash '
