@@ -3,6 +3,7 @@ defscrollback 4096
 startup_message off
 hardstatus on
 hardstatus alwayslastline
+multiuser on
 
 # make space list windows
 bind ' ' windowlist -b
