@@ -312,7 +312,7 @@ alias packages='grep ^ /etc/apt/sources.list /etc/apt/sources.list.d/*'
 alias random='sudo rngd -f -r /dev/urandom '
 
 # locate hd memory sinks
-alias space='sudo du -h --max-depth=1 | sort -hr | less 2>/dev/null'
+alias space='sudo du -h --max-depth=1 | sort -hr | less '
 
 # clear scrollback and recent output; annoying leading newline still printed
 alias cls='clear && echo -e \\033c '
