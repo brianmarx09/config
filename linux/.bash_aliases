@@ -306,6 +306,7 @@ alias disk="echo $'inodes:\n$(inodes | awk -vRS="\n" -vORS="\n\t" '1')\n\ndisk:\
 alias vdisk='bg "gksu baobab /" '
 alias mem='cat /proc/meminfo '
 alias info="echo $'$(mem)\n$(disk)\n$(os-version)' "
+alias packages='grep ^ /etc/apt/sources.list /etc/apt/sources.list.d/*'
 
 # generate more entropy
 alias random='sudo rngd -f -r /dev/urandom '
