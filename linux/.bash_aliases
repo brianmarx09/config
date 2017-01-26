@@ -387,8 +387,7 @@ alias setup-extras='install \
   nmap nmon mtr traceroute tcpdump ethtool ngrep aircrack-ng hydra cutycapt arp-scan \
   gconf-editor gimp audacity filezilla wireshark transmission-gtk vlc-nox vlc blender \
   deluge firefox chromium-browser && \
-  install-bitcoin && \
-  install-sublime '
+  install-bitcoin '
 
 # command to prepare a new system
 alias setup='\
