@@ -324,7 +324,7 @@ alias clear-history='cat /dev/null > ~/.bash_history && history -c && exit'
 alias svim='sudo vim '
 alias vimrc='vim ~/.vimrc '
 alias vima='vim ~/.bash_aliases && rs '
-alias vime='vim ~/.bash_extra && rs '
+alias vimx='vim ~/.bash_extra && rs '
 alias vimscreenrc='vim ~/.screenrc '
 alias vimbashrc='vim ~/.bashrc '
 
