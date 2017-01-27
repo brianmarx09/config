@@ -376,7 +376,7 @@ alias setup-system='install \
 
 # setup a development environment
 alias setup-dev='install \
-  screen build-essential gcc g++ gdb valgrind git cvs subversion mercurial \
+  screen tmux build-essential gcc g++ gdb valgrind git cvs subversion mercurial \
   cmake cmake-gui cmake-curses-gui autoconf libtool pkg-config \
   python-dev python3-dev meld && \
   install-java '
