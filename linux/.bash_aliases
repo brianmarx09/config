@@ -518,8 +518,8 @@ alias findall='findall_helper '
 # shorthands and convenient default params for other common tasks
 
 # GNU screen integration
-function screen_helper() { [ -z "$STY" ] && screen -RR -A -r "$@" || screen ; }
-alias screen='screen_helper '
+#function screen_helper() { [ -z "$STY" ] && screen -RR -A -r "$@" || screen ; }
+#alias screen='screen_helper '
 
 # git helpers
 function gclone_helper() { git clone --verbose $@ ; }
