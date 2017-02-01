@@ -522,7 +522,7 @@ alias findall='findall_helper '
 #alias screen='screen_helper '
 
 # git helpers
-function gclone_helper() { git clone --verbose $@ ; }
+function gclone_helper() { git clone --verbose --recursive $@ ; }
 alias gclone='gclone_helper '
 
 function gfetch_helper() { git fetch --all --verbose $@ ; }
