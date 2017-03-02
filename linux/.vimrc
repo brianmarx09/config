@@ -30,12 +30,12 @@ set fileformat=unix " set default file format
 set backspace=indent,eol,start " fix backspace
 set report=0 " always report lines changed
 set mouse=a " always enable mouse
-set history=256
+set history=4096
 set ignorecase " ignore case (search)
 set smartcase " caSe sEnSitive in a word (search)
-set hlsearch " highlight search matches
 set showcmd " show command bottom right-hand
-set incsearch " incremental search
+set hlsearch " highlight search matches
+set incsearch " highlight matches as you type search
 set number " show line numbers
 set textwidth=0
 set wildmode=longest,list,full "autocomplete names
