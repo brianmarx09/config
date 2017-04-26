@@ -373,7 +373,7 @@ alias setup-system='install \
   linux-headers-$(uname -r) linux-headers-generic dkms lsb-core collectd-core \
   vim-gtk ssh socat xbindkeys xclip ntfs-3g exfat-fuse exfat-utils trash-cli \
   vino apt-file cups elinks lynx multitail strace wget gawk sed samba unrar \
-  chkrootkit rkhunter'
+  p7zip-full texlive-full chkrootkit rkhunter'
 
 # setup a development environment
 alias setup-dev='install \
