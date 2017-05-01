@@ -423,6 +423,7 @@ alias idea='bg "idea"'
 alias vlc='bg "vlc"'
 alias audacity='bg "audacity"'
 alias blender='bg "blender"'
+alias gimp='bg "gimp"'
 
 ###############################################################################
 # functions
