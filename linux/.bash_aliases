@@ -208,7 +208,7 @@ alias bashrc-up='\
     ) || (fail "bashrc upgrade" ; bashrc-down) ; \
   pop '
 
-# pull latest vimrc from server or restore prev (this file)
+# pull latest bash_aliases from server or restore prev (this file)
 alias alias-down='(cp -f ~/.bak/.bash_aliases ~/ ; source ~/.bash_aliases && success "alias downgrade") || fail "alias downgrade" '
 alias alias-up='\
   push ~ ; \
@@ -387,8 +387,7 @@ alias setup-extras='install \
   gparted htop iotop iftop glances dstat incron sysstat discus systemtap-sdt-dev baobab \
   nmap nmon mtr traceroute tcpdump ethtool ngrep aircrack-ng hydra cutycapt arp-scan \
   gconf-editor gimp audacity filezilla wireshark transmission-gtk vlc-nox vlc blender \
-  deluge firefox chromium-browser && \
-  install-bitcoin '
+  deluge firefox chromium-browser '
 
 # command to prepare a new system
 alias setup='\
