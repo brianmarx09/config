@@ -157,6 +157,9 @@ autocmd WinLeave * silent :call RNUToggle()
 " key remappings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+" disable ex mode
+nnoremap Q <Nop>
+
 " toggle relative numbers
 nnoremap <silent> <C-n> :call RNUToggle()<CR>
 
