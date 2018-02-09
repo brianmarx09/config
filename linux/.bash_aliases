@@ -315,7 +315,7 @@ alias random='sudo rngd -f -r /dev/urandom '
 alias space='sudo du -h --max-depth=1 | sort -hr | less '
 
 # clear scrollback and recent output; annoying leading newline still printed
-alias cls='clear && echo -e \\033c '
+alias cls='clear && printf "\033c" '
 
 # clear history and flush the copy in memory to prevent rewrite on exit
 alias clear-history='cat /dev/null > ~/.bash_history && history -c && exit'
