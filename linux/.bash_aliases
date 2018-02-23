@@ -132,7 +132,6 @@ alias echo='echo '
 alias printf='printf '
 alias xargs='xargs '
 alias xclip='xclip -selection c '
-alias grep='grep '
 alias cp='cp '
 alias mv='mv '
 alias scp='scp '
@@ -147,6 +146,8 @@ alias less='less -R '
 alias stat='stat -c "%a %n" * '
 alias del='trash-put'
 alias sdel='sudo trash-put'
+
+# set monitor brightness to max
 alias bright='sudo tee /sys/class/backlight/acpi_video0/brightness <<< `cat /sys/class/backlight/acpi_video0/max_brightness`'
 
 # shorthand to pull alias file into caller's terminal (rs ~= "re-source")
