@@ -378,8 +378,8 @@ alias setup-system='install \
 
 # setup a development environment
 alias setup-dev='install \
-  screen tmux build-essential gcc g++ gdb valgrind git cvs subversion mercurial \
-  cmake cmake-gui cmake-curses-gui autoconf libtool pkg-config \
+  screen tmux build-essential gcc g++ gdb valgrind git git-gui cvs subversion \
+  mercurial cmake cmake-gui cmake-curses-gui autoconf libtool pkg-config \
   python-dev python3-dev meld && \
   install-java '
 
@@ -508,8 +508,8 @@ function pkg_helper() { sudo dpkg --search $@ >/dev/null 2>&1; if [ $? != 0 ]; t
 alias pkg='pkg_helper '
 
 # find from pwd filtering errors; don't forget double-quotes, e.g.: find "*.txt"
-function find_helper() { \find . -iname "$@" -readable -writable -prune -print ; }
-alias find='find_helper '
+function finder_helper() { \find . -iname "$@" -readable -writable -prune -print ; }
+alias finder='finder_helper '
 
 # find from root filtering errors; don't forget double-quotes, e.g.: findall "*.txt"
 function findall_helper() { \find / -iname "$@" 2>&1 | grep -v 'Permission denied' >&2 ; }
