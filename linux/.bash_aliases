@@ -95,7 +95,7 @@ export MY_FILE_MANAGER='pcmanfm'
 export MY_DATE_FORMAT='%Y-%m-%d'
 
 # tested oracle java version
-export MY_JAVA_VERSION='9'
+export MY_JAVA_VERSION='8'
 
 # build current java repo string
 export MY_JAVA_REPO="webupd8team/java"
