@@ -111,7 +111,7 @@ MY_JAVA_DEFAULT2="-set-default"
 export MY_JAVA_DEFAULT="$MY_JAVA_DEFAULT1$MY_JAVA_VERSION$MY_JAVA_DEFAULT2"
 
 # the tested build of sublime text
-export MY_SUBLIME='sublime-text_build-3126_amd64.deb'
+export MY_SUBLIME='sublime-text_build-3143_amd64.deb'
 
 ###############################################################################
 # aliases ordered by necessity, importantce, and re-use elsewhere
