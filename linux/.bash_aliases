@@ -378,7 +378,7 @@ alias setup-system='install \
 alias setup-dev='install \
   screen tmux build-essential gcc g++ gdb valgrind git git-gui cvs subversion \
   mercurial cmake cmake-gui cmake-curses-gui autoconf libtool pkg-config \
-  python-dev python3-dev meld && \
+  python-dev python3-dev meld tig silversearcher-ag && \
   install-java '
 
 # useful utilities for system monitoring, networking, and other common tasks
@@ -386,7 +386,7 @@ alias setup-extras='install \
   gparted htop iotop iftop glances dstat incron sysstat discus systemtap-sdt-dev baobab \
   nmap nmon mtr traceroute tcpdump ethtool ngrep aircrack-ng hydra cutycapt arp-scan \
   gconf-editor gimp audacity filezilla wireshark transmission-gtk vlc-nox vlc blender \
-  silversearcher-ag deluge firefox chromium-browser '
+  deluge firefox chromium-browser '
 
 # command to prepare a new system
 alias setup='\
