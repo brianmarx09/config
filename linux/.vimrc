@@ -80,6 +80,11 @@ else
   endif
 endif
 
+" set term correctly for tmux
+if exists($TMUX)!=-1
+  set term=screen-256color
+endif
+
 set t_Co=256 " use 256 colors
 "set ts=4 sw=4 et " may resolve some color issues
 set background=dark " color theme tweaks
