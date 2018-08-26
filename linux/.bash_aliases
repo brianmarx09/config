@@ -394,7 +394,7 @@ alias setup='\
   setup-dev && \
   setup-extras && \
   (echo "set vertical-split = no" >> ~/.tigrc) && \
-  (mkdir -p ~/.ssh ~/.bak ~/code ~/bin ~/scripts ; config-up ; dist-up ; u) && \
+  (mkdir -p ~/.ssh ~/.bak ~/src ~/bin ~/scripts ; config-up ; dist-up ; u) && \
   warn "the system should be rebooted after initial setup" '
 
 ###############################################################################
