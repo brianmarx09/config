@@ -309,6 +309,9 @@ alias packages='grep ^ /etc/apt/sources.list /etc/apt/sources.list.d/*'
 # generate more entropy
 alias random='sudo rngd -f -r /dev/urandom '
 
+# generate a filename
+alias filename='cat /dev/urandom | tr -cd "a-f0-9" | head -c 32'
+
 # locate hd memory sinks
 alias space='sudo du -h --max-depth=1 | sort -hr | less '
 
