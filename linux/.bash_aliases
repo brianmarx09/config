@@ -137,7 +137,6 @@ alias ssh='ssh '
 alias push='pushd '
 alias pop='popd '
 alias rm='rm --one-file-system --preserve-root '
-alias date='date +$MY_DATE_FORMAT '
 alias ls='ls -AhlsX --color=always '
 alias lss='ls --sort=size '
 alias less='less -R '
@@ -309,6 +308,9 @@ alias packages='grep ^ /etc/apt/sources.list /etc/apt/sources.list.d/*'
 
 # generate more entropy
 alias random='sudo rngd -f -r /dev/urandom '
+
+# generate a filename
+alias filename='cat /dev/urandom | tr -cd "a-f0-9" | head -c 32'
 
 # locate hd memory sinks
 alias space='sudo du -h --max-depth=1 | sort -hr | less '
