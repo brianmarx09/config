@@ -282,13 +282,13 @@ alias os-upgrade='sudo do-release-upgrade -d '
 alias os-up='os-upgrade '
 alias gui-update='sudo update-manager -d '
 alias gupd='gui-update '
-alias update='sudo apt-get update '
+alias update='sudo apt update '
 alias upd='update && success "update" || fail "update" '
-alias upgrade='sudo apt-get upgrade -y '
+alias upgrade='sudo apt upgrade -y '
 alias upg='upgrade && success "upgrade" || fail "upgrade" '
 alias config-up='alias-up && bashrc-up && vim-up && screenrc-up && rs '
-alias dist-upgrade='sudo apt-get dist-upgrade -y '
-alias dist-up='source <(sudo echo "dist-upgrade && apt-file update && success \"dist upgrade\"") || fail "dist upgrade" '
+alias dist-upgrade='sudo apt dist-upgrade -y '
+alias dist-up='source <(sudo echo "dist-upgrade && sudo apt-file update && success \"dist upgrade\"") || fail "dist upgrade" '
 
 # update/upgrade flavors
 alias u='source <(sudo echo "upd && upg") ' 
@@ -309,7 +309,7 @@ alias packages='grep ^ /etc/apt/sources.list /etc/apt/sources.list.d/*'
 # generate more entropy
 alias random='sudo rngd -f -r /dev/urandom '
 
-# generate a filename
+# generate a random filename
 alias filename='cat /dev/urandom | tr -cd "a-f0-9" | head -c 32'
 
 # locate hd memory sinks
