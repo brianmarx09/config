@@ -120,7 +120,7 @@ let g:yankring_history_dir="~/.vim"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " highlight the current line in the active window (19=dark blue):
-hi CursorLine cterm=NONE ctermfg=white ctermbg=19 ctermfg=NONE guibg=19 guifg=NONE
+hi CursorLine cterm=NONE ctermbg=19 ctermfg=NONE guibg=NONE guifg=NONE
 augroup CursorLine
   au!
   au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
