@@ -348,6 +348,9 @@ alias vb='vimbashrc '
 alias e='edit '
 alias g='guiedit '
 
+# setup alias for "thefuck"
+eval "$(thefuck -a)"
+
 # helper for installing requested java
 alias install-java="\
   install python-software-properties && \
@@ -379,8 +382,8 @@ alias setup-system='install \
 # setup a development environment
 alias setup-dev='install \
   screen tmux build-essential gcc g++ gdb valgrind git git-gui cvs subversion \
-  mercurial cmake cmake-gui cmake-curses-gui autoconf libtool pkg-config \
-  python-dev python3-dev meld tig silversearcher-ag && \
+  mercurial mvn cmake cmake-gui cmake-curses-gui autoconf libtool pkg-config \
+  python-dev python3-dev meld tig silversearcher-ag thefuck && \
   install-java '
 
 # useful utilities for system monitoring, networking, and other common tasks
