@@ -1,51 +1,29 @@
 #!/bin/bash
 #
-# @author Stephen Dunn (snd)
+# @author Stephen Dunn
 # @since April 1, 2016
 #
 # Description:
 # A minimal (useful) starting point for a Debian-based OS.
-# Aliases common commands to cut down on verbosity.
 #
 # Add additional config to a "~/.bash_extra" file and it will be loaded last.
 #
 # Installation:
-#   
-#   1) paste this file in your home directory (~), then from a terminal:
-#   2) source ~/.bash_aliases && setup
+# Paste this file in your home directory and run:
+#   source ~/.bash_aliases && setup
 #
 # You will be prompted for your root password to allow basic
 # package installation and setup scripts to execute. You only need to
-# do those steps once. That's it!
-#
-# Updating system packages:
-#   u
-#
-# Updating system distribution and packages:
-#   uu
-#
-# Updating system distribution, packages, and configs:
-#   uuu
-#
-# There are many more specific options provided. Just take a look around the
-# section containing the update commands to see what's available.
+# do those steps once.
 #
 # Notes:
 # - ****** add any additional config to a "~/.bash_extra" file ******
-# - change the default editors if you don't like/have vim + sublime
-# - naturally, assumes no conflicts between your other aliases / bash settings
-# - commands are listed in order of estimated utility to save you search time
 # - aliases are often suffixed w/a ' ' b/c it permits recursive alias expansion
-# - see the provided screenrc for a GNU screen integration example
-# - see the corresponding bashrc for other minor integration options
-#   - e.g., if you want proper colors your bashrc should have
-#
-#         export TERM=xterm-256color
-#
-#     or an equivalent statement enabling more than 16 colors in your term
+# - if you want proper colors, your bashrc should have
+#     export TERM=xterm-256color
 
 ###############################################################################
-# clear all previous aliases and PATH (removing quotes via sed)
+# backup then clear previous state
 ###############################################################################
 
 # backup path state; if something goes wrong, restored at end
@@ -93,22 +71,6 @@ export MY_TERM_EDITOR='vim'
 export MY_GUI_EDITOR='/usr/bin/subl'
 export MY_FILE_MANAGER='pcmanfm'
 export MY_DATE_FORMAT='%Y-%m-%d'
-
-# tested oracle java version
-export MY_JAVA_VERSION='8'
-
-# build current java repo string
-export MY_JAVA_REPO="webupd8team/java"
-
-# build current java installer package string
-MY_JAVA_INSTALLER1="oracle-java"
-MY_JAVA_INSTALLER2="-installer"
-export MY_JAVA_INSTALLER="$MY_JAVA_INSTALLER1$MY_JAVA_VERSION$MY_JAVA_INSTALLER2"
-
-# build current java env configuration package string
-MY_JAVA_DEFAULT1="$MY_JAVA_INSTALLER1"
-MY_JAVA_DEFAULT2="-set-default"
-export MY_JAVA_DEFAULT="$MY_JAVA_DEFAULT1$MY_JAVA_VERSION$MY_JAVA_DEFAULT2"
 
 # the tested build of sublime text
 export MY_SUBLIME='sublime-text_build-3143_amd64.deb'
@@ -202,7 +164,7 @@ alias bashrc-up='\
     mv -f .bashrc .bak/ ; \
     ( \
       wget --timestamping --show-progress --progress=dot --timeout=5 http://raw.githubusercontent.com/entangledloops/config/master/linux/.bashrc && \
-      success "bashrc upgrade" 
+      success "bashrc upgrade"
     ) || (fail "bashrc upgrade" ; bashrc-down) ; \
   pop '
 
@@ -239,7 +201,7 @@ alias screenrc-up='\
     mv -f .screenrc .bak/ ; \
     ( \
       wget --timestamping --show-progress --progress=dot --timeout=5 http://raw.githubusercontent.com/entangledloops/config/master/linux/.screenrc && \
-      success "screenrc upgrade" 
+      success "screenrc upgrade"
     ) || (fail "screenrc upgrade" ; screenrc-down) ; \
   pop '
 
@@ -291,7 +253,7 @@ alias dist-upgrade='sudo apt dist-upgrade -y '
 alias dist-up='source <(sudo echo "dist-upgrade && sudo apt-file update && success \"dist upgrade\"") || fail "dist upgrade" '
 
 # update/upgrade flavors
-alias u='source <(sudo echo "upd && upg") ' 
+alias u='source <(sudo echo "upd && upg") '
 alias uu='source <(sudo echo "u && dist-up") '
 alias uuu='source <(sudo echo "config-up && uu") '
 
@@ -336,7 +298,6 @@ alias edita='gui-editor ~/.bash_aliases && rs '
 
 # gui editing; replace w/your facorite editor
 alias guiedit='gui-editor '
-alias sguiedit='sudo gui-editor '
 alias guiedita='gui-editor ~/.bash_aliases && rs '
 
 # personal preference for quick access to frequently modified files
@@ -345,18 +306,9 @@ alias vv='vimrc '
 alias va='vima '
 alias vs='vimscreenrc '
 alias vb='vimbashrc '
-alias e='edit '
-alias g='guiedit '
 
 # setup alias for "thefuck"
 eval "$(thefuck -a)"
-
-# helper for installing requested java
-alias install-java="\
-  install python-software-properties && \
-  add $MY_JAVA_REPO && \
-  upd && \
-  install $MY_JAVA_INSTALLER $MY_JAVA_DEFAULT "
 
 # helper for sublime text which isn't currently in a public repo
 alias install-sublime='\
@@ -384,8 +336,7 @@ alias setup-system='install \
 alias setup-dev='install \
   screen tmux build-essential gcc g++ gdb valgrind git git-gui cvs subversion \
   mercurial mvn cmake cmake-gui cmake-curses-gui autoconf libtool pkg-config \
-  python-dev python3-dev meld tig silversearcher-ag thefuck && \
-  install-java '
+  default-jdk python-dev python3-dev meld tig silversearcher-ag thefuck '
 
 # useful utilities for system monitoring, networking, and other common tasks
 alias setup-extras='install \
@@ -410,25 +361,23 @@ alias setup='\
 alias gparted='bg "gksu gparted" '
 
 alias wireshark='bg "wireshark" '
-alias swireshark='bg "gksu wireshark" '
-
-alias sublime='bg "subl" '
-alias ssublime='bg "sudo subl"' # sublime needs sudo instead of gksu
 
 alias chkrootkit='sudo chkrootkit '
 alias rkhunter='sudo rkhunter '
-
 alias firefox='bg "firefox" '
 alias chromium='bg "chromium-browser" '
 alias chromium-browser='bg "chromium-browser" '
 alias gitkraken='bg "gitkraken" '
 alias transmission='bg "transmission-gtk" '
 alias filezilla='bg "filezilla" '
-alias idea='bg "idea"'
-alias vlc='bg "vlc"'
-alias audacity='bg "audacity"'
-alias blender='bg "blender"'
-alias gimp='bg "gimp"'
+alias idea='bg "idea" '
+alias vlc='bg "vlc" '
+alias audacity='bg "audacity" '
+alias blender='bg "blender" '
+alias gimp='bg "gimp" '
+
+alias fix-ssh-add='eval `ssh-agent -s`'
+alias fix-dbus='eval `dbus-launch`'
 
 ###############################################################################
 # functions
@@ -454,8 +403,8 @@ function drelease() { echo "$@ install" | sudo dpkg --set-selections ; }
 # basic system task wrappers
 
 # helper for locating docs
-function help_helper() 
-{ 
+function help_helper()
+{
   ($@ --help /dev/null 2>&1 && $@ --help) || \
   ($@ -help >/dev/null 2>&1 && $@ -help) || \
   ($@ --h >/dev/null 2>&1 && $@ --h) || \
@@ -469,8 +418,8 @@ function help_helper()
 alias help='help_helper '
 
 # helper for version info
-function version_helper() 
-{ 
+function version_helper()
+{
   ($@ --version >/dev/null 2>&1 && $@ --version) || \
   ($@ -version >/dev/null 2>&1 && $@ -version) || \
   ($@ --v >/dev/null 2>&1 && $@ --v) || \
@@ -549,8 +498,8 @@ alias glog='glog_helper '
 function gcommit_helper() { git add -u ; git commit -m "$@" --verbose ; }
 alias gcommit='gcommit_helper '
 
-function gcheckout_helper() 
-{ 
+function gcheckout_helper()
+{
   gfetch ; \
   git branch -a | grep "\bremotes/origin/$1$" && \
   ( \
@@ -566,12 +515,12 @@ function gcheckout_helper()
 }
 alias gcheckout='gcheckout_helper '
 
-function gbranch_helper() 
-{ 
+function gbranch_helper()
+{
   git show-ref --verify --quiet refs/heads/$1 ; \
   [ $? -ne 0 ] && (git branch "$@" && success "create branch $1" || fail "create branch $1") || \
   (gcheckout $1 && warn "checked out existing branch $1" || fail "create branch $1") \
-  ; 
+  ;
 }
 alias gbranch='gbranch_helper '
 
