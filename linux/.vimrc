@@ -101,15 +101,15 @@ let curfile = expand("%:t")
 if curfile =~ "*.py" || curfile =~ "/etc/fstab/" || curfile =~ "Makefile" || curfile =~ "makefile" || curfile =~ ".*\.mk"
   set noexpandtab
 else
-  set tabstop=2
-  set shiftwidth=2
-  set softtabstop=2
+  set tabstop=4
+  set shiftwidth=4
+  set softtabstop=4
   set expandtab
   set smarttab
 endif
 
 " latex tweaks
-set grepprg=grep\ -nH\ $* 
+set grepprg=grep\ -nH\ $*
 let g:tex_flavor='latex'
 let g:tex_comment_nospell=1
 let g:netrw_silent = 1 " kill annoying error msgs
@@ -195,6 +195,9 @@ vnoremap . :normal .<CR>
 nnoremap <F2> :set invpaste paste?<CR>
 set pastetoggle=<F2>
 set showmode
+
+" trim trailing whitespaces on save
+autocmd BufWritePre * %s/\s\+$//e
 
 " clear screen when exiting vim manually b/c tmux/screen/ssh/etc.
 au VimLeave * :!clear
