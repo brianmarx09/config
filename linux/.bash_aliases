@@ -6,18 +6,18 @@
 # Description:
 # A minimal (useful) starting point for a Debian-based OS.
 #
-# Add additional config to a "~/.bash_extra" file and it will be loaded last.
+# Add additional config to a "$HOME/.bash_extra" file and it will be loaded last.
 #
 # Installation:
 # Paste this file in your home directory and run:
-#   source ~/.bash_aliases && setup
+#   source $HOME/.bash_aliases && setup
 #
 # You will be prompted for your root password to allow basic
 # package installation and setup scripts to execute. You only need to
 # do those steps once.
 #
 # Notes:
-# - ****** add any additional config to a "~/.bash_extra" file ******
+# - ****** add any additional config to a "$HOME/.bash_extra" file ******
 # - aliases are often suffixed w/a ' ' b/c it permits recursive alias expansion
 # - if you want proper colors, your bashrc should have
 #     export TERM=xterm-256color
@@ -105,8 +105,8 @@ alias del='trash-put'
 # set monitor brightness to max
 alias bright='sudo tee /sys/class/backlight/acpi_video0/brightness <<< `cat /sys/class/backlight/acpi_video0/max_brightness`'
 
-# shorthand to pull alias file into caller's terminal (rs ~= "re-source")
-alias rs='echo "source ~/.bash_aliases" >> /tmp/rs.bash && chmod +x /tmp/rs.bash && . /tmp/rs.bash && rm /tmp/rs.bash '
+# shorthand to pull alias file into caller's terminal (rs $HOME= "re-source")
+alias rs='echo "source $HOME/.bash_aliases" >> /tmp/rs.bash && chmod +x /tmp/rs.bash && . /tmp/rs.bash && rm /tmp/rs.bash '
 
 # default terminal emulator
 alias term='`$MY_TERM` '
@@ -150,10 +150,10 @@ alias autoremove='sudo apt-get autoremove'
 alias purge='sudo apt-get -y purge'
 alias purge-kernels='list | grep linux-image | cut -d " " -f 3 | sort -V | sed -n "/"`uname -r`"/q;p" | xargs sudo apt-get purge'
 alias purge-configs='dpkg -l | grep "^rc" | cut -d " " -f 3 | xargs sudo apt-get purge'
-alias cleanup='sudo trash-empty && autoclean && autoremove && rm -f ~/1 ~/.xsession-errors*'
+alias cleanup='sudo trash-empty && autoclean && autoremove && rm -f $HOME/1 $HOME/.xsession-errors*'
 
 # pull latest bashrc from server or restore prev
-bashrc-down() { (cp -f ~/.bak/.bashrc ~/ && success "bashrc downgrade") || fail "bashrc downgrade" ; }
+bashrc-down() { (cp -f $HOME/.bak/.bashrc $HOME/ && success "bashrc downgrade") || fail "bashrc downgrade" ; }
 bashrc-up() {
   push $HOME
     del .bak/.bashrc
@@ -166,7 +166,7 @@ bashrc-up() {
 }
 
 # pull latest bash_aliases from server or restore prev (this file)
-alias-down() { (cp -f ~/.bak/.bash_aliases ~/ ; source ~/.bash_aliases && success "alias downgrade") || fail "alias downgrade" ; }
+alias-down() { (cp -f $HOME/.bak/.bash_aliases $HOME/ ; source $HOME/.bash_aliases && success "alias downgrade") || fail "alias downgrade" ; }
 alias-up() {
   push $HOME
     del .bak/.bash_aliases
@@ -181,7 +181,7 @@ alias-up() {
 
 
 # pull latest vimrc from server or restore prev
-vimrc-down() { (cp -f ~/.bak/.vimrc ~/ && success "vimrc downgrade") || fail "vimrc downgrade" ; }
+vimrc-down() { (cp -f $HOME/.bak/.vimrc $HOME/ && success "vimrc downgrade") || fail "vimrc downgrade" ; }
 vimrc-up() {
   push $HOME
     del .bak/.vimrc
@@ -194,7 +194,7 @@ vimrc-up() {
 }
 
 # pull latest bashrc from server or restore prev
-screenrc-down() { (cp -f ~/.bak/.screenrc ~/ && success "screenrc downgrade") || fail "screenrc downgrade" ; }
+screenrc-down() { (cp -f $HOME/.bak/.screenrc $HOME/ && success "screenrc downgrade") || fail "screenrc downgrade" ; }
 screenrc-up() {
   push $HOME
     del .bak/.screenrc
@@ -207,7 +207,7 @@ screenrc-up() {
 }
 
 # pull latest vimrc and vim settings folder from server or restore prev
-vim-down() { del ~/.vim >/dev/null 2&>1 ; cp -rf ~/.bak/.vim ~/ ; (vimrc-down && success "vim downgrade") || fail "vim downgrade" ; }
+vim-down() { del $HOME/.vim >/dev/null 2&>1 ; cp -rf $HOME/.bak/.vim $HOME/ ; (vimrc-down && success "vim downgrade") || fail "vim downgrade" ; }
 vim-up() {
   vimrc-up && \
   ( \
@@ -284,24 +284,24 @@ alias space='sudo du -h --max-depth=1 | sort -hr | less '
 alias cls='clear && printf "\033c" '
 
 # clear history and flush the copy in memory to prevent rewrite on exit
-alias clear-history='cat /dev/null > ~/.bash_history && history -c && exit'
+alias clear-history='cat /dev/null > $HOME/.bash_history && history -c && exit'
 
 # shorthand for my favorite console editor
 alias svim='sudo vim '
-alias vimrc='vim ~/.vimrc '
-alias vima='vim ~/.bash_aliases && rs '
-alias vimx='vim ~/.bash_extra && rs '
-alias vimscreenrc='vim ~/.screenrc '
-alias vimbashrc='vim ~/.bashrc '
+alias vimrc='vim $HOME/.vimrc '
+alias vima='vim $HOME/.bash_aliases && rs '
+alias vimx='vim $HOME/.bash_extra && rs '
+alias vimscreenrc='vim $HOME/.screenrc '
+alias vimbashrc='vim $HOME/.bashrc '
 
 # console editing; replace 'term-editor' target w/your favorite editor
 alias edit='gui-editor '
 alias sedit='sudo gui-editor '
-alias edita='gui-editor ~/.bash_aliases && rs '
+alias edita='gui-editor $HOME/.bash_aliases && rs '
 
 # gui editing; replace w/your facorite editor
 alias guiedit='gui-editor '
-alias guiedita='gui-editor ~/.bash_aliases && rs '
+alias guiedita='gui-editor $HOME/.bash_aliases && rs '
 
 # personal preference for quick access to frequently modified files
 alias v='vim '
@@ -357,8 +357,8 @@ setup() {
     setup-system && \
     setup-dev && \
     setup-extras && \
-    (echo "set vertical-split = no" >> ~/.tigrc) && \
-    (mkdir -p ~/.ssh ~/.bak ~/src ~/bin ~/scripts ; config-up ; dist-up ; u) && \
+    (echo "set vertical-split = no" >> $HOME/.tigrc) && \
+    (mkdir $HOME/.ssh $HOME/.bak $HOME/src $HOME/bin $HOME/scripts ; config-up ; dist-up ; u) && \
     warn "the system should be rebooted after initial setup"
 }
 
@@ -504,7 +504,7 @@ alias gcommit='gcommit_helper '
 
 function gcheckout_helper()
 {
-  gfetch ; \
+  gfetch
   git branch -a | grep "\bremotes/origin/$1$" && \
   ( \
     [ $? -eq 0 ] &&
@@ -514,8 +514,7 @@ function gcheckout_helper()
       ) \
   ) && \
   (gdiff && gpull ; success "checkout") || \
-  fail "checkout" \
-  ;
+  fail "checkout"
 }
 alias gcheckout='gcheckout_helper '
 
@@ -554,8 +553,8 @@ alias aircrack-q='aircrack_q_helper '
 ###############################################################################
 
 # load additional mods
-if [ -e ~/.bash_extra ]; then
-  source ~/.bash_extra
+if [ -e $HOME/.bash_extra ]; then
+  source $HOME/.bash_extra
 fi
 
 ###############################################################################
