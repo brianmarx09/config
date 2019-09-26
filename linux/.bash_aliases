@@ -72,9 +72,6 @@ export MY_GUI_EDITOR='/usr/bin/subl'
 export MY_FILE_MANAGER='pcmanfm'
 export MY_DATE_FORMAT='%Y-%m-%d'
 
-# the tested build of sublime text
-export MY_SUBLIME='sublime-text_build-3143_amd64.deb'
-
 ###############################################################################
 # aliases ordered by necessity, importantce, and re-use elsewhere
 ###############################################################################
@@ -98,13 +95,12 @@ alias scp='scp '
 alias ssh='ssh '
 alias push='pushd '
 alias pop='popd '
-alias rm='rm --one-file-system --preserve-root '
-alias ls='ls -AhlsX --color=always '
+alias rm='rm --one-file-system --preserve-root'
+alias ls='ls -AhlsX --color=always'
 alias lss='ls --sort=size '
-alias less='less -R '
-alias stat='stat -c "%a %n" * '
+alias less='less -R'
+alias stat='stat -c "%a %n" *'
 alias del='trash-put'
-alias sdel='sudo trash-put'
 
 # set monitor brightness to max
 alias bright='sudo tee /sys/class/backlight/acpi_video0/brightness <<< `cat /sys/class/backlight/acpi_video0/max_brightness`'
@@ -157,59 +153,65 @@ alias purge-configs='dpkg -l | grep "^rc" | cut -d " " -f 3 | xargs sudo apt-get
 alias cleanup='sudo trash-empty && autoclean && autoremove && rm -f ~/1 ~/.xsession-errors*'
 
 # pull latest bashrc from server or restore prev
-alias bashrc-down='(cp -f ~/.bak/.bashrc ~/ && success "bashrc downgrade") || fail "bashrc downgrade" '
-alias bashrc-up='\
-  push ~ ; \
-    del .bak/.bashrc ; \
-    mv -f .bashrc .bak/ ; \
+bashrc-down() { (cp -f ~/.bak/.bashrc ~/ && success "bashrc downgrade") || fail "bashrc downgrade" ; }
+bashrc-up() {
+  push $HOME
+    del .bak/.bashrc
+    mv -f .bashrc .bak
     ( \
       wget --timestamping --show-progress --progress=dot --timeout=5 http://raw.githubusercontent.com/entangledloops/config/master/linux/.bashrc && \
       success "bashrc upgrade"
-    ) || (fail "bashrc upgrade" ; bashrc-down) ; \
-  pop '
+    ) || (fail "bashrc upgrade" ; bashrc-down)
+  pop
+}
 
 # pull latest bash_aliases from server or restore prev (this file)
-alias alias-down='(cp -f ~/.bak/.bash_aliases ~/ ; source ~/.bash_aliases && success "alias downgrade") || fail "alias downgrade" '
-alias alias-up='\
-  push ~ ; \
-    del .bak/.bash_aliases ; \
-    mv -f .bash_aliases .bak/ ; \
+alias-down() { (cp -f ~/.bak/.bash_aliases ~/ ; source ~/.bash_aliases && success "alias downgrade") || fail "alias downgrade" ; }
+alias-up() {
+  push $HOME
+    del .bak/.bash_aliases
+    mv -f .bash_aliases .bak
     ( \
       wget --timestamping --show-progress --progress=dot --timeout=5 http://raw.githubusercontent.com/entangledloops/config/master/linux/.bash_aliases && \
       source .bash_aliases && \
       success "alias upgrade"
-    ) || (fail "alias upgrade" ; alias-down) ; \
-  pop '
+    ) || (fail "alias upgrade" ; alias-down)
+  pop
+}
+
 
 # pull latest vimrc from server or restore prev
-alias vimrc-down='(cp -f ~/.bak/.vimrc ~/ && success "vimrc downgrade") || fail "vimrc downgrade" '
-alias vimrc-up='\
-  push ~ ; \
-    del .bak/.vimrc ; \
-    mv -f .vimrc .bak/ ; \
+vimrc-down() { (cp -f ~/.bak/.vimrc ~/ && success "vimrc downgrade") || fail "vimrc downgrade" ; }
+vimrc-up() {
+  push $HOME
+    del .bak/.vimrc
+    mv -f .vimrc .bak
     ( \
       wget --timestamping --show-progress --progress=dot --timeout=5 http://raw.githubusercontent.com/entangledloops/config/master/linux/.vimrc && \
       success "vimrc upgrade"
-    ) || (fail "vimrc upgrade" ; vimrc-down) ; \
-  pop '
+    ) || (fail "vimrc upgrade" ; vimrc-down)
+  pop
+}
 
 # pull latest bashrc from server or restore prev
-alias screenrc-down='(cp -f ~/.bak/.screenrc ~/ && success "screenrc downgrade") || fail "screenrc downgrade" '
-alias screenrc-up='\
-  push ~ ; \
-    del .bak/.screenrc ; \
-    mv -f .screenrc .bak/ ; \
+screenrc-down() { (cp -f ~/.bak/.screenrc ~/ && success "screenrc downgrade") || fail "screenrc downgrade" ; }
+screenrc-up() {
+  push $HOME
+    del .bak/.screenrc
+    mv -f .screenrc .bak
     ( \
       wget --timestamping --show-progress --progress=dot --timeout=5 http://raw.githubusercontent.com/entangledloops/config/master/linux/.screenrc && \
       success "screenrc upgrade"
-    ) || (fail "screenrc upgrade" ; screenrc-down) ; \
-  pop '
+    ) || (fail "screenrc upgrade" ; screenrc-down)
+  pop
+}
 
 # pull latest vimrc and vim settings folder from server or restore prev
-alias vim-down='del ~/.vim >/dev/null 2&>1 ; cp -rf ~/.bak/.vim ~/ ; (vimrc-down && success "vim downgrade") || fail "vim downgrade" '
-alias vim-up='vimrc-up && \
+vim-down() { del ~/.vim >/dev/null 2&>1 ; cp -rf ~/.bak/.vim ~/ ; (vimrc-down && success "vim downgrade") || fail "vim downgrade" ; }
+vim-up() {
+  vimrc-up && \
   ( \
-    push ~ ; \
+    push $HOME ; \
       echo "backing up vim settings..." ; \
       del .bak/.vim >/dev/null 2>&1 ; \
       mv -f .vim .bak/ ; \
@@ -237,7 +239,8 @@ alias vim-up='vimrc-up && \
         ) || warn "doc download: tpope/doc/surround.txt" && \
       pop && \
     pop \
-  ) '
+  )
+}
 
 # component update helpers
 alias os-upgrade='sudo do-release-upgrade -d '
@@ -310,49 +313,54 @@ alias vb='vimbashrc '
 # setup alias for "thefuck"
 eval "$(thefuck -a)"
 
-# helper for sublime text which isn't currently in a public repo
-alias install-sublime='\
-  push /tmp ; \
-    wget --show-progress --progress=dot https://download.sublimetext.com/$MY_SUBLIME && \
-    dinstall $MY_SUBLIME && \
-    rm -f $MY_SUBLIME >/dev/null 2>&1 &&
-    success "sublime install" || \
-    fail "sublime install" ; \
-  pop '
-
-alias install-bitcoin='\
-  add bitcoin/bitcoin && \
-  install bitcoin-qt '
+# helper for sublime text which requires extra steps for installation
+install-sublime() {
+    wget --show-progress --progress=dot - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add - && \
+    echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list && \
+    update && \
+    install sublime-text
+}
 
 # core system utils that are good to have ready
-alias setup-system='install \
-  linux-headers-$(uname -r) linux-headers-generic dkms lsb-core collectd-core \
-  vim-gtk ssh socat xbindkeys xclip ntfs-3g exfat-fuse exfat-utils trash-cli \
-  vino apt-file cups elinks lynx multitail strace wget gawk sed samba unrar \
-  tree p7zip-full texlive-full chkrootkit rkhunter secure-delete wipe \
-  curl openssh-server ca-certificates '
+setup-system() {
+    install \
+    linux-headers-$(uname -r) linux-headers-generic dkms lsb-core collectd-core \
+    vim-gtk ssh socat xbindkeys xclip ntfs-3g exfat-fuse exfat-utils trash-cli \
+    vino apt-file cups elinks lynx multitail strace wget gawk sed samba unrar \
+    tree p7zip-full texlive-full chkrootkit rkhunter secure-delete wipe \
+    curl openssh-server ca-certificates apt-transport-https
+}
 
 # setup a development environment
-alias setup-dev='install \
-  screen tmux build-essential gcc g++ gdb valgrind git git-gui cvs subversion \
-  mercurial mvn cmake cmake-gui cmake-curses-gui autoconf libtool pkg-config \
-  default-jdk python-dev python3-dev meld tig silversearcher-ag thefuck '
+setup-dev() {
+    install \
+    screen tmux build-essential gcc g++ gdb valgrind git git-gui cvs subversion \
+    mercurial maven cmake cmake-qt-gui cmake-curses-gui autoconf libtool pkg-config \
+    default-jdk python-dev python3-dev meld tig silversearcher-ag thefuck && \
+    curl -s "https://get.sdkman.io" | bash && \
+    source $HOME/.sdkman/bin/sdkman-init.sh &&
+    sdk install java && \
+    sdk install kotlin
+}
 
 # useful utilities for system monitoring, networking, and other common tasks
-alias setup-extras='install \
-  gparted htop iotop iftop glances dstat incron sysstat discus systemtap-sdt-dev baobab \
-  nmap nmon mtr traceroute tcpdump ethtool ngrep aircrack-ng hydra cutycapt arp-scan \
-  gconf-editor gimp audacity filezilla wireshark transmission-gtk vlc-nox vlc blender \
-  deluge firefox chromium-browser '
+setup-extras() {
+    install \
+    gparted htop iotop iftop glances dstat incron sysstat discus systemtap-sdt-dev baobab \
+    nmap nmon mtr traceroute tcpdump ethtool ngrep aircrack-ng hydra cutycapt arp-scan \
+    gconf-editor gimp audacity filezilla wireshark transmission-gtk vlc-nox vlc blender \
+    deluge firefox chromium-browser
+}
 
 # command to prepare a new system
-alias setup='\
-  setup-system && \
-  setup-dev && \
-  setup-extras && \
-  (echo "set vertical-split = no" >> ~/.tigrc) && \
-  (mkdir -p ~/.ssh ~/.bak ~/src ~/bin ~/scripts ; config-up ; dist-up ; u) && \
-  warn "the system should be rebooted after initial setup" '
+setup() {
+    setup-system && \
+    setup-dev && \
+    setup-extras && \
+    (echo "set vertical-split = no" >> ~/.tigrc) && \
+    (mkdir -p ~/.ssh ~/.bak ~/src ~/bin ~/scripts ; config-up ; dist-up ; u) && \
+    warn "the system should be rebooted after initial setup"
+}
 
 ###############################################################################
 # apps to launch in background
@@ -378,10 +386,6 @@ alias gimp='bg "gimp" '
 
 alias fix-ssh-add='eval `ssh-agent -s`'
 alias fix-dbus='eval `dbus-launch`'
-
-###############################################################################
-# functions
-###############################################################################
 
 # colorful pre-formatted logging shorthands
 function success_helper() { printf "[ ${GREEN}$@ successful${NO_COLOR} ]\n" ; }
@@ -473,8 +477,8 @@ alias findall='findall_helper '
 # shorthands and convenient default params for other common tasks
 
 # GNU screen integration
-#function screen_helper() { [ -z "$STY" ] && screen -RR -A -r "$@" || screen ; }
-#alias screen='screen_helper '
+function screen_helper() { [ -z "$STY" ] && screen -RR -A -r "$@" || screen ; }
+alias screen='screen_helper '
 
 # git helpers
 function gclone_helper() { git clone --verbose --recursive $@ ; }
