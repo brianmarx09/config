@@ -293,7 +293,7 @@ alias vima='vim $HOME/.bash_aliases && rs'
 alias vimx='vim $HOME/.bash_extra && rs'
 alias vimscreenrc='vim $HOME/.screenrc'
 alias vimbashrc='vim $HOME/.bashrc'
-alias vimi3='$HOME/.config/i3/config'
+alias vimi3='vim $HOME/.config/i3/config'
 
 # console editing; replace 'term-editor' target w/your favorite editor
 alias edit='gui-editor '
