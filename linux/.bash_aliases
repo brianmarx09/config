@@ -293,6 +293,7 @@ alias vima='vim ~/.bash_aliases && rs '
 alias vimx='vim ~/.bash_extra && rs '
 alias vimscreenrc='vim ~/.screenrc '
 alias vimbashrc='vim ~/.bashrc '
+alias vimi3='~/.config/i3/config '
 
 # console editing; replace 'term-editor' target w/your favorite editor
 alias edit='gui-editor '
@@ -349,7 +350,7 @@ setup-extras() {
     gparted htop iotop iftop glances dstat incron sysstat discus systemtap-sdt-dev baobab \
     nmap nmon mtr traceroute tcpdump ethtool ngrep aircrack-ng hydra cutycapt arp-scan \
     gconf-editor gimp audacity filezilla wireshark transmission-gtk vlc-nox vlc blender \
-    deluge firefox chromium-browser
+    deluge firefox chromium-browser flameshot
 }
 
 # command to prepare a new system
