@@ -327,8 +327,7 @@ setup-system() {
     install \
     linux-headers-$(uname -r) linux-headers-generic dkms lsb-core collectd-core \
     vim-gtk ssh socat xbindkeys xclip ntfs-3g exfat-fuse exfat-utils trash-cli \
-    vino apt-file cups elinks lynx multitail strace wget gawk sed samba unrar \
-    tree p7zip-full texlive-full chkrootkit rkhunter secure-delete wipe \
+    vino apt-file cups multitail strace wget gawk sed samba unrar tree p7zip-full \
     curl openssh-server ca-certificates apt-transport-https
 }
 
@@ -337,7 +336,7 @@ setup-dev() {
     install \
     screen tmux build-essential gcc g++ gdb valgrind git git-gui cvs subversion \
     ant mercurial maven cmake cmake-qt-gui cmake-curses-gui autoconf libtool pkg-config \
-    default-jdk python-dev python3-dev meld tig silversearcher-ag thefuck && \
+    default-jdk python-dev python3-dev meld tig silversearcher-ag thefuck texlive-full && \
     curl -s "https://get.sdkman.io" | bash && \
     source $HOME/.sdkman/bin/sdkman-init.sh &&
     sdk install java && \
@@ -350,7 +349,7 @@ setup-extras() {
     gparted htop iotop iftop glances dstat incron sysstat discus systemtap-sdt-dev baobab \
     nmap nmon mtr traceroute tcpdump ethtool ngrep aircrack-ng hydra cutycapt arp-scan \
     gconf-editor gimp audacity filezilla wireshark transmission-gtk vlc-nox vlc blender \
-    deluge firefox chromium-browser flameshot
+    chkrootkit rkhunter deluge firefox chromium-browser flameshot
 }
 
 # command to prepare a new system
