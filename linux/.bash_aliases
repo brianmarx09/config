@@ -337,7 +337,8 @@ setup-dev() {
     install \
     screen tmux build-essential gcc g++ gdb valgrind git git-gui cvs subversion \
     ant mercurial maven cmake cmake-qt-gui cmake-curses-gui autoconf libtool pkg-config \
-    default-jdk python-dev python3-dev npm meld tig silversearcher-ag thefuck \
+    default-jdk python-dev python3-dev python3-pip python3-venv npm \
+    meld tig silversearcher-ag thefuck \
     graphviz texlive-full && \
     curl -s "https://get.sdkman.io" | bash && \
     source $HOME/.sdkman/bin/sdkman-init.sh &&
