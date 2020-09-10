@@ -327,8 +327,9 @@ setup-system() {
     install \
     linux-headers-$(uname -r) linux-headers-generic dkms lsb-core collectd-core \
     vim-gtk ssh socat xbindkeys xclip ntfs-3g exfat-fuse exfat-utils trash-cli \
-    vino apt-file cups multitail strace wget gawk sed samba unrar tree p7zip-full \
-    curl openssh-server ca-certificates apt-transport-https
+    apt-file cups multitail strace wget gawk sed samba unrar tree p7zip-full \
+    curl openssh-server ca-certificates apt-transport-https \
+    software-properties-common gnupg-agent
 }
 
 # setup a development environment
@@ -336,7 +337,7 @@ setup-dev() {
     install \
     screen tmux build-essential gcc g++ gdb valgrind git git-gui cvs subversion \
     ant mercurial maven cmake cmake-qt-gui cmake-curses-gui autoconf libtool pkg-config \
-    default-jdk python-dev python3-dev meld tig silversearcher-ag thefuck \
+    default-jdk python-dev python3-dev npm meld tig silversearcher-ag thefuck \
     graphviz texlive-full && \
     curl -s "https://get.sdkman.io" | bash && \
     source $HOME/.sdkman/bin/sdkman-init.sh &&
@@ -350,7 +351,7 @@ setup-extras() {
     gparted htop iotop iftop glances dstat incron sysstat discus systemtap-sdt-dev baobab \
     nmap nmon mtr traceroute tcpdump ethtool ngrep aircrack-ng hydra cutycapt arp-scan \
     gconf-editor gimp audacity filezilla wireshark transmission-gtk vlc-nox vlc blender \
-    chkrootkit rkhunter deluge firefox chromium-browser flameshot
+    deluge firefox chromium-browser flameshot
 }
 
 # command to prepare a new system
@@ -384,6 +385,10 @@ alias vlc='bg "vlc" '
 alias audacity='bg "audacity" '
 alias blender='bg "blender" '
 alias gimp='bg "gimp" '
+
+alias python='python3'
+alias pip='python3 -m pip'
+alias venv='python3 -m venv'
 
 alias fix-ssh-add='eval `ssh-agent -s`'
 alias fix-dbus='eval `dbus-launch`'
