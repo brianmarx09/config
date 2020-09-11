@@ -390,6 +390,7 @@ alias gimp='bg "gimp" '
 alias python='python3'
 alias pip='python3 -m pip'
 alias venv='python3 -m venv'
+alias activate='source ./venv/bin/activate'
 
 alias fix-ssh-add='eval `ssh-agent -s`'
 alias fix-dbus='eval `dbus-launch`'
