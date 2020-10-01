@@ -99,7 +99,7 @@ alias rm='rm --one-file-system --preserve-root'
 alias ls='ls -AhlsX --color=always'
 alias lss='ls --sort=size '
 alias less='less -R'
-alias stat='stat -c "%a %n" *'
+alias stat='stat -c "%A %a %n" *'
 alias del='trash-put'
 
 # set monitor brightness to max
