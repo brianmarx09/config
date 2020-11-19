@@ -165,7 +165,7 @@ autocmd WinLeave * silent :call RNUToggle()
 nnoremap Q <Nop>
 
 " toggle relative numbers
-nnoremap <silent> <C-n> :call RNUToggle()<CR>
+nnoremap <silent> <C-K> :call RNUToggle()<CR>
 
 " let space be 'single insert'
 noremap <silent> <space> :exe "normal i".nr2char(getchar())<CR>
