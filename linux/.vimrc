@@ -196,6 +196,10 @@ nnoremap <F2> :set invpaste paste?<CR>
 set pastetoggle=<F2>
 set showmode
 
+" make line movement ignore wrapped lines
+noremap j gj
+noremap k gk
+
 " trim trailing whitespaces on save
 autocmd BufWritePre * %s/\s\+$//e
 
